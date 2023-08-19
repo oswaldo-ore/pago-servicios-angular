@@ -15,7 +15,7 @@ import { FakeBackendInterceptor } from './dashboard/core/helpers/fake-backend';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { JwtInterceptor } from './dashboard/core/helpers/jwt.interceptor';
 import { ErrorInterceptor } from './dashboard/core/helpers/error.interceptor';
-
+import { ToastrModule } from 'ngx-toastr';
 export function createTranslateLoader(http: HttpClient): any {
   return new TranslateHttpLoader(http, 'assets/i18n/', '.json');
 }
@@ -43,13 +43,11 @@ if (environment.defaultauth === 'firebase') {
     BrowserModule,
     AppRoutingModule,
     LayoutsModule,
-    FormsModule,
     ReactiveFormsModule,
+    ToastrModule.forRoot()
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
-    { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
-    { provide: HTTP_INTERCEPTORS, useClass: FakeBackendInterceptor, multi: true },
   ],
   bootstrap: [AppComponent]
 })

@@ -4,23 +4,29 @@ import {
     HttpHandler,
     HttpEvent,
     HttpInterceptor,
+    HttpErrorResponse,
 } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable, catchError, empty, throwError } from 'rxjs';
 
-import { AuthenticationService } from '../services/auth.service';
 import { AuthfakeauthenticationService } from '../services/authfake.service';
 import { environment } from '../../../../environments/environment';
+import { AuthenticationService } from '../services/auth.service';
+import { AuthService } from '../guards2/auth.service';
+import { Router } from '@angular/router';
+import { CookieService } from 'ngx-cookie-service';
 
 @Injectable()
 export class JwtInterceptor implements HttpInterceptor {
     constructor(
         private authenticationService: AuthenticationService,
-        private authfackservice: AuthfakeauthenticationService
+        private authService: AuthService,
+        private router : Router,
+        private cookieService: CookieService
     ) { }
 
     intercept(
         request: HttpRequest<any>,
-        next: HttpHandler
+        next: HttpHandler,
     ): Observable<HttpEvent<any>> {
         if (environment.defaultauth === 'firebase') {
             // add authorization header with jwt token if available
@@ -34,15 +40,24 @@ export class JwtInterceptor implements HttpInterceptor {
             }
         } else {
             // add authorization header with jwt token if available
-            const currentUser = this.authfackservice.currentUserValue;
-            if (currentUser && currentUser.token) {
+            const token =  this.authService.getToken();
+            if (token != "") {
                 request = request.clone({
                     setHeaders: {
-                        Authorization: `Bearer ${currentUser.token}`,
+                        Authorization: `Bearer ${token}`,
                     },
                 });
             }
         }
-        return next.handle(request);
+        return next.handle(request).pipe(
+          catchError((error: HttpErrorResponse) => {
+            if (error.status === 401) {
+              this.router.navigate(['/login']);
+              this.cookieService.delete('token');
+              return empty();
+            }
+            return throwError(error);
+          })
+        );
     }
 }

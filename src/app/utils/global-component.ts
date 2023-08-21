@@ -7,4 +7,6 @@ export const GlobalComponent = {
     AUTH_API: URL_BASE + "admin/login",
     LOGOUT_API: URL_BASE + "admin/logout",
     servicio_listar: URL_BASE + 'servicios/listar',
+    servicio_crear: URL_BASE + 'servicios/crear',
+    servicio_eliminar: URL_BASE + 'servicios/',
 }

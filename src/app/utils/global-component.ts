@@ -9,4 +9,8 @@ export const GlobalComponent = {
     servicio_listar: URL_BASE + 'servicios/listar',
     servicio_crear: URL_BASE + 'servicios/crear',
     servicio_eliminar: URL_BASE + 'servicios/',
+
+    usuarios_listar: URL_BASE + 'usuarios/listar',
+    usuarios_crear: URL_BASE + 'usuarios/crear',
+    usuarios_eliminar: URL_BASE + 'usuarios/',
 }

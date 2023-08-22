@@ -19,11 +19,6 @@ import { ToastrModule } from 'ngx-toastr';
 export function createTranslateLoader(http: HttpClient): any {
   return new TranslateHttpLoader(http, 'assets/i18n/', '.json');
 }
-if (environment.defaultauth === 'firebase') {
-  initFirebaseBackend(environment.firebaseConfig);
-} else {
-  FakeBackendInterceptor;
-}
 @NgModule({
   declarations: [
     AppComponent,
@@ -42,7 +37,6 @@ if (environment.defaultauth === 'firebase') {
     HttpClientModule,
     BrowserModule,
     AppRoutingModule,
-    LayoutsModule,
     ReactiveFormsModule,
     ToastrModule.forRoot()
   ],

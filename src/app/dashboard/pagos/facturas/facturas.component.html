@@ -1,0 +1,149 @@
+<div class="row">
+  <div class="col-lg-12">
+    <div class="card">
+      <div class="card-header">
+        <div class="row g-4 align-items-center">
+          <div class="col-sm-auto">
+            <div>
+              <h4 class="card-title mb-0 flex-grow-1">Facturas
+                <a class="btn btn-success btn-sm" (click)="open(content)"><i class="ri-add-line align-bottom me-1"></i>
+                  Agregar</a>
+              </h4>
+            </div>
+          </div>
+          <div class="col-sm">
+            <div class="d-flex justify-content-sm-end">
+              <div class="search-box ms-2">
+                <input type="text" class="form-control" id="searchResultList" placeholder="Buscar servicio"
+                  [(ngModel)]="searchTerms">
+                <i class="ri-search-line search-icon"></i>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="card-body">
+        <div class="table-card">
+          <div class="table-responsive ">
+            <div id="Recommended-jobs">
+              <table class="gridjs-table">
+                <thead class="gridjs-thead">
+                  <tr class="gridjs-tr">
+                    <th class="gridjs-th gridjs-th-sort" data-sort="id">#</th>
+                    <th class="gridjs-th sort" data-sort="nombre">Fecha</th>
+                    <th class="gridjs-th sort" data-sort="apellidos">Monto</th>
+                    <th class="gridjs-th sort" data-sort="estado">Foto Factura</th>
+                    <th class="gridjs-th sort" data-sort="asociado_con">Servicio</th>
+                    <th class="gridjs-th sort" data-sort="opciones">Opciones</th>
+                  </tr>
+                </thead>
+                <tbody class="gridjs-tbody">
+                  <tr class="gridjs-tr" *ngFor="let data of paginacion.data" id="o_{{data.id}}">
+                    <td class="gridjs-td">
+                      <ngb-highlight [result]="data.id.toString()"></ngb-highlight>
+                    </td>
+                    <td class="gridjs-td">
+                      <ngb-highlight [result]="data.fecha.toString()"></ngb-highlight>
+                    </td>
+                    <td class="gridjs-td">
+                      <ngb-highlight [result]="data.monto.toString()"></ngb-highlight>
+                    </td>
+                    <td class="gridjs-td">
+                        <img src="{{data.imagen()}}" alt="" style="height: 80px;">
+                    </td>
+                    <td class="gridjs-td">
+                        <ngb-highlight [result]="data.Servicio.nombre"></ngb-highlight>
+                    </td>
+
+                    <td class="gridjs-td">
+                      <a type="button" class="btn btn-danger btn-icon btn-sm waves-effect waves-light" (click)="eliminar(data.id)" ><i class="ri-delete-bin-5-line"></i></a>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <div class="gridjs-footer">
+            <div class="row align-items-center gy-3">
+              <!-- <div class="col-md-6">
+                  <div class="mb-2 gridjs-summary" id="tickets-table_info" role="status"
+                      aria-live="polite">
+                      Showing
+                      <b>{{paginacion.startIndex}}</b> to
+                      <b>{{service.endIndex}}</b> of <b>{{service.totalRecords}}</b>
+                      entries
+                  </div>
+              </div> -->
+              <div class="col-sm-auto ms-auto">
+                <div class="text-sm-right float-end listjs-pagination">
+                  <ngb-pagination
+                  [(page)]="paginacion.currentPage"
+                  [pageSize]="limit"
+                    [collectionSize]="paginacion.total" [maxSize]="5" i18n="false"
+                    (pageChange)="onPageChange($event)">
+                  </ngb-pagination>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+<ng-template #content let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Agregar Factura</h4>
+    <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+  </div>
+  <div class="modal-body">
+    <form [formGroup]="form">
+      <div class="row">
+        <div class="mb-3 col-md-12">
+          <div class=" col-md-6 col-lg-4 col-xl-3 m-auto" >
+            <mat-card class="demo-inline-calendar-card">
+              <mat-calendar [(selected)]="selected" ></mat-calendar>
+            </mat-card>
+          </div>
+        </div>
+        <div class="">{{selected}}</div>
+        <div class="mb-3 col-md-4">
+          <mat-form-field class="example-full-width">
+            <mat-label>Servicio</mat-label>
+            <mat-select formControlName="servicio">
+              <mat-option >Ninguno</mat-option>
+              <mat-option *ngFor="let servicio of servicios" [value]="servicio.id">{{servicio.nombre}}</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div class="col-md-4">
+          <mat-form-field class="example-full-width">
+            <mat-label>Monto</mat-label>
+            <input type="number" matInput formControlName="monto" placeholder="Ingrese el monto de cobro del servicio">
+            <mat-error *ngIf="form.get('monto')?.hasError('monto') && !form.get('monto')?.hasError('required')">
+                El campo monto esta incorrecto
+            </mat-error>
+            <mat-error *ngIf="form.get('monto')?.hasError('required')">
+              El campo Monto es <strong>requerido</strong>
+            </mat-error>
+          </mat-form-field>
+        </div>
+        <div class="col-md-4">
+          <div class="mb-3">
+              <input type="file" class="form-control" formControlName="imagen_factura" aria-label="file example" required (change)="selectFile($event)">
+              <div *ngIf="form.get('imagen_factura')?.invalid && (form.get('imagen_factura')?.dirty || form.get('imagen_factura')?.touched)">
+                <div *ngIf="form.get('imagen_factura')?.hasError('required')">La imagen es requerida.</div>
+              </div>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-light" (click)="modal.dismiss('cancelar')">Cancelar</button>
+    <button type="button" class="btn btn-outline-dark" (click)="submit()">Guardar</button>
+  </div>
+</ng-template>

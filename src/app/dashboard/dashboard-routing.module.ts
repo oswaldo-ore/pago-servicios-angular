@@ -3,6 +3,8 @@ import { RouterModule, Routes } from '@angular/router';
 import { ServiciosComponent } from './configuracion/servicios/servicios.component';
 import { UsuariosComponent } from './configuracion/usuarios/usuarios.component';
 import { SuscripcionesComponent } from './configuracion/suscripciones/suscripciones.component';
+import { FacturasComponent } from './pagos/facturas/facturas.component';
+import { MedidoresComponent } from './pagos/medidores/medidores.component';
 
 const routes: Routes = [
   {
@@ -17,6 +19,13 @@ const routes: Routes = [
   {
     path: "suscripciones", component: SuscripcionesComponent,
   },
+  {
+    path: "facturas", component: FacturasComponent,
+  },
+  {
+    path: "medidores", component: MedidoresComponent,
+  },
+
 
 ];
 

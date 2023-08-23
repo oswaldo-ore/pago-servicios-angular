@@ -18,8 +18,8 @@ import { Usuario } from '../../core/models/usuario.model';
 export class SuscripcionesComponent {
   form: FormGroup;
   closeResult = '';
-  searchTerms:string = "";
-  limit:number = 10;
+  searchTerms: string = "";
+  limit: number = 10;
   paginacion: PaginationModel<Suscripcion> = {
     currentPage: 0,
     total: 0,
@@ -27,10 +27,10 @@ export class SuscripcionesComponent {
     data: []
   };
 
-  servicios:Servicio[] = [];
+  servicios: Servicio[] = [];
   usuarios: Usuario[] = [];
 
-  serviciosFijo:Servicio[] = [];
+  serviciosFijo: Servicio[] = [];
 
   constructor(
     private suscripcionService: SuscripcionService,
@@ -41,10 +41,10 @@ export class SuscripcionesComponent {
     private toastr: ToastrService,
   ) {
     this.form = formBuilder.group({
-      tipo: ['fijo',Validators.required],
-      servicio: [0,Validators.required],
-      usuario: [0,Validators.required],
-      monto: [0,Validators.required]
+      tipo: ['fijo', Validators.required],
+      servicio: [0, Validators.required],
+      usuario: [0, Validators.required],
+      monto: [0, Validators.required]
     });
   }
 
@@ -68,7 +68,7 @@ export class SuscripcionesComponent {
     );
   }
 
-  cargarServicios(){
+  cargarServicios() {
     this.servicioService.getAll().subscribe(
       (response: Servicio[]) => {
         this.servicios = response;
@@ -81,7 +81,7 @@ export class SuscripcionesComponent {
     );
   }
 
-  cargarUsuarios(){
+  cargarUsuarios() {
     this.usuarioService.getAll().subscribe(
       (response: Usuario[]) => {
         this.usuarios = response;
@@ -94,7 +94,7 @@ export class SuscripcionesComponent {
   }
 
   open(content: any) {
-    this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title',size: 'xl'  }).result.then(
+    this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title', size: 'xl' }).result.then(
       (result) => {
         this.closeResult = `Closed with: ${result}`;
       },
@@ -132,15 +132,15 @@ export class SuscripcionesComponent {
     if (value < this.limit) {
       return 1;
     }
-    value = value/this.limit;
+    value = value / this.limit;
     let a = value > 0 ? Math.ceil(value) : value;
     console.log(a);
 
     return a;
   }
 
-  submitForm(){
-    if(!this.form.valid){
+  submitForm() {
+    if (!this.form.valid) {
       return;
     }
     let usuario_id = this.form.get('usuario')?.value;
@@ -148,8 +148,8 @@ export class SuscripcionesComponent {
     let tipo = this.form.get('tipo')?.value;
     let monto = this.form.get('monto')?.value;
 
-    this.suscripcionService.crearSuscripcion(usuario_id,servicio_id,tipo,monto,tipo=="medidor").then(
-      (response)=>{
+    this.suscripcionService.crearSuscripcion(usuario_id, servicio_id, tipo, monto, tipo == "medidor").then(
+      (response) => {
         this.modalService.dismissAll();
         this.toastr.success(response.message);
         this.cargarSuscripciones(this.paginacion.currentPage);
@@ -159,34 +159,34 @@ export class SuscripcionesComponent {
     });
   }
 
-  eliminarSuscripcion(id:number){
-    this.suscripcionService.eliminar(id).then((message)=>{
+  eliminarSuscripcion(id: number) {
+    this.suscripcionService.eliminar(id).then((message) => {
       this.toastr.success(message);
       this.cargarSuscripciones(this.paginacion.currentPage);
-    }).catch((error)=>{
+    }).catch((error) => {
       this.toastr.error(error.message);
     });
-}
+  }
 
-  cambioUsuario(event: any){
+  cambioUsuario(event: any) {
     let usuarioIdSeleccionado = this.form.get('usuario')?.value;
-    let usuario = this.usuarios.find((usuario)=> usuario.id == usuarioIdSeleccionado);
-    if(usuario){
+    let usuario = this.usuarios.find((usuario) => usuario.id == usuarioIdSeleccionado);
+    if (usuario) {
       let serviciosIds = usuario?.Servicios.map((servicio) => servicio.id);
-      this.servicios = this.serviciosFijo.filter((servicio)=> !serviciosIds.includes(servicio.id) );
+      this.servicios = this.serviciosFijo.filter((servicio) => !serviciosIds.includes(servicio.id));
     }
   }
 
-  cambiarServicio(event: any){
+  cambiarServicio(event: any) {
     console.log(this.form.get('servicio')?.value);
   }
 
-  cambiarTipo(event: any){
+  cambiarTipo(event: any) {
     let tipo = this.form.get('tipo')?.value;
     console.log(this.form.get('tipo')?.value);
-    if(tipo != "fijo"){
+    if (tipo != "fijo") {
       this.form.get('monto')?.clearValidators();
-    }else{
+    } else {
       this.form.get('monto')?.setValidators([Validators.required]);
     }
   }

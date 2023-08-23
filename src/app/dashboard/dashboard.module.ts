@@ -15,12 +15,19 @@ import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatSelectModule} from '@angular/material/select';
 import { UsuariosComponent } from './configuracion/usuarios/usuarios.component';
 import { SuscripcionesComponent } from './configuracion/suscripciones/suscripciones.component';
+import { MedidoresComponent } from './pagos/medidores/medidores.component';
+import { FacturasComponent } from './pagos/facturas/facturas.component';
+import {MatDatepickerModule} from '@angular/material/datepicker';
+import {MatCardModule} from '@angular/material/card';
+import {MatNativeDateModule} from '@angular/material/core';
 @NgModule({
   declarations: [
     PrincipalComponent,
     ServiciosComponent,
     UsuariosComponent,
-    SuscripcionesComponent
+    SuscripcionesComponent,
+    MedidoresComponent,
+    FacturasComponent
   ],
   imports: [
     CommonModule,
@@ -35,6 +42,9 @@ import { SuscripcionesComponent } from './configuracion/suscripciones/suscripcio
     MatFormFieldModule,
     MatInputModule,
     MatSelectModule,
+    MatDatepickerModule,
+    MatCardModule,
+    MatNativeDateModule,
   ],
 })
 export class DashboardModule { }

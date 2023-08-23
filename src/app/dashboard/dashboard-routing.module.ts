@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { ServiciosComponent } from './configuracion/servicios/servicios.component';
 import { UsuariosComponent } from './configuracion/usuarios/usuarios.component';
+import { SuscripcionesComponent } from './configuracion/suscripciones/suscripciones.component';
 
 const routes: Routes = [
   {
@@ -12,6 +13,9 @@ const routes: Routes = [
   },
   {
     path: "usuarios", component: UsuariosComponent,
+  },
+  {
+    path: "suscripciones", component: SuscripcionesComponent,
   },
 
 ];

@@ -11,10 +11,13 @@ import { Servicio } from '../models/servicios.model';
 export class ServiciosService {
 
   constructor(private http: HttpClient) {}
-  getAll(): Observable<PaginationModel<Servicio>> {
-    return this.http.get<any>(GlobalComponent.servicio_listar).pipe(
+  getAll(): Observable<Servicio[]> {
+    return this.http.get<any>(GlobalComponent.servicio_listar_todos).pipe(
       map(response => {
-        return response.data;
+        if(response.success){
+          return response.data;
+        }
+        throw response.message;
       })
     );
   }

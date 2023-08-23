@@ -72,8 +72,8 @@
               </div> -->
               <div class="col-sm-auto ms-auto">
                 <div class="text-sm-right float-end listjs-pagination">
-                  <ngb-pagination [(page)]="servicios.currentPage" [pageSize]="servicios.totalPages"
-                    [collectionSize]="roundDecimal(servicios.total)" [maxSize]="5" i18n="false"
+                  <ngb-pagination [(page)]="servicios.currentPage" [pageSize]="limit"
+                    [collectionSize]="servicios.total" [maxSize]="5" i18n="false"
                     (pageChange)="onPageChange($event)">
                   </ngb-pagination>
                 </div>

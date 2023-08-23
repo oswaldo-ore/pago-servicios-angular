@@ -1,10 +1,10 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { UsuariosService } from '../../core/services/usuarios.service';
 import { ModalDismissReasons, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
-import { Usuario } from '../../core/models/usuario.model';
+import { UsuariosService } from '../../core/services/usuarios.service';
 import { PaginationModel } from '../../core/interfaz/pagination.model';
+import { Usuario } from '../../core/models/usuario.model';
 import { Servicio } from '../../core/models/servicios.model';
 
 @Component({
@@ -13,7 +13,7 @@ import { Servicio } from '../../core/models/servicios.model';
   styleUrls: ['./usuarios.component.css']
 })
 export class UsuariosComponent {
-  limit: number = 10;
+  limit: number = 2;
   searchTerms: string = '';
   closeResult = '';
   form: FormGroup;

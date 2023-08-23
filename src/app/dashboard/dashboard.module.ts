@@ -14,11 +14,13 @@ import {MatInputModule} from '@angular/material/input';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatSelectModule} from '@angular/material/select';
 import { UsuariosComponent } from './configuracion/usuarios/usuarios.component';
+import { SuscripcionesComponent } from './configuracion/suscripciones/suscripciones.component';
 @NgModule({
   declarations: [
     PrincipalComponent,
     ServiciosComponent,
-    UsuariosComponent
+    UsuariosComponent,
+    SuscripcionesComponent
   ],
   imports: [
     CommonModule,

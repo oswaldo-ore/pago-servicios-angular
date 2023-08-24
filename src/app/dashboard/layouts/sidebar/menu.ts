@@ -42,12 +42,6 @@ export const MENU: MenuItem[] = [
         link: '/facturas',
         parentId: 8
       },
-      {
-        id: 10,
-        label: 'Medidores',
-        link: '/medidores',
-        parentId: 8
-      },
     ]
   },
 

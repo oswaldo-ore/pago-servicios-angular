@@ -43,7 +43,7 @@
                       <ngb-highlight [result]="data.id.toString()"></ngb-highlight>
                     </td>
                     <td class="gridjs-td">
-                      <ngb-highlight [result]="data.fecha.toString()"></ngb-highlight>
+                      <ngb-highlight [result]="formatDate(data.fecha)"></ngb-highlight>
                     </td>
                     <td class="gridjs-td">
                       <ngb-highlight [result]="data.monto.toString()"></ngb-highlight>
@@ -56,6 +56,7 @@
                     </td>
 
                     <td class="gridjs-td">
+                      <a type="button" class="btn btn-secondary btn-icon btn-sm waves-effect waves-light me-2" (click)="navigateToDetalle(data.id)" ><i class=" ri-eye-line"></i></a>
                       <a type="button" class="btn btn-danger btn-icon btn-sm waves-effect waves-light" (click)="eliminar(data.id)" ><i class="ri-delete-bin-5-line"></i></a>
                     </td>
                   </tr>

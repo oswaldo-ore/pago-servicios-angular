@@ -15,19 +15,21 @@ import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatSelectModule} from '@angular/material/select';
 import { UsuariosComponent } from './configuracion/usuarios/usuarios.component';
 import { SuscripcionesComponent } from './configuracion/suscripciones/suscripciones.component';
-import { MedidoresComponent } from './pagos/medidores/medidores.component';
 import { FacturasComponent } from './pagos/facturas/facturas.component';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import {MatCardModule} from '@angular/material/card';
 import {MatNativeDateModule} from '@angular/material/core';
+import { DetallefacturaComponent } from './pagos/detallefactura/detallefactura.component';
+import { MedidoresComponent } from './configuracion/medidores/medidores.component';
 @NgModule({
   declarations: [
     PrincipalComponent,
     ServiciosComponent,
     UsuariosComponent,
     SuscripcionesComponent,
+    FacturasComponent,
     MedidoresComponent,
-    FacturasComponent
+    DetallefacturaComponent
   ],
   imports: [
     CommonModule,

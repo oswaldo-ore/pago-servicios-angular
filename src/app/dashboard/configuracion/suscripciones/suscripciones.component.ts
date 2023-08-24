@@ -9,6 +9,7 @@ import { ServiciosService } from '../../core/services/servicios.service';
 import { UsuariosService } from '../../core/services/usuarios.service';
 import { Servicio } from '../../core/models/servicios.model';
 import { Usuario } from '../../core/models/usuario.model';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-suscripciones',
@@ -19,7 +20,7 @@ export class SuscripcionesComponent {
   form: FormGroup;
   closeResult = '';
   searchTerms: string = "";
-  limit: number = 10;
+  limit: number = 8;
   paginacion: PaginationModel<Suscripcion> = {
     currentPage: 0,
     total: 0,
@@ -39,6 +40,7 @@ export class SuscripcionesComponent {
     private modalService: NgbModal,
     private formBuilder: FormBuilder,
     private toastr: ToastrService,
+    private router: Router,
   ) {
     this.form = formBuilder.group({
       tipo: ['fijo', Validators.required],
@@ -189,5 +191,14 @@ export class SuscripcionesComponent {
     } else {
       this.form.get('monto')?.setValidators([Validators.required]);
     }
+  }
+
+  verRegistroDeMedidor(suscripcionId:number,servicio:Servicio, usuario: Usuario){
+      this.router.navigate(['/suscripciones/',suscripcionId],{
+        state: { data: {
+          servicio: JSON.stringify(servicio),
+          usuario: JSON.stringify(usuario),
+        } }
+      });
   }
 }

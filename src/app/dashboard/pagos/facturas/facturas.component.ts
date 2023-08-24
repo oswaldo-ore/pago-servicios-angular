@@ -7,6 +7,7 @@ import { ToastrService } from 'ngx-toastr';
 import { ServiciosService } from '../../core/services/servicios.service';
 import { Servicio } from '../../core/models/servicios.model';
 import { ModalDismissReasons, NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-facturas',
@@ -34,6 +35,7 @@ export class FacturasComponent {
     private formBuilder: FormBuilder,
     private modalService: NgbModal,
     private toastr: ToastrService,
+    private router: Router,
   ) {
     this.form = formBuilder.group({
       servicio: ['', Validators.required],
@@ -82,6 +84,11 @@ export class FacturasComponent {
     );
   }
 
+  formatDate(fecha: Date){
+    const options = { day: '2-digit', month: 'long', year: 'numeric' } as const;
+    return fecha.toLocaleDateString('es-ES', options);
+  }
+
   private getDismissReason(reason: any): string {
     this.form.reset();
     if (reason === ModalDismissReasons.ESC) {
@@ -126,5 +133,8 @@ export class FacturasComponent {
     });
   }
 
+  navigateToDetalle(id: number) {
+    this.router.navigate(['/factura', id]);
+  }
 
 }

@@ -4,7 +4,8 @@ import { ServiciosComponent } from './configuracion/servicios/servicios.componen
 import { UsuariosComponent } from './configuracion/usuarios/usuarios.component';
 import { SuscripcionesComponent } from './configuracion/suscripciones/suscripciones.component';
 import { FacturasComponent } from './pagos/facturas/facturas.component';
-import { MedidoresComponent } from './pagos/medidores/medidores.component';
+import { DetallefacturaComponent } from './pagos/detallefactura/detallefactura.component';
+import { MedidoresComponent } from './configuracion/medidores/medidores.component';
 
 const routes: Routes = [
   {
@@ -20,10 +21,13 @@ const routes: Routes = [
     path: "suscripciones", component: SuscripcionesComponent,
   },
   {
+    path: "suscripciones/:id", component: MedidoresComponent,
+  },
+  {
     path: "facturas", component: FacturasComponent,
   },
   {
-    path: "medidores", component: MedidoresComponent,
+    path: "factura/:id", component: DetallefacturaComponent,
   },
 
 

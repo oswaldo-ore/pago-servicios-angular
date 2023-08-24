@@ -5,9 +5,10 @@
         <div class="row g-4 align-items-center">
           <div class="col-sm-auto">
             <div>
-              <h4 class="card-title mb-0 flex-grow-1">Suscripciones
+              <h4 class="card-title mb-0 flex-grow-1">Servicio {{servicio.nombre}} - Usuario - {{usuario.nombre }}
                 <a class="btn btn-success btn-sm" (click)="open(content)"><i class="ri-add-line align-bottom me-1"></i>
-                  Agregar</a>
+                  Agregar
+                </a>
               </h4>
             </div>
           </div>
@@ -23,6 +24,11 @@
         </div>
       </div>
       <div class="card-body">
+        <div class="row" style="margin-bottom: 25px;">
+          <!-- <div class="col-md-4 mb-3"> Fecha: {{formatDate(factura.fecha)}}</div>
+          <div class="col-md-4 mb-3"> Monto: Bs.{{factura.monto}}</div>
+          <div class="col-md-4 mb-3"> Servicio: {{factura.Servicio.nombre}}</div> -->
+        </div>
         <div class="table-card">
           <div class="table-responsive ">
             <div id="Recommended-jobs">
@@ -30,13 +36,12 @@
                 <thead class="gridjs-thead">
                   <tr class="gridjs-tr">
                     <th class="gridjs-th gridjs-th-sort" data-sort="id">#</th>
-                    <th class="gridjs-th sort" data-sort="nombre">Usuario</th>
-                    <th class="gridjs-th sort" data-sort="apellidos">Servicio</th>
-                    <th class="gridjs-th sort" data-sort="estado">Tipo</th>
-                    <th class="gridjs-th sort" data-sort="asociado_con">Monto (Bs.)</th>
-                    <th class="gridjs-th sort" data-sort="estado">Habilitado</th>
-                    <th class="gridjs-th sort" data-sort="asociado_con">Medidor</th>
-                    <th class="gridjs-th sort" data-sort="opciones">Opciones</th>
+                    <th class="gridjs-th sort" data-sort="nombre">Fecha</th>
+                    <th class="gridjs-th sort" data-sort="asociado_con">Mes</th>
+                    <th class="gridjs-th sort" data-sort="apellidos">Monto</th>
+                    <th class="gridjs-th sort" data-sort="estado">Cantidad Medido</th>
+                    <th class="gridjs-th sort" data-sort="estado">Detalle</th>
+                    <!-- <th class="gridjs-th sort" data-sort="opciones">Opciones</th> -->
                   </tr>
                 </thead>
                 <tbody class="gridjs-tbody">
@@ -45,32 +50,26 @@
                       <ngb-highlight [result]="data.id.toString()"></ngb-highlight>
                     </td>
                     <td class="gridjs-td">
-                      <ngb-highlight [result]="data.Usuario.nombre"></ngb-highlight>
+                      <ngb-highlight [result]="formatDate(data.fecha)"></ngb-highlight>
                     </td>
                     <td class="gridjs-td">
-                      <ngb-highlight [result]="data.Servicio.nombre"></ngb-highlight>
-                    </td>
-                    <td class="gridjs-td">
-                      <ngb-highlight [result]="data.tipo"></ngb-highlight>
+                      <ngb-highlight [result]="data.mes"></ngb-highlight>
                     </td>
                     <td class="gridjs-td">
                       <ngb-highlight [result]="data.monto.toString()"></ngb-highlight>
                     </td>
                     <td class="gridjs-td">
-                      <ngb-highlight [result]="getestado(data.habilitado) "
-                        class="badge {{ data.habilitado?'bg-success-subtle text-success':'bg-danger-subtle text-danger' }}"></ngb-highlight>
-                    </td>
-                    <td class="gridjs-td">
-                      <ngb-highlight [result]=" getMedidor(data.tiene_medidor) "
-                        class="badge {{ data.tiene_medidor?'bg-success-subtle text-success':'bg-danger-subtle text-danger' }}"></ngb-highlight>
+                      <ngb-highlight [result]="data.cantidad_medido.toString()"></ngb-highlight>
                     </td>
 
                     <td class="gridjs-td">
-                      <a type="button" class="btn btn-danger btn-icon btn-sm waves-effect waves-light me-2" (click)="eliminarSuscripcion(data.id)"><i class="ri-delete-bin-5-line"></i></a>
-                      <a type="button" class="btn btn-primary btn-icon btn-sm waves-effect waves-light"
-                        *ngIf="data.tiene_medidor"
-                        (click)="verRegistroDeMedidor(data.id,data.Servicio,data.Usuario)" title="Ver registro de medidores"><i class="ri-survey-line"></i></a>
+                      <ngb-highlight [result]="data.detalle"></ngb-highlight>
                     </td>
+                    <!-- <td class="gridjs-td">
+                      <div class="" >
+                        <a type="button" class="btn btn-secondary btn-icon btn-sm waves-effect waves-light me-2"><i class="ri-coins-line"></i></a>
+                      </div>
+                    </td> -->
                   </tr>
                 </tbody>
               </table>
@@ -78,7 +77,6 @@
           </div>
           <div class="gridjs-footer">
             <div class="row align-items-center gy-3">
-
               <div class="col-sm-auto ms-auto">
                 <div class="text-sm-right float-end listjs-pagination">
                   <ngb-pagination
@@ -100,45 +98,36 @@
 
 
 
+
+
 <ng-template #content let-modal>
   <div class="modal-header">
-    <h4 class="modal-title" id="modal-basic-title">Agregar Usuario</h4>
+    <h4 class="modal-title" id="modal-basic-title">Agregar Medidor</h4>
     <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
   </div>
   <div class="modal-body">
     <form [formGroup]="form">
       <div class="row">
-        <div class="mb-3 col-md-4">
+        <div class="mb-3 col-md-12">
+          <div class=" col-md-6 col-lg-4 col-xl-3 m-auto" >
+            <mat-card class="demo-inline-calendar-card">
+              <mat-calendar [(selected)]="selected" ></mat-calendar>
+            </mat-card>
+          </div>
+        </div>
+        <div class="col-md-4" >
           <mat-form-field class="example-full-width">
-            <mat-label>Usuario</mat-label>
-            <mat-select formControlName="usuario" (selectionChange)="cambioUsuario($event)">
-              <mat-option [value]="">Ninguno</mat-option>
-              <mat-option *ngFor="let usuario of usuarios" [value]="usuario.id">{{usuario.nombre}}</mat-option>
-            </mat-select>
-
+            <mat-label>Cantidad medido</mat-label>
+            <input type="number" matInput formControlName="cantidad_medido" placeholder="Ingrese el monto de cobro del servicio">
+            <mat-error *ngIf="form.get('cantidad_medido')?.hasError('cantidad_medido') && !form.get('cantidad_medido')?.hasError('required')">
+                El campo cantidad_medido esta incorrecto
+            </mat-error>
+            <mat-error *ngIf="form.get('cantidad_medido')?.hasError('cantidad_medido')">
+              El campo cantidad_medido es <strong>requerido</strong>
+            </mat-error>
           </mat-form-field>
         </div>
-        <div class="mb-3 col-md-4">
-          <mat-form-field class="example-full-width">
-            <mat-label>Servicio</mat-label>
-            <mat-select formControlName="servicio" (selectionChange)="cambiarServicio($event)">
-              <mat-option >Ninguno</mat-option>
-              <mat-option *ngFor="let servicio of servicios" [value]="servicio.id">{{servicio.nombre}}</mat-option>
-            </mat-select>
-          </mat-form-field>
-        </div>
-        <div class="mb-3 col-md-4">
-          <mat-form-field class="example-full-width">
-            <mat-label >Tipo</mat-label>
-            <mat-select  formControlName="tipo" (selectionChange)="cambiarTipo($event)">
-              <mat-option value="fijo" >Fijo</mat-option>
-              <mat-option value="calcular">Calcular</mat-option>
-              <mat-option value="medidor">Medidor</mat-option>
-            </mat-select>
-          </mat-form-field>
-        </div>
-
-        <div class="col-md-6" *ngIf="form.get('tipo')?.value == 'fijo'">
+        <div class="col-md-4" >
           <mat-form-field class="example-full-width">
             <mat-label>Monto</mat-label>
             <input type="number" matInput formControlName="monto" placeholder="Ingrese el monto de cobro del servicio">
@@ -147,6 +136,18 @@
             </mat-error>
             <mat-error *ngIf="form.get('monto')?.hasError('required')">
               El campo Monto es <strong>requerido</strong>
+            </mat-error>
+          </mat-form-field>
+        </div>
+        <div class="col-md-4" >
+          <mat-form-field class="example-full-width">
+            <mat-label>detalle</mat-label>
+            <input type="text" matInput formControlName="detalle" placeholder="Ingrese el monto de cobro del servicio">
+            <mat-error *ngIf="form.get('detalle')?.hasError('detalle') && !form.get('detalle')?.hasError('required')">
+                El campo detalle esta incorrecto
+            </mat-error>
+            <mat-error *ngIf="form.get('detalle')?.hasError('required')">
+              El campo detalle es <strong>requerido</strong>
             </mat-error>
           </mat-form-field>
         </div>

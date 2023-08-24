@@ -23,5 +23,10 @@ export const GlobalComponent = {
     facturas_listar: URL_BASE + 'facturas/listar',
     facturas_crear: URL_BASE + 'facturas/crear',
     facturas_eliminar: URL_BASE + 'facturas/',
+    facturas_show: URL_BASE + 'factura/',
+
+    medidores_listar: URL_BASE + 'suscripciones/medidores/',
+    medidores_crear: URL_BASE + 'medidores/crear',
+
 
 }

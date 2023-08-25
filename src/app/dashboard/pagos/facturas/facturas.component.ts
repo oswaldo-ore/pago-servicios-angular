@@ -131,7 +131,7 @@ export class FacturasComponent {
     detalle.forEach(element => {
       monto += element.isprestado? element.monto:0;
     });
-    return monto;
+    return parseFloat(monto.toFixed(2));
   }
   eliminar(id: number) {
     this.facturaServicio.eliminar(id).then((message) => {

@@ -152,6 +152,7 @@ export class SuscripcionesComponent {
 
     this.suscripcionService.crearSuscripcion(usuario_id, servicio_id, tipo, monto, tipo == "medidor").then(
       (response) => {
+        this.form.reset();
         this.modalService.dismissAll();
         this.toastr.success(response.message);
         this.cargarSuscripciones(this.paginacion.currentPage);

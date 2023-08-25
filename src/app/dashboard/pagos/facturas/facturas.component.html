@@ -51,7 +51,9 @@
                     </td>
                     <td class="gridjs-td">
                       <ngb-highlight [result]=" data.isPagado()"
-                        class="badge {{ data.ispagado?'bg-success-subtle text-success':'bg-danger-subtle text-danger' }}"></ngb-highlight>
+                        class="badge {{ data.ispagado?'bg-success-subtle text-success':'bg-danger-subtle text-danger' }}"></ngb-highlight><br>
+                        <ngb-highlight *ngIf="debenDetalle(data.DetalleUsuarioFacturas)>0" [result]="'Prestado: '+debenDetalle(data.DetalleUsuarioFacturas).toString()"
+                        class="badge bg-danger-subtle text-danger"></ngb-highlight>
                     </td>
                     <td class="gridjs-td">
                         <img src="{{data.imagen()}}" alt="" style="height: 80px;">

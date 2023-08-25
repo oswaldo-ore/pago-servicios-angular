@@ -8,6 +8,7 @@ import { ServiciosService } from '../../core/services/servicios.service';
 import { Servicio } from '../../core/models/servicios.model';
 import { ModalDismissReasons, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Router } from '@angular/router';
+import { DetalleUsuarioFacturas } from '../../core/models/detalle_factura.models';
 
 @Component({
   selector: 'app-facturas',
@@ -123,6 +124,14 @@ export class FacturasComponent {
     ).catch((error)=>{
       this.toastr.error(error,"No se pudo completar la accion");
     });
+  }
+
+  debenDetalle(detalle: DetalleUsuarioFacturas[] ){
+    let monto = 0;
+    detalle.forEach(element => {
+      monto += element.isprestado? element.monto:0;
+    });
+    return monto;
   }
   eliminar(id: number) {
     this.facturaServicio.eliminar(id).then((message) => {

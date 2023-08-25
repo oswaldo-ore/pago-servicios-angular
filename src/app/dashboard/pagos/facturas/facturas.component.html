@@ -52,19 +52,22 @@
                     <td class="gridjs-td">
                       <ngb-highlight [result]=" data.isPagado()"
                         class="badge {{ data.ispagado?'bg-success-subtle text-success':'bg-danger-subtle text-danger' }}"></ngb-highlight><br>
-                        <ngb-highlight *ngIf="debenDetalle(data.DetalleUsuarioFacturas)>0" [result]="'Deben: '+debenDetalle(data.DetalleUsuarioFacturas).toString()"
+                      <ngb-highlight *ngIf="debenDetalle(data.DetalleUsuarioFacturas)>0"
+                        [result]="'Deben: '+debenDetalle(data.DetalleUsuarioFacturas).toString()"
                         class="badge bg-danger-subtle text-danger"></ngb-highlight>
                     </td>
                     <td class="gridjs-td">
-                        <img src="{{data.imagen()}}" alt="" style="height: 80px;">
+                      <img src="{{data.imagen()}}" alt="" style="height: 80px;">
                     </td>
                     <td class="gridjs-td">
-                        <ngb-highlight [result]="data.Servicio.nombre"></ngb-highlight>
+                      <ngb-highlight [result]="data.Servicio.nombre"></ngb-highlight>
                     </td>
 
                     <td class="gridjs-td">
-                      <a type="button" class="btn btn-secondary btn-icon btn-sm waves-effect waves-light me-2" (click)="navigateToDetalle(data.id)" ><i class=" ri-eye-line"></i></a>
-                      <a type="button" class="btn btn-danger btn-icon btn-sm waves-effect waves-light" (click)="eliminar(data.id)" ><i class="ri-delete-bin-5-line"></i></a>
+                      <a type="button" class="btn btn-secondary btn-icon btn-sm waves-effect waves-light me-2"
+                        (click)="navigateToDetalle(data.id)"><i class=" ri-eye-line"></i></a>
+                      <a type="button" class="btn btn-danger btn-icon btn-sm waves-effect waves-light"
+                        (click)="eliminar(data.id)"><i class="ri-delete-bin-5-line"></i></a>
                     </td>
                   </tr>
                 </tbody>
@@ -84,11 +87,8 @@
               </div> -->
               <div class="col-sm-auto ms-auto">
                 <div class="text-sm-right float-end listjs-pagination">
-                  <ngb-pagination
-                  [(page)]="paginacion.currentPage"
-                  [pageSize]="limit"
-                    [collectionSize]="paginacion.total" [maxSize]="5" i18n="false"
-                    (pageChange)="onPageChange($event)">
+                  <ngb-pagination [(page)]="paginacion.currentPage" [pageSize]="limit"
+                    [collectionSize]="paginacion.total" [maxSize]="5" i18n="false" (pageChange)="onPageChange($event)">
                   </ngb-pagination>
                 </div>
               </div>
@@ -111,9 +111,9 @@
     <form [formGroup]="form">
       <div class="row">
         <div class="mb-3 col-md-12">
-          <div class=" col-md-6 col-lg-4 col-xl-3 m-auto" >
+          <div class=" col-md-6 col-lg-4 col-xl-3 m-auto">
             <mat-card class="demo-inline-calendar-card">
-              <mat-calendar [(selected)]="selected" ></mat-calendar>
+              <mat-calendar [(selected)]="selected"></mat-calendar>
             </mat-card>
           </div>
         </div>
@@ -122,7 +122,7 @@
           <mat-form-field class="example-full-width">
             <mat-label>Servicio</mat-label>
             <mat-select formControlName="servicio">
-              <mat-option >Ninguno</mat-option>
+              <mat-option>Ninguno</mat-option>
               <mat-option *ngFor="let servicio of servicios" [value]="servicio.id">{{servicio.nombre}}</mat-option>
             </mat-select>
           </mat-form-field>
@@ -132,7 +132,7 @@
             <mat-label>Monto</mat-label>
             <input type="number" matInput formControlName="monto" placeholder="Ingrese el monto de cobro del servicio">
             <mat-error *ngIf="form.get('monto')?.hasError('monto') && !form.get('monto')?.hasError('required')">
-                El campo monto esta incorrecto
+              El campo monto esta incorrecto
             </mat-error>
             <mat-error *ngIf="form.get('monto')?.hasError('required')">
               El campo Monto es <strong>requerido</strong>
@@ -141,10 +141,12 @@
         </div>
         <div class="col-md-4">
           <div class="mb-3">
-              <input type="file" class="form-control" formControlName="imagen_factura" aria-label="file example" required (change)="selectFile($event)">
-              <div *ngIf="form.get('imagen_factura')?.invalid && (form.get('imagen_factura')?.dirty || form.get('imagen_factura')?.touched)">
-                <div *ngIf="form.get('imagen_factura')?.hasError('required')">La imagen es requerida.</div>
-              </div>
+            <input type="file" class="form-control" formControlName="imagen_factura" aria-label="file example" required
+              (change)="selectFile($event)">
+            <div
+              *ngIf="form.get('imagen_factura')?.invalid && (form.get('imagen_factura')?.dirty || form.get('imagen_factura')?.touched)">
+              <div *ngIf="form.get('imagen_factura')?.hasError('required')">La imagen es requerida.</div>
+            </div>
           </div>
         </div>
       </div>

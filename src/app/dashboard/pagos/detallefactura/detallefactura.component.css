@@ -1,0 +1,13 @@
+.example-full-width {
+  width: 100%;
+}
+
+.example-margin {
+  margin: 0 12px;
+}
+.example-section {
+  margin: 12px 0;
+}
+#prestado .mdc-form-field label{
+  margin-bottom: 0px !important;
+}

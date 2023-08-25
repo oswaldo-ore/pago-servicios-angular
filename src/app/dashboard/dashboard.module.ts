@@ -21,6 +21,7 @@ import {MatCardModule} from '@angular/material/card';
 import {MatNativeDateModule} from '@angular/material/core';
 import { DetallefacturaComponent } from './pagos/detallefactura/detallefactura.component';
 import { MedidoresComponent } from './configuracion/medidores/medidores.component';
+import {MatCheckboxModule} from '@angular/material/checkbox';
 @NgModule({
   declarations: [
     PrincipalComponent,
@@ -47,6 +48,7 @@ import { MedidoresComponent } from './configuracion/medidores/medidores.componen
     MatDatepickerModule,
     MatCardModule,
     MatNativeDateModule,
+    MatCheckboxModule
   ],
 })
 export class DashboardModule { }

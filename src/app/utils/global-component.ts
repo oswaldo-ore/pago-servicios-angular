@@ -1,7 +1,8 @@
-const URL_BASE = "http://127.0.0.1:3000/api/";
-// const URL_BASE = "https://servicios.tecnosoft.website/api/";
+// const URL_BASE = "http://127.0.0.1:3000/api/";
+const URL_BASE = "https://servicios.tecnosoft.website/api/";
 export const GlobalComponent = {
-    API_URL : "http://127.0.0.1:3000",
+    // API_URL : "http://127.0.0.1:3000",
+    API_URL : "https://servicios.tecnosoft.website",
 
     headerToken : {'Authorization': `Bearer ${localStorage.getItem('token')}`},
     AUTH_API: URL_BASE + "admin/login",
@@ -27,6 +28,9 @@ export const GlobalComponent = {
 
     medidores_listar: URL_BASE + 'suscripciones/medidores/',
     medidores_crear: URL_BASE + 'medidores/crear',
+
+    detalle_factura_pagar: URL_BASE + 'detalle/factura/pagar',
+    detalle_factura_devolver: URL_BASE + 'detalle/factura/devolver',
 
 
 }

@@ -23,7 +23,8 @@ export class FacturasService {
           const facturaArray = response.data.data.map((facturaData: any) => new Factura(
             facturaData.id,
             facturaData.monto,
-            new Date(facturaData.fecha),  // Puedes necesitar ajustar cómo se convierte la fecha
+            new Date(facturaData.fecha),
+            facturaData.ispagado,
             facturaData.notifico,
             facturaData.visto,
             facturaData.foto_factura,
@@ -49,7 +50,8 @@ export class FacturasService {
       facturaData = new Factura(
         facturaData.id,
         facturaData.monto,
-        new Date(facturaData.fecha),  // Puedes necesitar ajustar cómo se convierte la fecha
+        new Date(facturaData.fecha),
+        facturaData.ispagado,
         facturaData.notifico,
         facturaData.visto,
         facturaData.foto_factura,
@@ -63,8 +65,9 @@ export class FacturasService {
             detalle.cambio_pago,
             detalle.facturaid,
             detalle.iscancelado,
+            detalle.isprestado,
             new Date(detalle.fecha),
-            detalle.fecha_pago??null,
+            detalle.fecha_pago?new Date(detalle.fecha_pago):null,
             detalle.notificar,
             detalle.visto,
             detalle.servicioid,
@@ -89,6 +92,28 @@ export class FacturasService {
     formData.append('servicioid', servicio.toString());
     formData.append('foto', imagen);
     let response = await this.http.post<any>(GlobalComponent.facturas_crear, formData,{ headers: headers}).toPromise();
+    if (response.success) {
+      return response;
+    }
+    throw response.message;
+  }
+
+  async pagarDetalleFactura( monto: number, detalleFacturaId:number,isPrestado:boolean)  {
+    const headers = new HttpHeaders();
+    headers.append('Content-Type', 'multipart/form-data');
+    const formData = { monto: monto.toString(), detalle_factura_id: detalleFacturaId.toString(),isprestado:isPrestado};
+    let response = await this.http.post<any>(GlobalComponent.detalle_factura_pagar, formData,{headers}).toPromise();
+    if (response.success) {
+      return response;
+    }
+    throw response.message;
+  }
+
+  async devolverPagoDetalleFactura( detalleFacturaId:number)  {
+    const headers = new HttpHeaders();
+    headers.append('Content-Type', 'multipart/form-data');
+    const formData = {  detalle_factura_id: detalleFacturaId.toString()};
+    let response = await this.http.post<any>(GlobalComponent.detalle_factura_devolver, formData,{headers}).toPromise();
     if (response.success) {
       return response;
     }

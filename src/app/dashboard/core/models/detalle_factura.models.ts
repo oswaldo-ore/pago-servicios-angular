@@ -8,6 +8,7 @@ export class DetalleUsuarioFacturas{
     public cambio_pago:number,
     public facturaid:number,
     public iscancelado:boolean,
+    public isprestado:boolean,
     public fecha: Date,
     public fecha_pago: Date|null,
     public notificar: boolean,
@@ -16,4 +17,8 @@ export class DetalleUsuarioFacturas{
     public usuarioid : number,
     public Usuario: Usuario,
   ) {}
+
+  public isPrestado(){
+    return this.isprestado?"Prestado":"No Prestado"
+  }
 }

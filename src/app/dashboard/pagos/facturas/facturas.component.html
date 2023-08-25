@@ -32,6 +32,7 @@
                     <th class="gridjs-th gridjs-th-sort" data-sort="id">#</th>
                     <th class="gridjs-th sort" data-sort="nombre">Fecha</th>
                     <th class="gridjs-th sort" data-sort="apellidos">Monto</th>
+                    <th class="gridjs-th sort" data-sort="apellidos">Estado</th>
                     <th class="gridjs-th sort" data-sort="estado">Foto Factura</th>
                     <th class="gridjs-th sort" data-sort="asociado_con">Servicio</th>
                     <th class="gridjs-th sort" data-sort="opciones">Opciones</th>
@@ -47,6 +48,10 @@
                     </td>
                     <td class="gridjs-td">
                       <ngb-highlight [result]="data.monto.toString()"></ngb-highlight>
+                    </td>
+                    <td class="gridjs-td">
+                      <ngb-highlight [result]=" data.isPagado()"
+                        class="badge {{ data.ispagado?'bg-success-subtle text-success':'bg-danger-subtle text-danger' }}"></ngb-highlight>
                     </td>
                     <td class="gridjs-td">
                         <img src="{{data.imagen()}}" alt="" style="height: 80px;">

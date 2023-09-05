@@ -1,81 +1,83 @@
 import { Component, ViewChild } from '@angular/core';
-import { FacturasService } from '../../core/services/facturas.service';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Factura } from '../../core/models/factura.models';
 import { ActivatedRoute } from '@angular/router';
-import { Servicio } from '../../core/models/servicios.model';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
+import { UsuariosService } from '../../core/services/usuarios.service';
+import { DetalleUsuarioFacturas } from '../../core/models/detalle_factura.models';
+import { FacturasService } from '../../core/services/facturas.service';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
-  selector: 'app-detallefactura',
-  templateUrl: './detallefactura.component.html',
-  styleUrls: ['./detallefactura.component.css']
+  selector: 'app-detallepagousuario',
+  templateUrl: './detallepagousuario.component.html',
+  styleUrls: ['./detallepagousuario.component.css']
 })
-export class DetallefacturaComponent {
+export class DetallepagousuarioComponent {
+  usuarioId: number=0;
   form: FormGroup;
-  factura:Factura = new Factura(0,0,new Date(),false,0,0,0,"",0,new Servicio(0,"",0,null),[]);
-  searchTerms: string = "";
-  detalleFactura: number;
+  detalleFacturaDeben:DetalleUsuarioFacturas[]=[];
+  detalleFacturaPagadas:DetalleUsuarioFacturas[]=[];
   detalleFacturaId:number;
   @ViewChild('content') modalContent: any;
   constructor(
+    private usuarioService: UsuariosService,
     private facturaServicio: FacturasService,
-    private formBuilder: FormBuilder,
     private route: ActivatedRoute,
     private toast: ToastrService,
     private modalService: NgbModal,
+    private formBuilder: FormBuilder,
   ) {
+    this.usuarioId = 0;
     this.form = formBuilder.group({
       monto: ['',Validators.required],
       isprestado: [false],
     });
-    this.detalleFactura = 0;
-    this.detalleFacturaId=0;
+    this.detalleFacturaId =0;
   }
 
-  ngOnInit() {
+  ngOnInit(){
     this.route.paramMap.subscribe(params => {
       const idParam = params.get('id');
       if (idParam !== null) {
-        this.detalleFactura = +idParam;
-        this.cargarDetalleFactura();
+        this.usuarioId = +idParam;
+        this.cargarDetalleFacturaUsuario();
       } else {
         console.error('ID es nulo');
       }
     });
   }
 
-  cargarDetalleFactura(){
-    this.facturaServicio.verFactura(this.detalleFactura).then(
+  cargarDetalleFacturaUsuario(){
+    this.usuarioService.detalleDeudasUsuario(this.usuarioId).then(
       (response)=>{
-        this.factura = response;
+        this.detalleFacturaDeben= response.deuda;
+        this.detalleFacturaPagadas = response.pagadas;
       }
     ).catch(
       (error)=>{
-      }
-    );
+        console.log(error);
+
+      });
+  }
+
+  pagar(detalleId:number){
+
   }
 
   formatDate(fecha: Date){
-    console.log("normal "+fecha);
-
     const options = { day: '2-digit', month: 'long', year: 'numeric' } as const;
     return fecha.toLocaleDateString('es-ES', options);
   }
-  formatDate2(fecha: Date| null){
+  formatDate2(fecha: Date| null| undefined){
     if(fecha == null){
       return "";
     }
     const options2 = { day: '2-digit', month: 'long', year: 'numeric' } as const;
     return fecha.toLocaleDateString('es-ES', options2);
   }
-  public getestado(estado: boolean) {
-    return estado ? "Cancelado" : "No cancelado";
-  }
 
-  abrirModal(detalleFacturaId:number,monto:number,monto_pago:number) {
-    this.detalleFacturaId = detalleFacturaId;
+  abrirModal(detalleId:number, monto:number,monto_pago:number) {
+    this.detalleFacturaId = detalleId;
     this.form.get('monto')?.setValue(monto-monto_pago);
     this.modalService.open(this.modalContent, { ariaLabelledBy: 'modal-basic-title' });
   }
@@ -84,7 +86,7 @@ export class DetallefacturaComponent {
     this.facturaServicio.devolverPagoDetalleFactura(detalleFacturaId).then(
       (response)=>{
         this.toast.success(response.message);
-        this.cargarDetalleFactura();
+        this.cargarDetalleFacturaUsuario();
       }).catch((error)=>{
         this.toast.error(error);
       });
@@ -101,7 +103,7 @@ export class DetallefacturaComponent {
         this.toast.success(response.message);
         this.form.reset();
         this.modalService.dismissAll();
-        this.cargarDetalleFactura();
+        this.cargarDetalleFacturaUsuario();
       }).catch((error)=>{
         this.toast.error(error);
 

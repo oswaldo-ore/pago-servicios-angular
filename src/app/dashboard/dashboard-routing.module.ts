@@ -6,11 +6,9 @@ import { SuscripcionesComponent } from './configuracion/suscripciones/suscripcio
 import { FacturasComponent } from './pagos/facturas/facturas.component';
 import { DetallefacturaComponent } from './pagos/detallefactura/detallefactura.component';
 import { MedidoresComponent } from './configuracion/medidores/medidores.component';
+import { DetallepagousuarioComponent } from './configuracion/detallepagousuario/detallepagousuario.component';
 
 const routes: Routes = [
-  {
-    path: "", component: ServiciosComponent,
-  },
   {
     path: "servicios", component: ServiciosComponent,
   },
@@ -28,6 +26,9 @@ const routes: Routes = [
   },
   {
     path: "factura/:id", component: DetallefacturaComponent,
+  },
+  {
+    path: "usuario/detalle-deudas/:id", component: DetallepagousuarioComponent,
   },
 
 

@@ -38,8 +38,7 @@
                     <th class="gridjs-th sort" data-sort="apellidos">Monto</th>
                     <th class="gridjs-th sort" data-sort="apellidos">Monto Pago</th>
                     <th class="gridjs-th sort" data-sort="apellidos">Cambio</th>
-                    <th class="gridjs-th sort" data-sort="asociado_con">Cancelado</th>
-                    <th class="gridjs-th sort" data-sort="asociado_con">Prestado</th>
+                    <th class="gridjs-th sort" data-sort="asociado_con">Estado</th>
                     <th class="gridjs-th sort" data-sort="estado">Usuario</th>
                     <th class="gridjs-th sort" data-sort="opciones">Opciones</th>
                   </tr>
@@ -65,24 +64,24 @@
                       <ngb-highlight [result]="data.cambio_pago.toString()"></ngb-highlight>
                     </td>
                     <td class="gridjs-td">
-                      <ngb-highlight [result]=" getestado(data.iscancelado) "
-                        class="badge {{ data.iscancelado?'bg-success-subtle text-success':'bg-danger-subtle text-danger' }}"></ngb-highlight>
+                      <ngb-highlight [result]="data.estadoString()"
+                        class="{{data.estadoBadge()}}"></ngb-highlight>
                     </td>
-                    <td class="gridjs-td">
+                    <!-- <td class="gridjs-td">
                       <ngb-highlight [result]=" data.isPrestado()"
                         class="badge {{ data.isprestado?'bg-danger-subtle text-danger badge-border':'bg-info-subtle text-info badge-border' }}"></ngb-highlight>
-                    </td>
+                    </td> -->
                     <td class="gridjs-td">
                       <ngb-highlight [result]="data.Usuario.nombre"></ngb-highlight>
                     </td>
 
                     <td class="gridjs-td">
-                      <div class="" *ngIf="!data.iscancelado">
-                        <a type="button" class="btn btn-secondary btn-icon btn-sm waves-effect waves-light me-2" (click)="abrirModal(data.id)"><i class="ri-coins-line"></i></a>
+                      <div class="" *ngIf="!data.isCancelado()">
+                        <a type="button" class="btn btn-secondary btn-icon btn-sm waves-effect waves-light me-2" (click)="abrirModal(data.id,data.monto,data.monto_pago)"><i class="ri-coins-line"></i></a>
                       </div>
-                      <div class="" *ngIf="data.isprestado">
+                      <!-- <div class="" *ngIf="data.isprestado">
                         <a type="button" class="btn btn-outline-success btn-icon btn-sm waves-effect waves-lightme-2" (click)="devolverPago(data.id)"><i class=" ri-hand-heart-line"></i></a>
-                      </div>
+                      </div> -->
                     </td>
                   </tr>
                 </tbody>
@@ -121,7 +120,7 @@
             </mat-error>
           </mat-form-field>
         </div>
-        <div class="col-md-12">
+        <div class="col-md-12 d-none">
           <section class="example-section">
             <mat-checkbox class="example-margin" formControlName="isprestado">Prestado</mat-checkbox>
           </section>

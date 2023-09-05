@@ -50,14 +50,15 @@
                       <ngb-highlight [result]="data.monto.toString()"></ngb-highlight>
                     </td>
                     <td class="gridjs-td">
-                      <ngb-highlight [result]=" data.isPagado()"
-                        class="badge {{ data.ispagado?'bg-success-subtle text-success':'bg-danger-subtle text-danger' }}"></ngb-highlight><br>
+                      <ngb-highlight [result]=" data.estadoString()" class="{{data.estadoBadge()}}"></ngb-highlight><br>
                       <ngb-highlight *ngIf="debenDetalle(data.DetalleUsuarioFacturas)>0"
                         [result]="'Deben: '+debenDetalle(data.DetalleUsuarioFacturas).toString()"
                         class="badge bg-danger-subtle text-danger"></ngb-highlight>
                     </td>
-                    <td class="gridjs-td">
-                      <img src="{{data.imagen()}}" alt="" style="height: 80px;">
+                    <td class="gridjs-td text-center">
+                      <a href="{{data.imagen()}}" target="_blank" >
+                        <img src="{{data.getIcono()}}" alt="" style="height: 60px;">
+                      </a>
                     </td>
                     <td class="gridjs-td">
                       <ngb-highlight [result]="data.Servicio.nombre"></ngb-highlight>
@@ -66,8 +67,12 @@
                     <td class="gridjs-td">
                       <a type="button" class="btn btn-secondary btn-icon btn-sm waves-effect waves-light me-2"
                         (click)="navigateToDetalle(data.id)"><i class=" ri-eye-line"></i></a>
+                      <a type="button" *ngIf="data.isPendiente()"
+                        class="btn btn-success btn-icon btn-sm waves-effect waves-light me-2"
+                        (click)="cambiarEstadoPrestado(data.id)"><i class="ri-exchange-dollar-line"></i></a>
                       <a type="button" class="btn btn-danger btn-icon btn-sm waves-effect waves-light"
                         (click)="eliminar(data.id)"><i class="ri-delete-bin-5-line"></i></a>
+
                     </td>
                   </tr>
                 </tbody>
@@ -141,12 +146,12 @@
         </div>
         <div class="col-md-4">
           <div class="mb-3">
-            <input type="file" class="form-control" formControlName="imagen_factura" aria-label="file example" required
+            <input type="file" class="form-control" formControlName="imagen_factura" aria-label="file example"
               (change)="selectFile($event)">
-            <div
+            <!-- <div
               *ngIf="form.get('imagen_factura')?.invalid && (form.get('imagen_factura')?.dirty || form.get('imagen_factura')?.touched)">
               <div *ngIf="form.get('imagen_factura')?.hasError('required')">La imagen es requerida.</div>
-            </div>
+            </div> -->
           </div>
         </div>
       </div>

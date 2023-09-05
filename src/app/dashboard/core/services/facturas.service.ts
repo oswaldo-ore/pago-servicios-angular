@@ -27,6 +27,7 @@ export class FacturasService {
             facturaData.ispagado,
             facturaData.notifico,
             facturaData.visto,
+            facturaData.estado,
             facturaData.foto_factura,
             facturaData.servicioid,
             facturaData.Servicio,
@@ -54,6 +55,7 @@ export class FacturasService {
         facturaData.ispagado,
         facturaData.notifico,
         facturaData.visto,
+        facturaData.estado,
         facturaData.foto_factura,
         facturaData.servicioid,
         facturaData.Servicio,
@@ -61,11 +63,10 @@ export class FacturasService {
           return new DetalleUsuarioFacturas(
             detalle.id,
             detalle.monto,
+            detalle.estado,
             detalle.monto_pago,
             detalle.cambio_pago,
             detalle.facturaid,
-            detalle.iscancelado,
-            detalle.isprestado,
             new Date(detalle.fecha),
             detalle.fecha_pago?new Date(detalle.fecha_pago):null,
             detalle.notificar,
@@ -82,7 +83,7 @@ export class FacturasService {
     throw response.message;
   }
 
-  async crear(servicio: number, monto: number, fecha: Date, imagen: File)  {
+  async crear(servicio: number, monto: number, fecha: Date, imagen: File|any)  {
     let date = fecha.toISOString().split('T')[0];
     const headers = new HttpHeaders();
     headers.append('Content-Type', 'multipart/form-data');
@@ -123,6 +124,16 @@ export class FacturasService {
   async eliminar(id:number) {
     const url = `${GlobalComponent.facturas_eliminar}${id}`;
     let response =  await this.http.delete<any>(url).toPromise();
+    if(response.success){
+      return (String)(response.message);
+    }else{
+      throw (String)(response.message);
+    }
+  }
+  async prestarFacturaPagar(id:number) {
+    const url = `${GlobalComponent.factura_prestar}`.replace(":id",id.toString());
+    const data = { key: 'value' };
+    let response =  await this.http.put<any>(url,data).toPromise();
     if(response.success){
       return (String)(response.message);
     }else{

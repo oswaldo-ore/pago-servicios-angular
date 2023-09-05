@@ -16,6 +16,7 @@ export const GlobalComponent = {
     usuarios_listar_todos: URL_BASE + 'usuarios/listar-todo',
     usuarios_crear: URL_BASE + 'usuarios/crear',
     usuarios_eliminar: URL_BASE + 'usuarios/',
+    usuarios_listar_deudas: URL_BASE + 'usuarios/:id/deudas',
 
     suscripciones_listar: URL_BASE + 'suscripciones/listar',
     suscripciones_crear: URL_BASE + 'suscripciones/crear',
@@ -25,6 +26,7 @@ export const GlobalComponent = {
     facturas_crear: URL_BASE + 'facturas/crear',
     facturas_eliminar: URL_BASE + 'facturas/',
     facturas_show: URL_BASE + 'factura/',
+    factura_prestar: URL_BASE + 'factura/:id/estado-prestado',
 
     medidores_listar: URL_BASE + 'suscripciones/medidores/',
     medidores_crear: URL_BASE + 'medidores/crear',

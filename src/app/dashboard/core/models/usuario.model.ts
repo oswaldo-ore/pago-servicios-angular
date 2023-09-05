@@ -7,5 +7,6 @@ export class Usuario{
     public apellidos: string,
     public estado: number,
     public Servicios: Servicio[]=[],
+    public suma_montos: number = 0,
   ) {}
 }

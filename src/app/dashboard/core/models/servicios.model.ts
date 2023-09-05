@@ -3,7 +3,8 @@ export class Servicio{
     public id: number,
     public nombre: string,
     public estado: number,
-    public asociar: null
+    public asociar: null,
+    public monto_por_servicio:number=0,
   ) {}
 
   public getestado (){

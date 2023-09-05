@@ -31,7 +31,7 @@
                   <tr class="gridjs-tr">
                     <th class="gridjs-th gridjs-th-sort" data-sort="id">#</th>
                     <th class="gridjs-th sort" data-sort="nombre">Nombre</th>
-                    <th class="gridjs-th sort" data-sort="apellidos">Apellidos</th>
+                    <th class="gridjs-th sort" data-sort="apellidos">Total debe</th>
                     <th class="gridjs-th sort" data-sort="estado">Estado</th>
                     <th class="gridjs-th sort" data-sort="asociado_con">Servicios</th>
                     <th class="gridjs-th sort" data-sort="opciones">Opciones</th>
@@ -43,10 +43,10 @@
                       <ngb-highlight [result]="data.id.toString()"></ngb-highlight>
                     </td>
                     <td class="gridjs-td">
-                      <ngb-highlight [result]="data.nombre"></ngb-highlight>
+                      <ngb-highlight [result]="data.nombre+' '+data.apellidos"></ngb-highlight>
                     </td>
                     <td class="gridjs-td">
-                      <ngb-highlight [result]="data.apellidos"></ngb-highlight>
+                      <ngb-highlight [result]="data.suma_montos.toString()"></ngb-highlight>
                     </td>
                     <td class="gridjs-td">
                       <ngb-highlight [result]=" getestado(data.estado) "
@@ -57,6 +57,7 @@
                     </td>
                     <td class="gridjs-td">
                       <a type="button" class="btn btn-danger btn-icon btn-sm waves-effect waves-light" (click)="eliminarUsuario(data.id)" ><i class="ri-delete-bin-5-line"></i></a>
+                      <a type="button" class="btn btn-info btn-icon btn-sm waves-effect waves-light ms-1" (click)="verDetalle(data.id)" ><i class="ri-article-line"></i></a>
                     </td>
                   </tr>
                 </tbody>

@@ -41,7 +41,7 @@ export class FacturasComponent {
     this.form = formBuilder.group({
       servicio: ['', Validators.required],
       monto: ['', Validators.required],
-      imagen_factura: ['',Validators.required]
+      imagen_factura: ['']
     });
   }
 
@@ -112,9 +112,9 @@ export class FacturasComponent {
     let monto = this.form.get('monto')?.value;
     let selectedDate= this.selected;
     let image = this.selectedFiles?.item(0);
-    if(!image){
-      return;
-    }
+    // if(!image){
+    //   return;
+    // }
     this.facturaServicio.crear(servicio,monto,selectedDate,image).then(
       (response)=>{
         this.modalService.dismissAll();
@@ -128,9 +128,9 @@ export class FacturasComponent {
 
   debenDetalle(detalle: DetalleUsuarioFacturas[] ){
     let monto = 0;
-    detalle.forEach(element => {
-      monto += element.isprestado? element.monto:0;
-    });
+    // detalle.forEach(element => {
+    //   monto += element.isprestado? element.monto:0;
+    // });
     return parseFloat(monto.toFixed(2));
   }
   eliminar(id: number) {
@@ -144,6 +144,16 @@ export class FacturasComponent {
 
   navigateToDetalle(id: number) {
     this.router.navigate(['/factura', id]);
+  }
+
+
+  cambiarEstadoPrestado(id:number){
+    this.facturaServicio.prestarFacturaPagar(id).then((message) => {
+      this.toastr.success(message);
+      this.cargarFacturas(this.paginacion.currentPage);
+    }).catch((error) => {
+      this.toastr.error(error.message);
+    });
   }
 
 }

@@ -6,6 +6,7 @@ import { UsuariosService } from '../../core/services/usuarios.service';
 import { PaginationModel } from '../../core/interfaz/pagination.model';
 import { Usuario } from '../../core/models/usuario.model';
 import { Servicio } from '../../core/models/servicios.model';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-usuarios',
@@ -13,7 +14,7 @@ import { Servicio } from '../../core/models/servicios.model';
   styleUrls: ['./usuarios.component.css']
 })
 export class UsuariosComponent {
-  limit: number = 2;
+  limit: number = 10;
   searchTerms: string = '';
   closeResult = '';
   form: FormGroup;
@@ -28,6 +29,7 @@ export class UsuariosComponent {
     private modalService: NgbModal,
     private formBuilder: FormBuilder,
     private toastr: ToastrService,
+    private router: Router,
   ) {
     this.form = formBuilder.group({
       nombre: ['',Validators.required],
@@ -67,8 +69,17 @@ export class UsuariosComponent {
   }
 
   serviciosAString(servicios:Servicio[]){
-    const nombresServicios = servicios.map(servicio => servicio.nombre);
-    const serviciosList = nombresServicios.map(nombre => `<li>${nombre}</li>`).join('');
+    const serviciosList = servicios.map(servicio => `<li>
+      <div class="row">
+        <div class=" col-12 col-md-4">
+          ${servicio.nombre}
+        </div>
+        <div class="col-auto">
+          <span class="badge bg-info badge-sm"> Bs ${servicio.monto_por_servicio}</span>
+        </div>
+      </div>
+    </li>`).join('');
+    // const serviciosList = nombresServicios.map(nombre => `<li>${nombre}</li>`).join('');
     return `<ul class="mb-0">${serviciosList}</ul>`;
   }
   open(content: any) {
@@ -116,5 +127,9 @@ export class UsuariosComponent {
     }).catch((error)=>{
       this.toastr.error(error.message);
     });
-}
+  }
+
+  verDetalle(usuarioId:number){
+    this.router.navigate(['/usuario/detalle-deudas/', usuarioId]);
+  }
 }

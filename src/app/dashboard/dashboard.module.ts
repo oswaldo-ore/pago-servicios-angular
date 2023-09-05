@@ -2,11 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { DashboardRoutingModule } from './dashboard-routing.module';
-import { PrincipalComponent } from './principal/principal.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
-import { LayoutsModule } from './layouts/layouts.module';
-import { ToastrModule } from 'ngx-toastr';
 import { ServiciosComponent } from './configuracion/servicios/servicios.component';
 import { NgbModule, NgbPaginationModule } from '@ng-bootstrap/ng-bootstrap';
 import { NgSelectModule } from '@ng-select/ng-select';
@@ -22,15 +18,16 @@ import {MatNativeDateModule} from '@angular/material/core';
 import { DetallefacturaComponent } from './pagos/detallefactura/detallefactura.component';
 import { MedidoresComponent } from './configuracion/medidores/medidores.component';
 import {MatCheckboxModule} from '@angular/material/checkbox';
+import { DetallepagousuarioComponent } from './configuracion/detallepagousuario/detallepagousuario.component';
 @NgModule({
   declarations: [
-    PrincipalComponent,
     ServiciosComponent,
     UsuariosComponent,
     SuscripcionesComponent,
     FacturasComponent,
     MedidoresComponent,
-    DetallefacturaComponent
+    DetallefacturaComponent,
+    DetallepagousuarioComponent
   ],
   imports: [
     CommonModule,
@@ -39,8 +36,6 @@ import {MatCheckboxModule} from '@angular/material/checkbox';
     FormsModule,
     NgbModule,
     NgbPaginationModule,
-    ToastrModule.forRoot(),
-    HttpClientModule,
     NgSelectModule,
     MatFormFieldModule,
     MatInputModule,
@@ -48,7 +43,7 @@ import {MatCheckboxModule} from '@angular/material/checkbox';
     MatDatepickerModule,
     MatCardModule,
     MatNativeDateModule,
-    MatCheckboxModule
+    MatCheckboxModule,
   ],
 })
 export class DashboardModule { }

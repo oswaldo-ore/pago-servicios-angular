@@ -1,14 +1,18 @@
+import { Factura } from "./factura.models";
+import { Servicio } from "./servicios.model";
 import { Usuario } from "./usuario.model";
 
 export class DetalleUsuarioFacturas{
+  static PENDIENTE = 0;
+  static PRESTADO = 1;
+  static COMPLETADO = 2;
   constructor(
     public id: number,
     public monto: number,
+    public estado: number,
     public monto_pago: number,
     public cambio_pago:number,
     public facturaid:number,
-    public iscancelado:boolean,
-    public isprestado:boolean,
     public fecha: Date,
     public fecha_pago: Date|null,
     public notificar: boolean,
@@ -16,9 +20,43 @@ export class DetalleUsuarioFacturas{
     public servicioid : number,
     public usuarioid : number,
     public Usuario: Usuario,
+    public Servicio: Servicio|null=null,
+    public Factura: Factura|null=null,
   ) {}
 
+  public estadoString() {
+    if(this.estado == DetalleUsuarioFacturas.PENDIENTE){
+      return "Pendiente";
+    }
+    if(this.estado == DetalleUsuarioFacturas.PRESTADO){
+      return "Prestado";
+    }
+    return "Cancelado"
+  }
+
+  public estadoBadge(){
+    if(this.estado == DetalleUsuarioFacturas.PENDIENTE){
+      return "badge bg-danger-subtle text-danger";
+    }
+    if(this.estado == DetalleUsuarioFacturas.PRESTADO){
+      return "badge bg-info-subtle text-info";
+    }
+    return "badge bg-success-subtle text-success";
+  }
+
+  public isCancelado(){
+    return this.estado == DetalleUsuarioFacturas.COMPLETADO;
+  }
+
+  public isPendiente(){
+    return this.estado == DetalleUsuarioFacturas.PENDIENTE;
+  }
+
   public isPrestado(){
-    return this.isprestado?"Prestado":"No Prestado"
+    return this.estado == DetalleUsuarioFacturas.PRESTADO;
+  }
+
+  public saldoRestante(){
+    return this.monto - this.monto_pago;
   }
 }

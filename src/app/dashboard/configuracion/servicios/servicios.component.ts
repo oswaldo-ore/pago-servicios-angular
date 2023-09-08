@@ -5,6 +5,7 @@ import { Servicio } from '../../core/models/servicios.model';
 import { ModalDismissReasons, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { FormBuilder, FormGroup,Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-servicios',
@@ -108,11 +109,26 @@ export class ServiciosComponent {
   }
 
   eliminarServicio(id:number){
-      this.serviciosService.eliminar(id).then((message)=>{
-        this.toastr.success(message);
-        this.cargarServicios();
-      }).catch((error)=>{
-        this.toastr.error(error.message);
-      });
+    Swal.fire({
+      title: '¿Estás seguro?',
+      text: 'Esta acción no se puede deshacer',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Sí, continuar',
+      cancelButtonText: 'Cancelar'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.serviciosService.eliminar(id).then((message)=>{
+          this.toastr.success(message);
+          this.cargarServicios();
+          Swal.fire('Acción confirmada', message, 'success');
+        }).catch((error)=>{
+          this.toastr.error(error.message);
+          Swal.fire('Cancelado', error.message, 'error');
+        });
+      } else if (result.dismiss === Swal.DismissReason.cancel) {
+        Swal.fire('Cancelado', 'La acción ha sido cancelada.', 'error');
+      }
+    });
   }
 }

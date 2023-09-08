@@ -9,7 +9,7 @@ import { Servicio } from '../../core/models/servicios.model';
 import { ModalDismissReasons, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Router } from '@angular/router';
 import { DetalleUsuarioFacturas } from '../../core/models/detalle_factura.models';
-
+import Swal from 'sweetalert2';
 @Component({
   selector: 'app-facturas',
   templateUrl: './facturas.component.html',
@@ -133,13 +133,39 @@ export class FacturasComponent {
     // });
     return parseFloat(monto.toFixed(2));
   }
-  eliminar(id: number) {
-    this.facturaServicio.eliminar(id).then((message) => {
-      this.toastr.success(message);
-      this.cargarFacturas(this.paginacion.currentPage);
-    }).catch((error) => {
-      this.toastr.error(error.message);
+
+  calcularSaldoTotal(detalles: DetalleUsuarioFacturas[]):number{
+    let suma = 0;
+    detalles.forEach(detalle => {
+      if(detalle.isPendiente() ){
+        suma+=detalle.monto - detalle.monto_pago;
+      }
     });
+    return suma;
+  }
+  eliminar(id: number) {
+    Swal.fire({
+      title: '¿Estás seguro?',
+      text: 'Esta acción no se puede deshacer',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Sí, continuar',
+      cancelButtonText: 'Cancelar'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.facturaServicio.eliminar(id).then((message) => {
+          this.toastr.success(message);
+          this.cargarFacturas(this.paginacion.currentPage);
+          Swal.fire('Acción confirmada', message, 'success');
+        }).catch((error) => {
+          this.toastr.error(error.message);
+          Swal.fire('Cancelado', error.message, 'error');
+        });
+      } else if (result.dismiss === Swal.DismissReason.cancel) {
+        Swal.fire('Cancelado', 'La acción ha sido cancelada.', 'error');
+      }
+    });
+
   }
 
   navigateToDetalle(id: number) {

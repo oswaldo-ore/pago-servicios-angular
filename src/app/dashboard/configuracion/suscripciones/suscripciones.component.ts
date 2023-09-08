@@ -10,6 +10,7 @@ import { UsuariosService } from '../../core/services/usuarios.service';
 import { Servicio } from '../../core/models/servicios.model';
 import { Usuario } from '../../core/models/usuario.model';
 import { Router } from '@angular/router';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-suscripciones',
@@ -163,11 +164,26 @@ export class SuscripcionesComponent {
   }
 
   eliminarSuscripcion(id: number) {
-    this.suscripcionService.eliminar(id).then((message) => {
-      this.toastr.success(message);
-      this.cargarSuscripciones(this.paginacion.currentPage);
-    }).catch((error) => {
-      this.toastr.error(error.message);
+    Swal.fire({
+      title: '¿Estás seguro?',
+      text: 'Esta acción no se puede deshacer',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Sí, continuar',
+      cancelButtonText: 'Cancelar'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.suscripcionService.eliminar(id).then((message) => {
+          this.toastr.success(message);
+          this.cargarSuscripciones(this.paginacion.currentPage);
+          Swal.fire('Acción confirmada', message, 'success');
+        }).catch((error) => {
+          this.toastr.error(error.message);
+          Swal.fire('Cancelado', error.message, 'error');
+        });
+      } else if (result.dismiss === Swal.DismissReason.cancel) {
+        Swal.fire('Cancelado', 'La acción ha sido cancelada.', 'error');
+      }
     });
   }
 

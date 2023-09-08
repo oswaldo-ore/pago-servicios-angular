@@ -43,7 +43,7 @@ import { DetallepagousuarioComponent } from './configuracion/detallepagousuario/
     MatDatepickerModule,
     MatCardModule,
     MatNativeDateModule,
-    MatCheckboxModule,
+    MatCheckboxModule
   ],
 })
 export class DashboardModule { }

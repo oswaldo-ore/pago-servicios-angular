@@ -76,7 +76,7 @@ export class DetallefacturaComponent {
 
   abrirModal(detalleFacturaId:number,monto:number,monto_pago:number) {
     this.detalleFacturaId = detalleFacturaId;
-    this.form.get('monto')?.setValue(monto-monto_pago);
+    this.form.get('monto')?.setValue((monto-monto_pago).toFixed(2));
     this.modalService.open(this.modalContent, { ariaLabelledBy: 'modal-basic-title' });
   }
 

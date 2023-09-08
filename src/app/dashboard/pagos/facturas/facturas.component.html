@@ -32,9 +32,9 @@
                     <th class="gridjs-th gridjs-th-sort" data-sort="id">#</th>
                     <th class="gridjs-th sort" data-sort="nombre">Fecha</th>
                     <th class="gridjs-th sort" data-sort="apellidos">Monto</th>
+                    <th class="gridjs-th sort" data-sort="apellidos">Saldo</th>
                     <th class="gridjs-th sort" data-sort="apellidos">Estado</th>
                     <th class="gridjs-th sort" data-sort="estado">Foto Factura</th>
-                    <th class="gridjs-th sort" data-sort="asociado_con">Servicio</th>
                     <th class="gridjs-th sort" data-sort="opciones">Opciones</th>
                   </tr>
                 </thead>
@@ -44,10 +44,16 @@
                       <ngb-highlight [result]="data.id.toString()"></ngb-highlight>
                     </td>
                     <td class="gridjs-td">
-                      <ngb-highlight [result]="formatDate(data.fecha)"></ngb-highlight>
+                      <div class="">
+                        <div class=" mb-1"><strong>{{data.Servicio.nombre}}</strong></div>
+                        <div class="">{{formatDate(data.fecha)}}</div>
+                      </div>
                     </td>
                     <td class="gridjs-td">
                       <ngb-highlight [result]="data.monto.toString()"></ngb-highlight>
+                    </td>
+                    <td class="gridjs-td">
+                      <ngb-highlight [result]="calcularSaldoTotal(data.DetalleUsuarioFacturas).toString()"></ngb-highlight>
                     </td>
                     <td class="gridjs-td">
                       <ngb-highlight [result]=" data.estadoString()" class="{{data.estadoBadge()}}"></ngb-highlight><br>
@@ -60,10 +66,6 @@
                         <img src="{{data.getIcono()}}" alt="" style="height: 60px;">
                       </a>
                     </td>
-                    <td class="gridjs-td">
-                      <ngb-highlight [result]="data.Servicio.nombre"></ngb-highlight>
-                    </td>
-
                     <td class="gridjs-td">
                       <a type="button" class="btn btn-secondary btn-icon btn-sm waves-effect waves-light me-2"
                         (click)="navigateToDetalle(data.id)"><i class=" ri-eye-line"></i></a>

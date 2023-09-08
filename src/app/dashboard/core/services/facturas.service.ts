@@ -31,7 +31,29 @@ export class FacturasService {
             facturaData.foto_factura,
             facturaData.servicioid,
             facturaData.Servicio,
-            facturaData.DetalleUsuarioFacturas
+            facturaData.DetalleUsuarioFacturas.map(
+              (detalle: { id: number; monto: number; estado: number; monto_pago: number;
+                cambio_pago: number; facturaid: number; fecha: string | number | Date;
+                fecha_pago: string | number | Date; notificar: boolean; visto: number;
+                servicioid: number; usuarioid: number; Usuario: { id: number; nombre: string;
+                  apellidos: string; estado: number; };
+              })=>{
+              return new DetalleUsuarioFacturas(
+                detalle.id,
+                detalle.monto,
+                detalle.estado,
+                detalle.monto_pago,
+                detalle.cambio_pago,
+                detalle.facturaid,
+                new Date(detalle.fecha),
+                detalle.fecha_pago?new Date(detalle.fecha_pago):null,
+                detalle.notificar,
+                detalle.visto,
+                detalle.servicioid,
+                detalle.usuarioid,
+                new Usuario(detalle.Usuario.id,detalle.Usuario.nombre,detalle.Usuario.apellidos,detalle.Usuario.estado),
+                );
+            }),
           ));
           response.data.data = facturaArray;
           return response.data;

@@ -1,0 +1,52 @@
+<div class="modal-header">
+  <h4 class="modal-title" id="modal-basic-title">{{ isCreating? "Agregar Usuario":"Editar usuario" }}</h4>
+  <button type="button" class="btn-close" aria-label="Close" (click)="closeModal()"></button>
+</div>
+<div class="modal-body">
+  <form [formGroup]="form">
+    <div class="mb-3">
+      <mat-form-field class="example-full-width">
+        <mat-label>Nombre:</mat-label>
+        <input matInput formControlName="nombre" class="mat-small" placeholder="Ej. Juan, Andres, Leydi." value="">
+        <!-- <mat-hint>Errors appear instantly!</mat-hint> -->
+        <mat-error *ngIf="form.get('nombre')!.hasError('required') && form.get('nombre')!.touched">
+          El nombre del usuario es requerido
+        </mat-error>
+      </mat-form-field>
+    </div>
+    <div class="mb-3">
+      <mat-form-field class="example-full-width">
+        <mat-label>Apellidos:</mat-label>
+        <input matInput formControlName="apellidos" class="mat-small" placeholder="" value="">
+        <!-- <mat-hint>Errors appear instantly!</mat-hint> -->
+        <mat-error *ngIf="form.get('apellidos')!.hasError('required') && form.get('apellidos')!.touched">
+          El campo apellidos es requerido
+        </mat-error>
+      </mat-form-field>
+    </div>
+    <div class="mb-3">
+      <mat-form-field class="example-full-width">
+        <mat-label>Cod. pais:</mat-label>
+        <input matInput formControlName="cod_pais" class="mat-small" placeholder="" value="">
+        <!-- <mat-hint>Errors appear instantly!</mat-hint> -->
+        <mat-error *ngIf="form.get('cod_pais')!.hasError('required') && form.get('cod_pais')!.touched">
+          El campo cod_pais es requerido
+        </mat-error>
+      </mat-form-field>
+    </div>
+    <div class="mb-3">
+      <mat-form-field class="example-full-width">
+        <mat-label>Telefono:</mat-label>
+        <input matInput formControlName="telefono" class="mat-small" placeholder="" value="">
+        <!-- <mat-hint>Errors appear instantly!</mat-hint> -->
+        <mat-error *ngIf="form.get('telefono')!.hasError('required') && form.get('telefono')!.touched">
+          El campo telefono es requerido
+        </mat-error>
+      </mat-form-field>
+    </div>
+  </form>
+</div>
+<div class="modal-footer">
+  <button type="button" class="btn btn-light" (click)="closeModal()">Cancelar</button>
+  <button type="button" class="btn btn-outline-dark" (click)="saveUser()">Guardar</button>
+</div>

@@ -6,7 +6,7 @@
           <div class="col-sm-auto">
             <div>
               <h4 class="card-title mb-0 flex-grow-1">Usuarios
-                <a class="btn btn-success btn-sm" (click)="open(content)"><i class="ri-add-line align-bottom me-1"></i>
+                <a class="btn btn-success btn-sm" (click)="open()"><i class="ri-add-line align-bottom me-1"></i>
                   Agregar</a>
               </h4>
             </div>
@@ -43,7 +43,13 @@
                       <ngb-highlight [result]="data.id.toString()"></ngb-highlight>
                     </td>
                     <td class="gridjs-td">
-                      <ngb-highlight [result]="data.nombre+' '+data.apellidos"></ngb-highlight>
+                      <div class="">
+                        {{data.nombre+' '+data.apellidos}}
+                      </div>
+                      <span class="badge bg-info-subtle text-info">
+                        {{ data.cod_pais==""?"Sin numero":data.cod_pais+' '+data.telefono }}
+                      </span>
+                      <!-- <ngb-highlight [result]=""></ngb-highlight> -->
                     </td>
                     <td class="gridjs-td">
                       <ngb-highlight [result]="data.suma_montos.toString()"></ngb-highlight>
@@ -53,11 +59,15 @@
                         class="badge {{ data.estado==1?'bg-success-subtle text-success':'bg-danger-subtle text-danger' }}"></ngb-highlight>
                     </td>
                     <td class="gridjs-td">
-                      <div  [innerHTML]="serviciosAString(data.Servicios)"></div>
+                      <div [innerHTML]="serviciosAString(data.Servicios)"></div>
                     </td>
                     <td class="gridjs-td">
-                      <a type="button" class="btn btn-danger btn-icon btn-sm waves-effect waves-light" (click)="eliminarUsuario(data.id)" ><i class="ri-delete-bin-5-line"></i></a>
-                      <a type="button" class="btn btn-info btn-icon btn-sm waves-effect waves-light ms-1" (click)="verDetalle(data.id)" ><i class="ri-article-line"></i></a>
+                      <a type="button" class="btn btn-info btn-icon btn-sm waves-effect waves-light"
+                        (click)="verDetalle(data.id)"><i class="ri-article-line"></i></a>
+                      <a type="button" class="btn btn-success btn-icon btn-sm waves-effect waves-light ms-1"
+                        (click)="open(false,data)"><i class="ri-article-line"></i></a>
+                      <a type="button" class="btn btn-danger btn-icon btn-sm waves-effect waves-light ms-1"
+                        (click)="eliminarUsuario(data.id)"><i class="ri-delete-bin-5-line"></i></a>
                     </td>
                   </tr>
                 </tbody>
@@ -77,11 +87,8 @@
               </div> -->
               <div class="col-sm-auto ms-auto">
                 <div class="text-sm-right float-end listjs-pagination">
-                  <ngb-pagination
-                  [(page)]="paginacion.currentPage"
-                  [pageSize]="limit"
-                    [collectionSize]="paginacion.total" [maxSize]="5" i18n="false"
-                    (pageChange)="onPageChange($event)">
+                  <ngb-pagination [(page)]="paginacion.currentPage" [pageSize]="limit"
+                    [collectionSize]="paginacion.total" [maxSize]="5" i18n="false" (pageChange)="onPageChange($event)">
                   </ngb-pagination>
                 </div>
               </div>
@@ -92,40 +99,3 @@
     </div>
   </div>
 </div>
-
-
-
-<ng-template #content let-modal>
-  <div class="modal-header">
-    <h4 class="modal-title" id="modal-basic-title">Agregar Usuario</h4>
-    <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
-  </div>
-  <div class="modal-body">
-    <form [formGroup]="form">
-      <div class="mb-3">
-        <mat-form-field class="example-full-width">
-          <mat-label>Nombre:</mat-label>
-          <input matInput formControlName="nombre" class="mat-small" placeholder="Ej. Juan, Andres, Leydi." value="">
-          <!-- <mat-hint>Errors appear instantly!</mat-hint> -->
-          <mat-error *ngIf="form.get('nombre')!.hasError('required') && form.get('nombre')!.touched">
-            El nombre del usuario es requerido
-          </mat-error>
-        </mat-form-field>
-      </div>
-      <div class="mb-3">
-        <mat-form-field class="example-full-width">
-          <mat-label>Apellidos:</mat-label>
-          <input matInput formControlName="apellidos" class="mat-small" placeholder="" value="">
-          <!-- <mat-hint>Errors appear instantly!</mat-hint> -->
-          <mat-error *ngIf="form.get('apellidos')!.hasError('required') && form.get('apellidos')!.touched">
-            El campo apellidos es requerido
-          </mat-error>
-        </mat-form-field>
-      </div>
-    </form>
-  </div>
-  <div class="modal-footer">
-    <button type="button" class="btn btn-light" (click)="modal.dismiss('cancelar')">Cancelar</button>
-    <button type="button" class="btn btn-outline-dark" (click)="submitForm()" >Guardar</button>
-  </div>
-</ng-template>

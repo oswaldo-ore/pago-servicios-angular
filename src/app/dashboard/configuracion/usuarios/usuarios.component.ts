@@ -8,6 +8,7 @@ import { Usuario } from '../../core/models/usuario.model';
 import { Servicio } from '../../core/models/servicios.model';
 import { Router } from '@angular/router';
 import Swal from 'sweetalert2';
+import { UserModalComponent } from './user-modal/user-modal.component';
 
 @Component({
   selector: 'app-usuarios',
@@ -34,7 +35,9 @@ export class UsuariosComponent {
   ) {
     this.form = formBuilder.group({
       nombre: ['',Validators.required],
-      apellidos: ['',Validators.required]
+      apellidos: ['',Validators.required],
+      cod_pais: ['',Validators.required],
+      telefono: ['',Validators.required]
     });
   }
 
@@ -83,13 +86,19 @@ export class UsuariosComponent {
     // const serviciosList = nombresServicios.map(nombre => `<li>${nombre}</li>`).join('');
     return `<ul class="mb-0">${serviciosList}</ul>`;
   }
-  open(content: any) {
-    this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title' }).result.then(
-      (result) => {
-        this.closeResult = `Closed with: ${result}`;
+  open(isCreating:boolean = true,usuario:Usuario|any=null) {
+    const modalRef = this.modalService.open(UserModalComponent);
+    modalRef.componentInstance.isCreating = isCreating;
+    if(!isCreating){
+      modalRef.componentInstance.usuario = usuario;
+    }
+    modalRef.result.then(
+      (result)=>{
+        this.toastr.success(result.message);
+        this.cargarUsuarios();
       },
       (reason) => {
-        this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+        console.log(reason);
       },
     );
   }
@@ -105,21 +114,21 @@ export class UsuariosComponent {
     }
   }
 
-  public submitForm(){
-    if(this.form.valid){
-      let nombre = this.form.get('nombre')?.value;
-      let apellidos = this.form.get('apellidos')?.value??"";
-      this.usuarioService.crearUsuario(nombre,apellidos).then(
-        (response) => {
-          this.modalService.dismissAll();
-          this.toastr.success(response.message);
-          this.cargarUsuarios();
-        }
-      ).catch(error => {
-        this.toastr.success(error.message);
-      });
-    }
-  }
+  // public submitForm(){
+  //   if(this.form.valid){
+  //     let nombre = this.form.get('nombre')?.value;
+  //     let apellidos = this.form.get('apellidos')?.value??"";
+  //     this.usuarioService.crearUsuario(nombre,apellidos).then(
+  //       (response) => {
+  //         this.modalService.dismissAll();
+  //         this.toastr.success(response.message);
+  //         this.cargarUsuarios();
+  //       }
+  //     ).catch(error => {
+  //       this.toastr.success(error.message);
+  //     });
+  //   }
+  // }
 
   eliminarUsuario(id:number){
     Swal.fire({

@@ -19,6 +19,7 @@ import { DetallefacturaComponent } from './pagos/detallefactura/detallefactura.c
 import { MedidoresComponent } from './configuracion/medidores/medidores.component';
 import {MatCheckboxModule} from '@angular/material/checkbox';
 import { DetallepagousuarioComponent } from './configuracion/detallepagousuario/detallepagousuario.component';
+import { UserModalComponent } from './configuracion/usuarios/user-modal/user-modal.component';
 @NgModule({
   declarations: [
     ServiciosComponent,
@@ -27,7 +28,8 @@ import { DetallepagousuarioComponent } from './configuracion/detallepagousuario/
     FacturasComponent,
     MedidoresComponent,
     DetallefacturaComponent,
-    DetallepagousuarioComponent
+    DetallepagousuarioComponent,
+    UserModalComponent
   ],
   imports: [
     CommonModule,

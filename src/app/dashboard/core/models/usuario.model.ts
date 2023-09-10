@@ -8,5 +8,7 @@ export class Usuario{
     public estado: number,
     public Servicios: Servicio[]=[],
     public suma_montos: number = 0,
+    public cod_pais:string="",
+    public telefono:string="",
   ) {}
 }

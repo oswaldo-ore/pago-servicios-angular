@@ -38,9 +38,26 @@ export class UsuariosService {
     );
   }
 
-  async crearUsuario(nombre: string, apellidos: string) {
-    const params = new HttpParams().set('nombre', nombre).set('apellidos', apellidos);
+  async crearUsuario(nombre: string, apellidos: string,codPais: string,telefono:string) {
+    const params = new HttpParams()
+    .set('nombre', nombre)
+    .set('apellidos', apellidos)
+    .set('cod_pais', codPais)
+    .set('telefono', telefono);
     let response = await this.http.post<any>(GlobalComponent.usuarios_crear, params).toPromise();
+    if (response.success) {
+      return response;
+    }
+    throw response.message;
+  }
+
+  async updateUsuario(id:number,nombre: string, apellidos: string,codPais: string,telefono:string) {
+    const params = new HttpParams()
+    .set('nombre', nombre)
+    .set('apellidos', apellidos)
+    .set('cod_pais', codPais)
+    .set('telefono', telefono);
+    let response = await this.http.put<any>(GlobalComponent.usuarios_update.replace(":id",id.toString()) , params).toPromise();
     if (response.success) {
       return response;
     }

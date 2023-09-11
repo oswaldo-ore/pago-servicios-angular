@@ -11,6 +11,7 @@ import { Servicio } from '../../core/models/servicios.model';
 import { Usuario } from '../../core/models/usuario.model';
 import { Router } from '@angular/router';
 import Swal from 'sweetalert2';
+import { SuscripcionModalComponent } from './suscripcion-modal/suscripcion-modal.component';
 
 @Component({
   selector: 'app-suscripciones',
@@ -96,29 +97,27 @@ export class SuscripcionesComponent {
     );
   }
 
-  open(content: any) {
-    this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title', size: 'xl' }).result.then(
-      (result) => {
-        this.closeResult = `Closed with: ${result}`;
+  open(isCreating:boolean=true,suscripcion:Suscripcion|any=null) {
+    const modalRef =  this.modalService.open(SuscripcionModalComponent,{
+      size: 'lg'
+    });
+    modalRef.componentInstance.isCreating = isCreating;
+    modalRef.componentInstance.servicios = this.servicios;
+    modalRef.componentInstance.usuarios = this.usuarios;
+    modalRef.componentInstance.serviciosFijo = this.servicios;
+    if(!isCreating){
+      modalRef.componentInstance.suscripcion = suscripcion;
+    }
+    modalRef.result.then(
+      (result)=>{
+        this.toastr.success(result.message);
+        this.cargarSuscripciones(this.paginacion.currentPage);
       },
-      (reason) => {
-        this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
-      },
+      (reason)=>{
+        console.log(reason);
+      }
     );
   }
-
-  private getDismissReason(reason: any): string {
-    this.form.reset();
-    if (reason === ModalDismissReasons.ESC) {
-      return 'by pressing ESC';
-    } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
-      return 'by clicking on a backdrop';
-    } else {
-      return `with: ${reason}`;
-    }
-  }
-
-
 
   public getestado(estado: boolean) {
     return estado ? "Activo" : "Inactivo";
@@ -141,28 +140,6 @@ export class SuscripcionesComponent {
 
     return a;
   }
-
-  submitForm() {
-    if (!this.form.valid) {
-      return;
-    }
-    let usuario_id = this.form.get('usuario')?.value;
-    let servicio_id = this.form.get('servicio')?.value;
-    let tipo = this.form.get('tipo')?.value;
-    let monto = this.form.get('monto')?.value;
-
-    this.suscripcionService.crearSuscripcion(usuario_id, servicio_id, tipo, monto, tipo == "medidor").then(
-      (response) => {
-        this.form.reset();
-        this.modalService.dismissAll();
-        this.toastr.success(response.message);
-        this.cargarSuscripciones(this.paginacion.currentPage);
-      }
-    ).catch(error => {
-      this.toastr.error(error.message);
-    });
-  }
-
   eliminarSuscripcion(id: number) {
     Swal.fire({
       title: '¿Estás seguro?',
@@ -185,29 +162,6 @@ export class SuscripcionesComponent {
         Swal.fire('Cancelado', 'La acción ha sido cancelada.', 'error');
       }
     });
-  }
-
-  cambioUsuario(event: any) {
-    let usuarioIdSeleccionado = this.form.get('usuario')?.value;
-    let usuario = this.usuarios.find((usuario) => usuario.id == usuarioIdSeleccionado);
-    if (usuario) {
-      let serviciosIds = usuario?.Servicios.map((servicio) => servicio.id);
-      this.servicios = this.serviciosFijo.filter((servicio) => !serviciosIds.includes(servicio.id));
-    }
-  }
-
-  cambiarServicio(event: any) {
-    console.log(this.form.get('servicio')?.value);
-  }
-
-  cambiarTipo(event: any) {
-    let tipo = this.form.get('tipo')?.value;
-    console.log(this.form.get('tipo')?.value);
-    if (tipo != "fijo") {
-      this.form.get('monto')?.clearValidators();
-    } else {
-      this.form.get('monto')?.setValidators([Validators.required]);
-    }
   }
 
   verRegistroDeMedidor(suscripcionId:number,servicio:Servicio, usuario: Usuario){

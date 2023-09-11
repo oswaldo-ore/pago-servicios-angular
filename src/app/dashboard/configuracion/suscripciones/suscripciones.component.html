@@ -6,7 +6,7 @@
           <div class="col-sm-auto">
             <div>
               <h4 class="card-title mb-0 flex-grow-1">Suscripciones
-                <a class="btn btn-success btn-sm" (click)="open(content)"><i class="ri-add-line align-bottom me-1"></i>
+                <a class="btn btn-success btn-sm" (click)="open()"><i class="ri-add-line align-bottom me-1"></i>
                   Agregar</a>
               </h4>
             </div>
@@ -66,10 +66,12 @@
                     </td>
 
                     <td class="gridjs-td">
-                      <a type="button" class="btn btn-danger btn-icon btn-sm waves-effect waves-light me-2" (click)="eliminarSuscripcion(data.id)"><i class="ri-delete-bin-5-line"></i></a>
-                      <a type="button" class="btn btn-primary btn-icon btn-sm waves-effect waves-light"
+                      <a type="button" class="btn btn-primary btn-icon btn-sm waves-effect waves-light me-2"
                         *ngIf="data.tiene_medidor"
                         (click)="verRegistroDeMedidor(data.id,data.Servicio,data.Usuario)" title="Ver registro de medidores"><i class="ri-survey-line"></i></a>
+                      <a type="button" class="btn btn-success btn-icon btn-sm waves-effect waves-light me-2" (click)="open(false,data)"><i class='bx bx-edit-alt'></i></a>
+                      <a type="button" class="btn btn-danger btn-icon btn-sm waves-effect waves-light me-2" (click)="eliminarSuscripcion(data.id)"><i class="ri-delete-bin-5-line"></i></a>
+
                     </td>
                   </tr>
                 </tbody>
@@ -100,61 +102,3 @@
 
 
 
-<ng-template #content let-modal>
-  <div class="modal-header">
-    <h4 class="modal-title" id="modal-basic-title">Agregar Usuario</h4>
-    <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
-  </div>
-  <div class="modal-body">
-    <form [formGroup]="form">
-      <div class="row">
-        <div class="mb-3 col-md-4">
-          <mat-form-field class="example-full-width">
-            <mat-label>Usuario</mat-label>
-            <mat-select formControlName="usuario" (selectionChange)="cambioUsuario($event)">
-              <mat-option [value]="">Ninguno</mat-option>
-              <mat-option *ngFor="let usuario of usuarios" [value]="usuario.id">{{usuario.nombre}}</mat-option>
-            </mat-select>
-
-          </mat-form-field>
-        </div>
-        <div class="mb-3 col-md-4">
-          <mat-form-field class="example-full-width">
-            <mat-label>Servicio</mat-label>
-            <mat-select formControlName="servicio" (selectionChange)="cambiarServicio($event)">
-              <mat-option >Ninguno</mat-option>
-              <mat-option *ngFor="let servicio of servicios" [value]="servicio.id">{{servicio.nombre}}</mat-option>
-            </mat-select>
-          </mat-form-field>
-        </div>
-        <div class="mb-3 col-md-4">
-          <mat-form-field class="example-full-width">
-            <mat-label >Tipo</mat-label>
-            <mat-select  formControlName="tipo" (selectionChange)="cambiarTipo($event)">
-              <mat-option value="fijo" >Fijo</mat-option>
-              <mat-option value="calcular">Calcular</mat-option>
-              <mat-option value="medidor">Medidor</mat-option>
-            </mat-select>
-          </mat-form-field>
-        </div>
-
-        <div class="col-md-6" *ngIf="form.get('tipo')?.value == 'fijo'">
-          <mat-form-field class="example-full-width">
-            <mat-label>Monto</mat-label>
-            <input type="number" matInput formControlName="monto" placeholder="Ingrese el monto de cobro del servicio">
-            <mat-error *ngIf="form.get('monto')?.hasError('monto') && !form.get('monto')?.hasError('required')">
-                El campo monto esta incorrecto
-            </mat-error>
-            <mat-error *ngIf="form.get('monto')?.hasError('required')">
-              El campo Monto es <strong>requerido</strong>
-            </mat-error>
-          </mat-form-field>
-        </div>
-      </div>
-    </form>
-  </div>
-  <div class="modal-footer">
-    <button type="button" class="btn btn-light" (click)="modal.dismiss('cancelar')">Cancelar</button>
-    <button type="button" class="btn btn-outline-dark" (click)="submitForm()" >Guardar</button>
-  </div>
-</ng-template>

@@ -65,6 +65,20 @@ export class SuscripcionService {
     throw response.message;
   }
 
+  async updateSuscripcion(id:number,usuarioId:number,servicioId:number,tipo:string, monto:number,tieneMedidor:boolean){
+    const params = new HttpParams()
+    .set('servicioid', servicioId)
+    .set('usuarioid', usuarioId)
+    .set('tipo', tipo)
+    .set('monto', monto)
+    .set('tiene_medidor', tieneMedidor);
+    let response = await this.http.put<any>(GlobalComponent.suscripciones_actualizar.replace(":id",id.toString()),params).toPromise();
+    if(response.success){
+      return response;
+    }
+    throw response.message;
+  }
+
   async crearMedidorDeSuscripcion(
     usuarioId:number,
     servicioId:number,

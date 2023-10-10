@@ -61,8 +61,7 @@ export class FacturasComponent {
     this.facturaServicio.getPaginacion(page, this.limit).subscribe(
       (response: PaginationModel<Factura>) => {
         this.paginacion = response;
-        console.log(this.paginacion);
-
+        console.log(response);
       },
       error => {
         this.toastr.error("Error al cargar los usuarios", error.message);
@@ -71,6 +70,7 @@ export class FacturasComponent {
   }
 
   onPageChange(page = 1) {
+    this.paginacion.currentPage = page;
     this.cargarFacturas(page);
   }
 

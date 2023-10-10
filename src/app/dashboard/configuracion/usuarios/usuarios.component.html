@@ -62,10 +62,12 @@
                       <div [innerHTML]="serviciosAString(data.Servicios)"></div>
                     </td>
                     <td class="gridjs-td">
-                      <a type="button" class="btn btn-info btn-icon btn-sm waves-effect waves-light"
+                      <a type="button" *ngIf="data.suma_montos > 0" class="btn btn-primary btn-icon waves-effect waves-light btn-sm"
+                        (click)="showModalBuy(data.id,data.suma_montos)"><i class="ri-money-dollar-circle-line"></i></a>
+                      <a type="button" class="btn btn-info btn-icon btn-sm waves-effect waves-light ms-1"
                         (click)="verDetalle(data.id)"><i class="ri-article-line"></i></a>
                       <a type="button" class="btn btn-success btn-icon btn-sm waves-effect waves-light ms-1"
-                        (click)="open(false,data)"><i class="ri-article-line"></i></a>
+                        (click)="open(false,data)"><i class="ri-edit-line"></i></a>
                       <a type="button" class="btn btn-danger btn-icon btn-sm waves-effect waves-light ms-1"
                         (click)="eliminarUsuario(data.id)"><i class="ri-delete-bin-5-line"></i></a>
                     </td>

@@ -9,6 +9,7 @@ import { Servicio } from '../../core/models/servicios.model';
 import { Router } from '@angular/router';
 import Swal from 'sweetalert2';
 import { UserModalComponent } from './user-modal/user-modal.component';
+import { UserBuyModalComponent } from './user-buy-modal/user-buy-modal.component';
 
 @Component({
   selector: 'app-usuarios',
@@ -156,5 +157,21 @@ export class UsuariosComponent {
 
   verDetalle(usuarioId:number){
     this.router.navigate(['/usuario/detalle-deudas/', usuarioId]);
+  }
+
+  showModalBuy(usuarioId:number,monto:number){
+    const modalRef = this.modalService.open(UserBuyModalComponent);
+    modalRef.componentInstance.montoDebePagar = monto;
+    modalRef.componentInstance.usuarioId = usuarioId;
+    modalRef.result.then(
+      (result)=>{
+        this.toastr.success(result.message);
+        this.cargarUsuarios();
+      },
+      (reason) => {
+        console.log(reason);
+      },
+    );
+
   }
 }

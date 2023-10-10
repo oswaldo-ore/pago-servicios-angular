@@ -18,6 +18,7 @@ export const GlobalComponent = {
     usuarios_update: URL_BASE + 'usuarios/:id',
     usuarios_eliminar: URL_BASE + 'usuarios/',
     usuarios_listar_deudas: URL_BASE + 'usuarios/:id/deudas',
+    usuarios_pagar_deudas: URL_BASE + 'usuarios/:id/pagar',
 
     suscripciones_listar: URL_BASE + 'suscripciones/listar',
     suscripciones_crear: URL_BASE + 'suscripciones/crear',

@@ -21,6 +21,7 @@ import {MatCheckboxModule} from '@angular/material/checkbox';
 import { DetallepagousuarioComponent } from './configuracion/detallepagousuario/detallepagousuario.component';
 import { UserModalComponent } from './configuracion/usuarios/user-modal/user-modal.component';
 import { SuscripcionModalComponent } from './configuracion/suscripciones/suscripcion-modal/suscripcion-modal.component';
+import { UserBuyModalComponent } from './configuracion/usuarios/user-buy-modal/user-buy-modal.component';
 @NgModule({
   declarations: [
     ServiciosComponent,
@@ -31,7 +32,8 @@ import { SuscripcionModalComponent } from './configuracion/suscripciones/suscrip
     DetallefacturaComponent,
     DetallepagousuarioComponent,
     UserModalComponent,
-    SuscripcionModalComponent
+    SuscripcionModalComponent,
+    UserBuyModalComponent
   ],
   imports: [
     CommonModule,

@@ -1,0 +1,24 @@
+<div class="modal-header">
+  <h4 class="modal-title" id="modal-basic-title"></h4>
+  <button type="button" class="btn-close" aria-label="Close" (click)="closeModal()"></button>
+</div>
+<div class="modal-body">
+  <form [formGroup]="form">
+    <div class="mb-3">
+      <mat-form-field class="example-full-width">
+        <mat-label>Monto a pagar</mat-label>
+        <input type="number" matInput formControlName="monto_pagar" placeholder="Ingrese el monto de cobro del servicio" [value]="form.get('monto_pagar')?.value">
+        <mat-error *ngIf="form.get('monto_pagar')?.hasError('monto_pagar') && !form.get('monto_pagar')?.hasError('required')">
+            El campo monto_pagar esta incorrecto
+        </mat-error>
+        <mat-error *ngIf="form.get('monto_pagar')?.hasError('monto_pagar')">
+          El campo monto_pagar es <strong>requerido</strong>
+        </mat-error>
+      </mat-form-field>
+    </div>
+  </form>
+</div>
+<div class="modal-footer">
+  <button type="button" class="btn btn-light" (click)="closeModal()">Cancelar</button>
+  <button type="button" class="btn btn-outline-dark" (click)="saveBuy()">Guardar</button>
+</div>

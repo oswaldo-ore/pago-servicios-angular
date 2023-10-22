@@ -51,9 +51,9 @@ export class UsuariosService {
     throw response.message;
   }
 
-  async payUserDebtDynamic(usuarioId:number, monto: number) {
+  async payUserDebtDynamic(usuarioId:number, monto: number,descripcion: string) {
     const params = new HttpParams()
-    .set('monto', monto);
+    .set('monto', monto).set('detalle',descripcion);
     let response = await this.http.post<any>(GlobalComponent.usuarios_pagar_deudas.replace(":id",usuarioId.toString()), params).toPromise();
     if (response.success) {
       return response;

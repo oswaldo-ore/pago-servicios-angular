@@ -19,16 +19,15 @@ export class UserBuyModalComponent {
     private usuarioService: UsuariosService,
     private toastr: ToastrService
     ) {
-      this.form = formBuilder.group({
-        monto_pagar:[0,Validators.required],
+      this.form = this.formBuilder.group({
+        monto_pagar: [0,Validators.required],
+        descripcion: ['',Validators.required]
       });
   }
 
   ngOnInit() {
-    console.log(this.montoDebePagar,this.usuarioId);
-    this.form.setValue({
-      monto_pagar: this.montoDebePagar,
-    });
+    this.form.get('monto_pagar')?.setValue(this.montoDebePagar);
+    this.form.get('descripcion')?.setValue("");
   }
 
   closeModal(){
@@ -37,8 +36,11 @@ export class UserBuyModalComponent {
 
   saveBuy(){
     let monto = this.form.get('monto_pagar')?.value;
-
-    this.usuarioService.payUserDebtDynamic(this.usuarioId,monto).then(
+    let descripcion = this.form.get('descripcion')?.value;
+    if(!monto || !descripcion){
+      return;
+    }
+    this.usuarioService.payUserDebtDynamic(this.usuarioId,monto,descripcion).then(
       (response) => {
         this.activeModal.close(response);
       }

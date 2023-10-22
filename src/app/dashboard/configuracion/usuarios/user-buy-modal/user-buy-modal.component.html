@@ -8,11 +8,21 @@
       <mat-form-field class="example-full-width">
         <mat-label>Monto a pagar</mat-label>
         <input type="number" matInput formControlName="monto_pagar" placeholder="Ingrese el monto de cobro del servicio" [value]="form.get('monto_pagar')?.value">
-        <mat-error *ngIf="form.get('monto_pagar')?.hasError('monto_pagar') && !form.get('monto_pagar')?.hasError('required')">
+        <mat-error *ngIf="form.get('monto_pagar')?.hasError('required') && !form.get('monto_pagar')?.hasError('required')">
             El campo monto_pagar esta incorrecto
         </mat-error>
-        <mat-error *ngIf="form.get('monto_pagar')?.hasError('monto_pagar')">
+        <mat-error *ngIf="form.get('monto_pagar')?.hasError('required')">
           El campo monto_pagar es <strong>requerido</strong>
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field class="example-full-width">
+        <mat-label>Descripción</mat-label>
+        <input type="text" matInput formControlName="descripcion" placeholder="Ingrese el monto de cobro del servicio" [value]="">
+        <mat-error *ngIf="form.get('descripcion')!.hasError('required') && !form.get('descripcion')!.hasError('required')">
+            El campo descripcion esta incorrecto
+        </mat-error>
+        <mat-error *ngIf="form.get('descripcion')!.hasError('required')">
+          El campo descripcion es <strong>requerido</strong>
         </mat-error>
       </mat-form-field>
     </div>

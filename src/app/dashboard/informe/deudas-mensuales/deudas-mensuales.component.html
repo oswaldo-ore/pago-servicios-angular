@@ -1,0 +1,108 @@
+<div class="row">
+  <div class="col-lg-12">
+    <div class="card">
+      <div class="card-header">
+        <div class="row g-4 align-items-center">
+          <div class="col-sm-auto">
+            <div>
+              <h4 class="card-title mb-0 flex-grow-1">Deuda Mensuales</h4>
+            </div>
+          </div>
+          <div class="col-sm">
+            <div class="d-flex justify-content-sm-end">
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="card-body">
+        <div class="row mb-4">
+          <mat-form-field>
+            <mat-label>Seleccione una fecha</mat-label>
+            <input matInput [matDatepicker]="dp" [formControl]="date">
+            <mat-datepicker-toggle matIconSuffix [for]="dp"></mat-datepicker-toggle>
+            <mat-datepicker #dp
+                startView="multi-year"
+                (monthSelected)="setMonthAndYear($event, dp)"
+                panelClass="example-month-picker text-capitalize">
+            </mat-datepicker>
+          </mat-form-field>
+        </div>
+        <div class="table-card">
+          <div class="table-responsive ">
+            <div>
+              <table class="gridjs-table">
+                <thead class="gridjs-thead">
+                  <tr class="gridjs-tr">
+                    <th class="gridjs-th gridjs-th-sort" data-sort="id">#</th>
+                    <th class="gridjs-th sort" data-sort="nombre">Mes</th>
+                    <th class="gridjs-th sort" data-sort="nombre">Nombre</th>
+                    <th class="gridjs-th sort" data-sort="monto">Monto (Bs.)</th>
+                    <th class="gridjs-th sort" data-sort="monto_pago">Monto Pago (Bs.)</th>
+                    <th class="gridjs-th sort" data-sort="monto_debe">Monto Debe (Bs.)</th>
+                    <th class="gridjs-th sort">Opciones</th>
+                  </tr>
+                </thead>
+                <tbody class="gridjs-tbody">
+                  <tr class="gridjs-tr" *ngIf="paginacion.data.length === 0">
+                    <td colspan="7" class="text-center gridjs-td">No se encontraron deudas en esta fecha.</td>
+                  </tr>
+                  <tr class="gridjs-tr" *ngFor="let data of paginacion.data" id="o_{{data.id}}">
+                    <td class="gridjs-td">
+                      <ngb-highlight [result]="data.id.toString()"></ngb-highlight>
+                    </td>
+                    <td class="gridjs-td">
+                      <div class="">
+                        <div class=" mb-1 text-capitalize">{{data.mes}}</div>
+                      </div>
+                    </td>
+                    <td class="gridjs-td">
+                      <ngb-highlight [result]="data.Usuario.names()"></ngb-highlight>
+                    </td>
+                    <td class="gridjs-td">
+                      <ngb-highlight [result]="data.monto.toString()"></ngb-highlight>
+                    </td>
+                    <td class="gridjs-td">
+                      <ngb-highlight [result]="data.monto_pago.toString()"></ngb-highlight>
+                    </td>
+                    <td class="gridjs-td">
+                      <ngb-highlight [result]="data.monto_debe.toString()"></ngb-highlight>
+                    </td>
+                    <td class="gridjs-td">
+                      <a type="button" class="btn btn-secondary btn-icon btn-sm waves-effect waves-light me-2"
+                        (click)="navigateToDetalle(data)"><i class=" ri-eye-line"></i></a>
+                      <!-- <a type="button" *ngIf="data.isPendiente()"
+                        class="btn btn-success btn-icon btn-sm waves-effect waves-light me-2"
+                        (click)="cambiarEstadoPrestado(data.id)"><i class="ri-exchange-dollar-line"></i></a>
+                      <a type="button" class="btn btn-danger btn-icon btn-sm waves-effect waves-light"
+                        (click)="eliminar(data.id)"><i class="ri-delete-bin-5-line"></i></a> -->
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <div class="gridjs-footer">
+            <div class="row align-items-center gy-3">
+              <!-- <div class="col-md-6">
+                  <div class="mb-2 gridjs-summary" id="tickets-table_info" role="status"
+                      aria-live="polite">
+                      Showing
+                      <b>{{paginacion.startIndex}}</b> to
+                      <b>{{service.endIndex}}</b> of <b>{{service.totalRecords}}</b>
+                      entries
+                  </div>
+              </div> -->
+              <div class="col-sm-auto ms-auto">
+                <div class="text-sm-right float-end listjs-pagination">
+                  <ngb-pagination [(page)]="paginacion.currentPage" [pageSize]="limit"
+                    [collectionSize]="paginacion.total" [maxSize]="5" i18n="false" (pageChange)="onPageChange($event)">
+                  </ngb-pagination>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

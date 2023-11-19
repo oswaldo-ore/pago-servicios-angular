@@ -11,4 +11,8 @@ export class Usuario{
     public cod_pais:string="",
     public telefono:string="",
   ) {}
+
+  public names() {
+    return this.nombre +" "+ this.apellidos;
+  }
 }

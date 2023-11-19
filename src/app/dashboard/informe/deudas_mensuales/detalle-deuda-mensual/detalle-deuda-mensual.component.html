@@ -1,0 +1,71 @@
+<div class="modal-header">
+  <h4 class="modal-title" id="modal-basic-title">{{ deudaMensual.Usuario.names()}}</h4>
+  <button type="button" class="btn-close" aria-label="Close" (click)="closeModal()"></button>
+</div>
+<div class="modal-body">
+  <div class="row mb-3">
+    <div class="d-flex justify-content-between mb-3">
+      <label for=""> </label>
+      <label for="" class="text-capitalize"> {{ deudaMensual.mes}}</label>
+    </div>
+    <div class="row mb-3 text-center">
+      <div class="col-md-4">
+        Monto: <label for="" class="text-capitalize"> Bs. {{ deudaMensual.monto}} </label>
+      </div>
+      <div class="col-md-4">
+        Monto pago: <label for="" class="text-capitalize"> Bs. {{ deudaMensual.monto_pago}} </label>
+      </div>
+      <div class="col-md-4">
+        Monto debe: <label for="" class="text-capitalize">Bs. {{ deudaMensual.monto_debe}} </label>
+      </div>
+    </div>
+  </div>
+  <div class="">
+    <div class="table-card">
+      <div class="table-responsive ">
+        <div id="Recommended-jobs">
+          <table class="gridjs-table">
+            <thead class="gridjs-thead">
+              <tr class="gridjs-tr">
+                <th class="gridjs-th gridjs-th-sort" data-sort="id">#</th>
+                <th class="gridjs-th sort" data-sort="nombre">Servicio <br> Mes</th>
+                <th class="gridjs-th sort" data-sort="monto">Monto (Bs.)</th>
+                <th class="gridjs-th sort" data-sort="monto_pago">Monto Pago (Bs.)</th>
+                <th class="gridjs-th sort" data-sort="monto_debe">Monto Debe (Bs.)</th>
+              </tr>
+            </thead>
+            <tbody class="gridjs-tbody">
+              <tr class="gridjs-tr" *ngFor="let data of deudaMensual.DetalleDeudaMensual" id="">
+                <td class="gridjs-td">
+                  <ngb-highlight [result]="data.id.toString()"></ngb-highlight>
+                </td>
+                <td class="gridjs-td">
+                  <div class="">
+                    <div class=" mb-1 text-capitalize"><strong>{{data.Servicio.nombre}}</strong></div>
+                    <div class="text-capitalize">{{data.mes}}</div>
+                  </div>
+                </td>
+                <td class="gridjs-td">
+                  <ngb-highlight [result]="data.monto.toString()"></ngb-highlight>
+                </td>
+                <td class="gridjs-td">
+                  <ngb-highlight [result]="data.monto_pago.toString()"></ngb-highlight>
+                </td>
+                <td class="gridjs-td">
+                  <ngb-highlight [result]="data.monto_debe.toString()"></ngb-highlight>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="gridjs-footer">
+        <div class="row align-items-center gy-3">
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="modal-footer">
+  <button type="button" class="btn btn-light" (click)="closeModal()">Cancelar</button>
+</div>

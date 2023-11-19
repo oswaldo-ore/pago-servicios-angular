@@ -7,6 +7,7 @@ import { FacturasComponent } from './pagos/facturas/facturas.component';
 import { DetallefacturaComponent } from './pagos/detallefactura/detallefactura.component';
 import { MedidoresComponent } from './configuracion/medidores/medidores.component';
 import { DetallepagousuarioComponent } from './configuracion/detallepagousuario/detallepagousuario.component';
+import { DeudasMensualesComponent } from './informe/deudas-mensuales/deudas-mensuales.component';
 
 const routes: Routes = [
   {
@@ -30,7 +31,9 @@ const routes: Routes = [
   {
     path: "usuario/detalle-deudas/:id", component: DetallepagousuarioComponent,
   },
-
+  {
+    path: "deudas-mensuales", component: DeudasMensualesComponent,
+  },
 
 ];
 

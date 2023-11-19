@@ -22,6 +22,8 @@ import { DetallepagousuarioComponent } from './configuracion/detallepagousuario/
 import { UserModalComponent } from './configuracion/usuarios/user-modal/user-modal.component';
 import { SuscripcionModalComponent } from './configuracion/suscripciones/suscripcion-modal/suscripcion-modal.component';
 import { UserBuyModalComponent } from './configuracion/usuarios/user-buy-modal/user-buy-modal.component';
+import { DeudasMensualesComponent } from './informe/deudas-mensuales/deudas-mensuales.component';
+import { DetalleDeudaMensualComponent } from './informe/deudas_mensuales/detalle-deuda-mensual/detalle-deuda-mensual.component';
 @NgModule({
   declarations: [
     ServiciosComponent,
@@ -33,7 +35,9 @@ import { UserBuyModalComponent } from './configuracion/usuarios/user-buy-modal/u
     DetallepagousuarioComponent,
     UserModalComponent,
     SuscripcionModalComponent,
-    UserBuyModalComponent
+    UserBuyModalComponent,
+    DeudasMensualesComponent,
+    DetalleDeudaMensualComponent
   ],
   imports: [
     CommonModule,

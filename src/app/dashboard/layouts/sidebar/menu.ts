@@ -44,5 +44,18 @@ export const MENU: MenuItem[] = [
       },
     ]
   },
+  {
+    id: 9,
+    label: 'Informes',
+    icon: 'ri-article-line',
+    subItems: [
+      {
+        id: 9,
+        label: 'Deudas Mensuales',
+        link: '/deudas-mensuales',
+        parentId: 8
+      },
+    ]
+  },
 
 ];

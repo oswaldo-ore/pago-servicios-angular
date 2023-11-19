@@ -36,6 +36,7 @@ export const GlobalComponent = {
 
     detalle_factura_pagar: URL_BASE + 'detalle/factura/pagar',
     detalle_factura_devolver: URL_BASE + 'detalle/factura/devolver',
+    deudas_mensuales: URL_BASE + 'deudas-mensuales',
 
 
 }

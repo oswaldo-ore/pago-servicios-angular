@@ -12,25 +12,25 @@ export const MENU: MenuItem[] = [
     icon: ' ri-settings-5-line',
     subItems: [
       {
-        id: 4,
+        id: 3,
         label: 'Servicios',
         link: '/servicios',
         parentId: 2
       },
       {
-        id: 5,
+        id: 4,
         label: 'Clientes',
         link: '/usuarios',
         parentId: 2
       },
       {
-        id: 6,
+        id: 5,
         label: 'Suscripciones',
         link: '/suscripciones',
         parentId: 2
       },
       {
-        id: 15,
+        id: 6,
         label: 'Whatsapp',
         link: '/whatsapp',
         parentId: 2
@@ -38,15 +38,15 @@ export const MENU: MenuItem[] = [
     ]
   },
   {
-    id: 8,
+    id: 7,
     label: 'Registro pagos',
     icon: 'ri-apps-2-line',
     subItems: [
       {
-        id: 9,
+        id: 8,
         label: 'Facturas',
         link: '/facturas',
-        parentId: 8
+        parentId: 7
       },
     ]
   },
@@ -56,10 +56,10 @@ export const MENU: MenuItem[] = [
     icon: 'ri-article-line',
     subItems: [
       {
-        id: 9,
+        id: 10,
         label: 'Deudas Mensuales',
         link: '/deudas-mensuales',
-        parentId: 8
+        parentId: 9
       },
     ]
   },

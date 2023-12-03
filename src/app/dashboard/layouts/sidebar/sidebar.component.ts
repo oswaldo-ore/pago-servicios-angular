@@ -183,7 +183,8 @@ export class SidebarComponent implements OnInit {
   }
 
   initActiveMenu() {
-    const pathName = window.location.pathname;
+    // const pathName = window.location.pathname;
+    const pathName = window.location.href;
     const ul = document.getElementById("navbar-nav");
     if (ul) {
       const items = Array.from(ul.querySelectorAll("a.nav-link"));
@@ -191,7 +192,8 @@ export class SidebarComponent implements OnInit {
       this.removeActivation(activeItems);
 
       let matchingMenuItem = items.find((x: any) => {
-        return x.pathname === pathName;
+        // return x.pathname === pathName;
+        return x.href === pathName;
       });
       if (matchingMenuItem) {
         this.activateParentDropdown(matchingMenuItem);

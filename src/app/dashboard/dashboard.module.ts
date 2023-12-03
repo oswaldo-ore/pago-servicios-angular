@@ -24,6 +24,7 @@ import { SuscripcionModalComponent } from './configuracion/suscripciones/suscrip
 import { UserBuyModalComponent } from './configuracion/usuarios/user-buy-modal/user-buy-modal.component';
 import { DeudasMensualesComponent } from './informe/deudas-mensuales/deudas-mensuales.component';
 import { DetalleDeudaMensualComponent } from './informe/deudas_mensuales/detalle-deuda-mensual/detalle-deuda-mensual.component';
+import { WhatsappComponent } from './configuracion/whatsapp/whatsapp.component';
 @NgModule({
   declarations: [
     ServiciosComponent,
@@ -37,7 +38,8 @@ import { DetalleDeudaMensualComponent } from './informe/deudas_mensuales/detalle
     SuscripcionModalComponent,
     UserBuyModalComponent,
     DeudasMensualesComponent,
-    DetalleDeudaMensualComponent
+    DetalleDeudaMensualComponent,
+    WhatsappComponent
   ],
   imports: [
     CommonModule,

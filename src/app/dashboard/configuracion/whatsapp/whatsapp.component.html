@@ -1,0 +1,83 @@
+<div class="row">
+  <div class="col-lg-12">
+    <div class="card">
+      <div class="card-header">
+        <div class="row g-4 align-items-center">
+          <div class="col-sm-auto">
+            <div>
+              <h4 class="card-title mb-0 flex-grow-1">Whatsapp</h4>
+            </div>
+          </div>
+          <div class="col-sm">
+            <div class="d-flex justify-content-sm-end"></div>
+          </div>
+        </div>
+      </div>
+      <div class="card-body">
+        <div
+          class=""
+          *ngIf="!configuracion.estado_conexion; else conWhatsapp"
+        >
+          <div class="text-center"><img [src]="imageQR" alt="Imagen de perfil" style="width: 300px;height: 300px;" /></div>
+        </div>
+        <ng-template #conWhatsapp>
+          <div class="table-card">
+            <div class="table-responsive">
+              <div id="Recommended-jobs">
+                <table class="gridjs-table">
+                  <thead class="gridjs-thead">
+                    <tr class="gridjs-tr">
+                      <th class="gridjs-th gridjs-th-sort" data-sort="id">
+                        Codigo
+                      </th>
+                      <th class="gridjs-th sort" data-sort="nombre">Numero</th>
+                      <th class="gridjs-th sort" data-sort="estado">Estado</th>
+                      <th class="gridjs-th sort" data-sort="opciones">
+                        Opciones
+                      </th>
+                    </tr>
+                  </thead>
+                  <tbody class="gridjs-tbody">
+                    <tr class="gridjs-tr">
+                      <td class="gridjs-td">
+                        <ngb-highlight
+                          [result]="configuracion.codigoPais"
+                        ></ngb-highlight>
+                      </td>
+                      <td class="gridjs-td">
+                        <div class="">
+                          {{ configuracion.numeroTelefono }}
+                        </div>
+                      </td>
+                      <td class="gridjs-td">
+                        <ngb-highlight
+                          [result]="configuracion.estado()"
+                          class="badge {{
+                            configuracion.estado_conexion
+                              ? 'bg-success-subtle text-success'
+                              : 'bg-danger-subtle text-danger'
+                          }}"
+                        ></ngb-highlight>
+                      </td>
+                      <td class="gridjs-td">
+                        <a
+                          type="button"
+                          class="btn btn-danger btn-icon btn-sm waves-effect waves-light ms-1"
+                          (click)="desconectar()"
+                          ><i class="ri-delete-bin-5-line"></i
+                        ></a>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+            <div class="gridjs-footer">
+              <div class="row align-items-center gy-3"></div>
+            </div>
+          </div>
+        </ng-template>
+      </div>
+    </div>
+  </div>
+</div>

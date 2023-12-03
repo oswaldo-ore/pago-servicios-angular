@@ -8,6 +8,7 @@ import { DetallefacturaComponent } from './pagos/detallefactura/detallefactura.c
 import { MedidoresComponent } from './configuracion/medidores/medidores.component';
 import { DetallepagousuarioComponent } from './configuracion/detallepagousuario/detallepagousuario.component';
 import { DeudasMensualesComponent } from './informe/deudas-mensuales/deudas-mensuales.component';
+import { WhatsappComponent } from './configuracion/whatsapp/whatsapp.component';
 
 const routes: Routes = [
   {
@@ -33,6 +34,9 @@ const routes: Routes = [
   },
   {
     path: "deudas-mensuales", component: DeudasMensualesComponent,
+  },
+  {
+    path: "whatsapp", component: WhatsappComponent,
   },
 
 ];

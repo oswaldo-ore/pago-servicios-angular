@@ -29,6 +29,12 @@ export const MENU: MenuItem[] = [
         link: '/suscripciones',
         parentId: 2
       },
+      {
+        id: 15,
+        label: 'Whatsapp',
+        link: '/whatsapp',
+        parentId: 2
+      },
     ]
   },
   {

@@ -109,7 +109,7 @@ export class UsuariosService {
             detalle.usuarioid,
             new Usuario(detalle.Usuario.id, detalle.Usuario.nombre, detalle.Usuario.apellidos, detalle.Usuario.estado),
             new Servicio(detalle.Servicio.id, detalle.Servicio.nombre, detalle.Servicio.estado, detalle.Servicio.asociar),
-            new Factura(
+            (detalle.Factura == null) ? null : new Factura(
               detalle.Factura.id,
               detalle.Factura.monto,
               new Date(detalle.Factura.fecha),
@@ -142,7 +142,7 @@ export class UsuariosService {
           detalle.usuarioid,
           new Usuario(detalle.Usuario.id, detalle.Usuario.nombre, detalle.Usuario.apellidos, detalle.Usuario.estado),
           new Servicio(detalle.Servicio.id, detalle.Servicio.nombre, detalle.Servicio.estado, detalle.Servicio.asociar),
-          new Factura(
+          detalle.Factura == null? null : new Factura(
             detalle.Factura.id,
             detalle.Factura.monto,
             new Date(detalle.Factura.fecha),

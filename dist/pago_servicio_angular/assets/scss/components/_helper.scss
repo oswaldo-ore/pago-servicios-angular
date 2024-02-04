@@ -119,7 +119,7 @@ $value in $theme-colors {
     }
 }
 
-// Search 
+// Search
 .search-box {
     position: relative;
 
@@ -163,7 +163,7 @@ $value in $theme-colors {
     z-index: 1000;
 }
 
-// 
+//
 code {
     user-select: all;
 }
@@ -235,7 +235,7 @@ code {
     white-space: normal;
 }
 
-// Favorite button 
+// Favorite button
 .favourite-btn {
     border-color: transparent;
 
@@ -267,7 +267,7 @@ code {
 
 #back-to-top {
     position: fixed;
-    bottom: 100px;
+    bottom: 70px;
     right: 28px;
     transition: all 0.5s ease;
     display: none;

@@ -18,7 +18,7 @@ export class SuscripcionModalComponent {
   @Input() servicios: Servicio[]=[];
   @Input() usuarios: Usuario[]=[];
   serviciosFijo: Servicio[] = [];
-
+  fechaActual = new Date();
   public form: FormGroup;
 
   constructor(
@@ -31,7 +31,8 @@ export class SuscripcionModalComponent {
       tipo: ['fijo', Validators.required],
       servicio: [0, Validators.required],
       usuario: [0, Validators.required],
-      monto: [0, Validators.required]
+      monto: [0, Validators.required],
+      fecha_deuda: [null],
     });
   }
 
@@ -41,6 +42,7 @@ export class SuscripcionModalComponent {
       this.form.get('usuario')?.setValue(this.suscripcion.usuarioid );
       this.form.get('servicio')?.setValue(this.suscripcion.servicioid );
       this.form.get('monto')?.setValue(this.suscripcion.monto );
+      this.form.get('fecha_deuda')?.setValue(this.suscripcion.fecha_deuda );
       this.form.get('usuario')?.disable();
       this.form.get('servicio')?.disable();
     }
@@ -67,6 +69,12 @@ export class SuscripcionModalComponent {
     } else {
       this.form.get('monto')?.setValidators([Validators.required]);
     }
+    if(tipo == "automatico"){
+      this.form.get('monto')?.setValidators([Validators.required]);
+      this.form.get('fecha_deuda')?.setValidators([Validators.required]);
+    }else{
+      this.form.get('fecha_deuda')?.clearValidators();
+    }
   }
 
   saveUser(){
@@ -74,9 +82,11 @@ export class SuscripcionModalComponent {
       let usuario_id = this.form.get('usuario')?.value;
       let servicio_id = this.form.get('servicio')?.value;
       let tipo = this.form.get('tipo')?.value;
-      let monto = tipo == "fijo" ? this.form.get('monto')?.value:0;
+      let fecha_deuda = this.form.get('fecha_deuda')?.value;
+      let monto = tipo == "fijo" || tipo == "automatico"? this.form.get('monto')?.value:0;
+      let fecha = tipo == "automatico" ? fecha_deuda:null;
       if(this.isCreating){
-        this.suscripcionService.crearSuscripcion(usuario_id,servicio_id,tipo,monto,tipo == "medidor").then(
+        this.suscripcionService.crearSuscripcion(usuario_id,servicio_id,tipo,monto,tipo == "medidor",fecha ).then(
           (response) => {
             this.modalService.close(response);
           }
@@ -85,7 +95,7 @@ export class SuscripcionModalComponent {
         });
       }else{
         let id = this.suscripcion.id;
-        this.suscripcionService.updateSuscripcion(id,usuario_id,servicio_id,tipo,monto,tipo == "medidor").then(
+        this.suscripcionService.updateSuscripcion(id,usuario_id,servicio_id,tipo,monto,tipo == "medidor",fecha ).then(
           (response) => {
             this.modalService.close(response);
           }

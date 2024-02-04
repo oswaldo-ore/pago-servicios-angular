@@ -48,7 +48,9 @@
                       <ngb-highlight [result]="data.Usuario.nombre"></ngb-highlight>
                     </td>
                     <td class="gridjs-td">
-                      <ngb-highlight [result]="data.Servicio.nombre"></ngb-highlight>
+                      {{data.Servicio.nombre}} <br>
+                      <div class="" *ngIf="isAutomatic(data.tipo)" >Generar deuda cada {{ getDayForData(data.fecha_deuda) }} del mes</div>
+                      <!-- <ngb-highlight [result]="data.Servicio.nombre"></ngb-highlight> -->
                     </td>
                     <td class="gridjs-td">
                       <ngb-highlight [result]="data.tipo"></ngb-highlight>

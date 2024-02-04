@@ -12,5 +12,6 @@ export class Suscripcion{
     public servicioid:number,
     public Servicio: Servicio,
     public Usuario: Usuario,
+    public fecha_deuda : Date,
   ) {}
 }

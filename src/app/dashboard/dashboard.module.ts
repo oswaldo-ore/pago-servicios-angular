@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-
+import { FlatpickrModule } from 'angularx-flatpickr';
 import { DashboardRoutingModule } from './dashboard-routing.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ServiciosComponent } from './configuracion/servicios/servicios.component';
@@ -55,7 +55,8 @@ import { WhatsappComponent } from './configuracion/whatsapp/whatsapp.component';
     MatDatepickerModule,
     MatCardModule,
     MatNativeDateModule,
-    MatCheckboxModule
+    MatCheckboxModule,
+    FlatpickrModule.forRoot(),
   ],
 })
 export class DashboardModule { }

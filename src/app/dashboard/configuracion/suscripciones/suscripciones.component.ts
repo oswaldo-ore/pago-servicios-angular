@@ -12,6 +12,7 @@ import { Usuario } from '../../core/models/usuario.model';
 import { Router } from '@angular/router';
 import Swal from 'sweetalert2';
 import { SuscripcionModalComponent } from './suscripcion-modal/suscripcion-modal.component';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-suscripciones',
@@ -139,6 +140,16 @@ export class SuscripcionesComponent {
     console.log(a);
 
     return a;
+  }
+  getDayForData(fecha: Date| null| undefined){
+    if(fecha == null){
+      return "";
+    }
+    const fecha1 = moment(fecha).local().toDate().getDate();
+    return fecha1 == 1 ? "( primer día )": ( fecha1 == 2 ?'(2 do día)': "( "+fecha1+" )");
+  }
+  isAutomatic(tipo : string){
+    return tipo.trim() == "automatico".trim();
   }
   eliminarSuscripcion(id: number) {
     Swal.fire({

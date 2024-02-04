@@ -31,11 +31,12 @@
             <mat-option value="fijo">Fijo</mat-option>
             <mat-option value="calcular">Calcular</mat-option>
             <mat-option value="medidor">Medidor</mat-option>
+            <mat-option value="automatico">Generar deuda automatico</mat-option>
           </mat-select>
         </mat-form-field>
       </div>
 
-      <div class="col-md-6" *ngIf="form.get('tipo')?.value == 'fijo'">
+      <div class="col-md-6" *ngIf="form.get('tipo')?.value == 'fijo' || form.get('tipo')?.value == 'automatico'">
         <mat-form-field class="example-full-width">
           <mat-label>Monto</mat-label>
           <input type="number" matInput formControlName="monto" placeholder="Ingrese el monto de cobro del servicio">
@@ -46,6 +47,10 @@
             El campo Monto es <strong>requerido</strong>
           </mat-error>
         </mat-form-field>
+      </div>
+      <div class="col-md-6" *ngIf="form.get('tipo')?.value == 'automatico'">
+        <label for="">Seleccione una fecha</label>
+        <input class="form-control flatpickr-input" type="text" matInput formControlName="fecha_deuda"  mwlFlatpickr [altInput]="true" [convertModelValue]="true">
       </div>
     </div>
   </form>

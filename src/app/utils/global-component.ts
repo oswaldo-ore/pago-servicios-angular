@@ -1,5 +1,5 @@
-const URL_BASE = "http://127.0.0.1:3000/api/";
-// const URL_BASE = "https://servicios.tecnosoft.xyz/api/";
+// const URL_BASE = "http://127.0.0.1:3000/api/";
+const URL_BASE = "https://servicios.tecnosoft.xyz/api/";
 export const GlobalComponent = {
     // API_URL : "http://127.0.0.1:3000",
     API_URL : "https://servicios.tecnosoft.xyz",

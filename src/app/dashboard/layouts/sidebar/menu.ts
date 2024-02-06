@@ -35,6 +35,12 @@ export const MENU: MenuItem[] = [
         link: '/whatsapp',
         parentId: 2
       },
+      {
+        id: 7,
+        label: 'Configuración',
+        link: '/veripagos',
+        parentId: 2
+      },
     ]
   },
   {

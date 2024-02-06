@@ -9,6 +9,7 @@ import { MedidoresComponent } from './configuracion/medidores/medidores.componen
 import { DetallepagousuarioComponent } from './configuracion/detallepagousuario/detallepagousuario.component';
 import { DeudasMensualesComponent } from './informe/deudas-mensuales/deudas-mensuales.component';
 import { WhatsappComponent } from './configuracion/whatsapp/whatsapp.component';
+import { VeripagosComponent } from './configuracion/veripagos/veripagos.component';
 
 const routes: Routes = [
   {
@@ -38,7 +39,9 @@ const routes: Routes = [
   {
     path: "whatsapp", component: WhatsappComponent,
   },
-
+  {
+    path: "veripagos", component: VeripagosComponent,
+  },
 ];
 
 @NgModule({

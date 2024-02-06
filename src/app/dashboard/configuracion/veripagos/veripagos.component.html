@@ -1,0 +1,48 @@
+<div class="row">
+  <div class="col-lg-12">
+    <div class="card">
+      <div class="card-header">
+        <div class="row g-4 align-items-center">
+          <div class="col-sm-auto">
+            <div>
+              <h4 class="card-title mb-0 flex-grow-1">Configuración</h4>
+            </div>
+          </div>
+          <div class="col-sm">
+            <div class="d-flex justify-content-sm-end"></div>
+          </div>
+        </div>
+      </div>
+      <div class="card-body">
+
+        <form [formGroup]="configuracionForm" (ngSubmit)="guardarConfiguracion()">
+          <div class="row mt-5">
+            <div class="col-sm-12">
+              <h5>Veripagos</h5>
+              <h6 class="my-3">Callback: <strong>https://pagoservicios.tecnosoft.xyz/api/webhook-veripagos</strong></h6>
+            </div>
+            <div class="col-sm-4">
+              <mat-form-field class="w-100">
+                <input matInput placeholder="Secret Key" formControlName="secretKey">
+              </mat-form-field>
+              <mat-error *ngIf="configuracionForm.get('secretKey')!.hasError('required')">El Secret Key es requerido</mat-error>
+            </div>
+            <div class="col-sm-4">
+              <mat-form-field class="w-100">
+                <input matInput placeholder="Username" formControlName="username">
+              </mat-form-field>
+              <mat-error *ngIf="configuracionForm.get('username')!.hasError('required')">El Username es requerido</mat-error>
+            </div>
+            <div class="col-sm-4">
+              <mat-form-field class="w-100">
+                <input matInput placeholder="Password" formControlName="password">
+              </mat-form-field>
+              <mat-error *ngIf="configuracionForm.get('password')!.hasError('required')">El password es requerido</mat-error>
+            </div>
+          </div>
+          <button mat-button type="submit" class="btn btn-outline-dark" color="primary" [disabled]="!configuracionForm.valid">Guardar</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

@@ -41,6 +41,7 @@ export const GlobalComponent = {
     configuracion: URL_BASE + 'configuracion',
     configuracion_generar_qr: URL_BASE + 'configuracion/getCodigoQr',
     configuracion_verificar_qr: URL_BASE + 'configuracion/verificarQr',
+    configuracion_actualizar_veripagos: URL_BASE + 'configuracion/updateVeripagos',
     configuracion_terminar_conexion: URL_BASE + 'configuracion/desconectar',
 
 

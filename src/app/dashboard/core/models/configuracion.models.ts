@@ -4,6 +4,9 @@ export class Configuracion {
     public codigoPais: string = "",
     public numeroTelefono: string = "",
     public estado_conexion: boolean=false,
+    public secretKey: string = "",
+    public username: string = "",
+    public password: string = "",
   ) {}
 
   public  estado() {

@@ -5,6 +5,8 @@
 export const environment = {
   production: false,
   defaultauth: 'fackbackend',
+  apiUrl: 'http://127.0.0.1:3000/api/',
+  apiUrlImage: 'http://127.0.0.1:3000',
   firebaseConfig: {
     apiKey: '',
     authDomain: '',

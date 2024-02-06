@@ -1,9 +1,10 @@
+import { environment } from '../../environments/environment';
 // const URL_BASE = "http://127.0.0.1:3000/api/";
-const URL_BASE = "https://servicios.tecnosoft.xyz/api/";
+const URL_BASE = environment.apiUrl;
 export const GlobalComponent = {
     // API_URL : "http://127.0.0.1:3000",
-    API_URL : "https://servicios.tecnosoft.xyz",
-
+    // API_URL : "https://servicios.tecnosoft.xyz",
+    API_URL : environment.apiUrlImage,
     headerToken : {'Authorization': `Bearer ${localStorage.getItem('token')}`},
     AUTH_API: URL_BASE + "admin/login",
     LOGOUT_API: URL_BASE + "admin/logout",

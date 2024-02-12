@@ -24,7 +24,7 @@ export class WhatsappService {
     if(!response.success){
       throw response.message;
     }
-    return response.data.code_qr;
+    return response.data ? response.data.code_qr : "";
   }
   async verificarConexionQr():Promise<Configuracion>{
     let response = await this.http.post<any>(GlobalComponent.configuracion_verificar_qr,{}).toPromise();

@@ -169,6 +169,30 @@ export class UsuariosComponent {
       (reason) => {
       },
     );
+  }
 
+  notifyDeuda(usuarioId:number){
+    Swal.fire({
+      title: '¿Estás seguro?',
+      text: 'Notificar sus deudas al usuario.',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Sí, continuar',
+      cancelButtonText: 'Cancelar'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        Swal.fire('', 'Notificacion de las deudas enviada.', 'success');
+        this.usuarioService.notifyDeuda(usuarioId)
+        .then((message)=>{
+          this.toastr.success(message);
+        }).catch((error)=>{
+          this.toastr.error(error);
+          Swal.fire(error, '', 'error');
+        });
+      }
+      // else if (result.dismiss === Swal.DismissReason.cancel) {
+      //   Swal.fire('Cancelado', 'La acción ha sido cancelada.', 'error');
+      // }
+    });
   }
 }

@@ -166,4 +166,13 @@ export class UsuariosService {
       throw error;
     }
   }
+
+  async notifyDeuda(id: number) {
+    let url = GlobalComponent.usuarios_notify_deuda.replace(":id",id.toString()) ;
+    let response = await this.http.post<any>(url,{}).toPromise();
+    if (response.success) {
+      return response.message;
+    }
+    throw response.message;
+  }
 }

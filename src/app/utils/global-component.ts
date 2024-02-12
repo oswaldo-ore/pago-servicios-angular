@@ -20,6 +20,7 @@ export const GlobalComponent = {
     usuarios_eliminar: URL_BASE + 'usuarios/',
     usuarios_listar_deudas: URL_BASE + 'usuarios/:id/deudas',
     usuarios_pagar_deudas: URL_BASE + 'usuarios/:id/pagar',
+    usuarios_notify_deuda: URL_BASE + 'usuarios/:id/notify-deudas',
 
     suscripciones_listar: URL_BASE + 'suscripciones/listar',
     suscripciones_crear: URL_BASE + 'suscripciones/crear',
@@ -44,6 +45,7 @@ export const GlobalComponent = {
     configuracion_verificar_qr: URL_BASE + 'configuracion/verificarQr',
     configuracion_actualizar_veripagos: URL_BASE + 'configuracion/updateVeripagos',
     configuracion_terminar_conexion: URL_BASE + 'configuracion/desconectar',
+
 
 
 

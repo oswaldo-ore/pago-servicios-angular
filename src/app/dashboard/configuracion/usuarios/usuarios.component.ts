@@ -50,7 +50,6 @@ export class UsuariosComponent {
     this.usuarioService.getPaginacion(page, this.limit).subscribe(
       (response: PaginationModel<Usuario>) => {
         this.paginacion = response;
-        console.log(this.paginacion);
       },
       error => {
         this.toastr.error("Error al cargar los usuarios", error.message);
@@ -99,7 +98,6 @@ export class UsuariosComponent {
         this.cargarUsuarios();
       },
       (reason) => {
-        console.log(reason);
       },
     );
   }
@@ -169,7 +167,6 @@ export class UsuariosComponent {
         this.cargarUsuarios();
       },
       (reason) => {
-        console.log(reason);
       },
     );
 

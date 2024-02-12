@@ -37,28 +37,31 @@ export class LoginComponent {
   get f() { return this.loginForm.controls; }
 
   onSubmit() {
-    this.submitted = true;
-    if (this.loginForm.invalid) {
-      return;
-    }
-    let username = this.loginForm.get('name')?.value;
-    let password = this.loginForm.get('password')?.value;
-    this.authService.login({ email: username, password: password })
-    .then(response => {
-      console.log(response);
-      if(response.success == false){
-        this.toastr.error(response.message, '¡No se pudo iniciar sesion!');
-      }else{
-        if (response && response.token) {
-          this.cookieService.set('token', response.token);
-        }
-        this.toastr.success(response.message, '¡Bienvenido!');
-        this.router.navigate(['/usuarios']);
+    if(!this.submitted){
+      this.submitted = true;
+      if (this.loginForm.invalid) {
+        this.submitted = false;
+        return;
       }
-    })
-    .catch(error => {
-      this.toastr.error('No se pudo conectar al servidor', 'Error de conexión');
-    });
+      let username = this.loginForm.get('name')?.value;
+      let password = this.loginForm.get('password')?.value;
+      this.authService.login({ email: username, password: password })
+      .then(response => {
+        if(response.success == false){
+          this.submitted = false;
+          this.toastr.error(response.message, '¡No se pudo iniciar sesion!');
+        }else{
+          if (response && response.token) {
+            this.cookieService.set('token', response.token);
+          }
+          this.toastr.success(response.message, '¡Bienvenido!');
+          this.router.navigate(['/usuarios']);
+        }
+      })
+      .catch(error => {
+        this.toastr.error('No se pudo conectar al servidor', 'Error de conexión');
+      });
+    }
   }
 
   toggleFieldTextType() {

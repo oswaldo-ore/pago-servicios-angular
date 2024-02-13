@@ -26,6 +26,8 @@ import { DeudasMensualesComponent } from './informe/deudas-mensuales/deudas-mens
 import { DetalleDeudaMensualComponent } from './informe/deudas_mensuales/detalle-deuda-mensual/detalle-deuda-mensual.component';
 import { WhatsappComponent } from './configuracion/whatsapp/whatsapp.component';
 import { VeripagosComponent } from './configuracion/veripagos/veripagos.component';
+import { MovementsComponent } from './configuracion/movements/movements.component';
+import { DetailsComponent } from './configuracion/movements/details/details.component';
 @NgModule({
   declarations: [
     ServiciosComponent,
@@ -41,7 +43,9 @@ import { VeripagosComponent } from './configuracion/veripagos/veripagos.componen
     DeudasMensualesComponent,
     DetalleDeudaMensualComponent,
     WhatsappComponent,
-    VeripagosComponent
+    VeripagosComponent,
+    MovementsComponent,
+    DetailsComponent
   ],
   imports: [
     CommonModule,

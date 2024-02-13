@@ -1,0 +1,93 @@
+<div class="row">
+  <div class="col-lg-12">
+    <div class="card">
+      <div class="card-header">
+        <div class="row g-4 align-items-center">
+          <div class="col-sm-auto">
+            <div>
+              <h4 class="card-title mb-0 flex-grow-1">Movimientos</h4>
+            </div>
+          </div>
+          <div class="col-sm">
+            <div class="d-flex justify-content-sm-end">
+              <div class="search-box ms-2">
+                <input
+                  type="text"
+                  class="form-control"
+                  id="searchResultList"
+                  placeholder="Buscar servicio"
+                />
+                <i class="ri-search-line search-icon"></i>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="card-body">
+        <div class="table-card">
+          <div class="table-responsive">
+            <div id="Recommended-jobs">
+              <table class="gridjs-table">
+                <thead class="gridjs-thead">
+                  <tr class="gridjs-tr">
+                    <th class="gridjs-th gridjs-th-sort" data-sort="id">#</th>
+                    <th class="gridjs-th sort" data-sort="fecha">Fecha</th>
+                    <th class="gridjs-th sort" data-sort="monto">Monto</th>
+                    <th class="gridjs-th sort" data-sort="fecha_pago">
+                      Descripción
+                    </th>
+                    <!-- <th class="gridjs-th sort" data-sort="fecha">Fecha</th> -->
+                    <th class="gridjs-th sort" data-sort="opciones">
+                      Opciones
+                    </th>
+                  </tr>
+                </thead>
+                <tbody class="gridjs-tbody" *ngIf="movements.length > 0">
+                  <tr
+                    class="gridjs-tr"
+                    *ngFor="let data of movements"
+                    id="o_{{ data.id }}"
+                  >
+                    <td class="gridjs-td">
+                      <ngb-highlight
+                        [result]="data.id.toString()"
+                      ></ngb-highlight>
+                    </td>
+                    <td class="gridjs-td">
+                      <ngb-highlight
+                        [result]="formatDate(data.fecha)"
+                      ></ngb-highlight>
+                    </td>
+                    <td class="gridjs-td">
+                      <ngb-highlight
+                        [result]="data.monto.toString()"
+                      ></ngb-highlight>
+                    </td>
+                    <td class="gridjs-td">
+                      <ngb-highlight
+                        [result]="data.descripcion"
+                      ></ngb-highlight>
+                    </td>
+                    <td class="gridjs-td">
+                      <div class="">
+                        <a
+                          type="button"
+                          class="btn btn-secondary btn-icon btn-sm waves-effect waves-light me-2"
+                          (click)="openModalDetails(data.DetallesMovimiento)"
+                          ><i class="ri-coins-line"></i
+                        ></a>
+                      </div>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <div class="gridjs-footer">
+            <div class="row align-items-center gy-3"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

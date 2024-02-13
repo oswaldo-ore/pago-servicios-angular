@@ -21,6 +21,7 @@ export const GlobalComponent = {
     usuarios_listar_deudas: URL_BASE + 'usuarios/:id/deudas',
     usuarios_pagar_deudas: URL_BASE + 'usuarios/:id/pagar',
     usuarios_notify_deuda: URL_BASE + 'usuarios/:id/notify-deudas',
+    usuarios_movements: URL_BASE + 'usuarios/:id/movements',
 
     suscripciones_listar: URL_BASE + 'suscripciones/listar',
     suscripciones_crear: URL_BASE + 'suscripciones/crear',

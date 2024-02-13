@@ -14,31 +14,31 @@ import { UserBuyModalComponent } from './user-buy-modal/user-buy-modal.component
 @Component({
   selector: 'app-usuarios',
   templateUrl: './usuarios.component.html',
-  styleUrls: ['./usuarios.component.css']
+  styleUrls: ['./usuarios.component.css'],
 })
 export class UsuariosComponent {
   limit: number = 10;
   searchTerms: string = '';
   closeResult = '';
   form: FormGroup;
-  paginacion: PaginationModel<Usuario>= {
+  paginacion: PaginationModel<Usuario> = {
     currentPage: 0,
     total: 0,
     totalPages: 0,
-    data: []
+    data: [],
   };
   constructor(
     private usuarioService: UsuariosService,
     private modalService: NgbModal,
     private formBuilder: FormBuilder,
     private toastr: ToastrService,
-    private router: Router,
+    private router: Router
   ) {
     this.form = formBuilder.group({
-      nombre: ['',Validators.required],
-      apellidos: ['',Validators.required],
-      cod_pais: ['',Validators.required],
-      telefono: ['',Validators.required]
+      nombre: ['', Validators.required],
+      apellidos: ['', Validators.required],
+      cod_pais: ['', Validators.required],
+      telefono: ['', Validators.required],
     });
   }
 
@@ -46,18 +46,18 @@ export class UsuariosComponent {
     this.cargarUsuarios();
   }
 
-  cargarUsuarios(page = 1){
+  cargarUsuarios(page = 1) {
     this.usuarioService.getPaginacion(page, this.limit).subscribe(
       (response: PaginationModel<Usuario>) => {
         this.paginacion = response;
       },
-      error => {
-        this.toastr.error("Error al cargar los usuarios", error.message);
+      (error) => {
+        this.toastr.error('Error al cargar los usuarios', error.message);
       }
     );
   }
   public getestado(estado: Number) {
-    return estado == 1 ? "Activo" : "Inactivo";
+    return estado == 1 ? 'Activo' : 'Inactivo';
   }
 
   onPageChange(pageNumber: number): void {
@@ -72,8 +72,10 @@ export class UsuariosComponent {
     return a;
   }
 
-  serviciosAString(servicios:Servicio[]){
-    const serviciosList = servicios.map(servicio => `<li>
+  serviciosAString(servicios: Servicio[]) {
+    const serviciosList = servicios
+      .map(
+        (servicio) => `<li>
       <div class="row">
         <div class=" col-12 col-md-4">
           ${servicio.nombre}
@@ -82,23 +84,24 @@ export class UsuariosComponent {
           <span class="badge bg-info badge-sm"> Bs ${servicio.monto_por_servicio}</span>
         </div>
       </div>
-    </li>`).join('');
+    </li>`
+      )
+      .join('');
     // const serviciosList = nombresServicios.map(nombre => `<li>${nombre}</li>`).join('');
     return `<ul class="mb-0">${serviciosList}</ul>`;
   }
-  open(isCreating:boolean = true,usuario:Usuario|any=null) {
+  open(isCreating: boolean = true, usuario: Usuario | any = null) {
     const modalRef = this.modalService.open(UserModalComponent);
     modalRef.componentInstance.isCreating = isCreating;
-    if(!isCreating){
+    if (!isCreating) {
       modalRef.componentInstance.usuario = usuario;
     }
     modalRef.result.then(
-      (result)=>{
+      (result) => {
         this.toastr.success(result.message);
         this.cargarUsuarios();
       },
-      (reason) => {
-      },
+      (reason) => {}
     );
   }
 
@@ -129,70 +132,100 @@ export class UsuariosComponent {
   //   }
   // }
 
-  eliminarUsuario(id:number){
+  eliminarUsuario(id: number) {
     Swal.fire({
       title: '¿Estás seguro?',
       text: 'Esta acción no se puede deshacer',
       icon: 'warning',
       showCancelButton: true,
       confirmButtonText: 'Sí, continuar',
-      cancelButtonText: 'Cancelar'
+      cancelButtonText: 'Cancelar',
     }).then((result) => {
       if (result.isConfirmed) {
-        this.usuarioService.eliminar(id).then((message)=>{
-          this.toastr.success(message);
-          this.cargarUsuarios();
-          Swal.fire('Acción confirmada', message, 'success');
-        }).catch((error)=>{
-          this.toastr.error(error.message);
-          Swal.fire('Cancelado', error.message, 'error');
-        });
+        this.usuarioService
+          .eliminar(id)
+          .then((message) => {
+            this.toastr.success(message);
+            this.cargarUsuarios();
+            Swal.fire('Acción confirmada', message, 'success');
+          })
+          .catch((error) => {
+            this.toastr.error(error.message);
+            Swal.fire('Cancelado', error.message, 'error');
+          });
       } else if (result.dismiss === Swal.DismissReason.cancel) {
         Swal.fire('Cancelado', 'La acción ha sido cancelada.', 'error');
       }
     });
   }
 
-  verDetalle(usuarioId:number){
-    this.router.navigate(['/usuario/detalle-deudas/', usuarioId]);
+  verDetalle(usuarioId: number) {
+    //como agregar custom style to Swal
+    Swal.fire({
+      title: '¿Qué detalle desea ver?',
+      showDenyButton: true,
+      confirmButtonText: `Deudas`,
+      denyButtonText: `Movimientos`,
+      icon: 'question',
+      customClass: {
+        confirmButton: 'btn btn-success btn-sm',
+        denyButton: 'btn btn-primary btn-sm',
+      },
+    }).then((result) => {
+      if (result.isConfirmed) {
+        // this.router.navigate(['/usuario/detalle-deudas/', usuarioId]);
+        this.showDeudasToUser(usuarioId);
+      } else if (result.isDenied) {
+        // this.router.navigate(['/usuario/detalle-movimientos/', usuarioId]);
+        this.showMovementsToUser(usuarioId);
+      }
+    });
   }
 
-  showModalBuy(usuarioId:number,monto:number){
+  showModalBuy(usuarioId: number, monto: number) {
     const modalRef = this.modalService.open(UserBuyModalComponent);
     modalRef.componentInstance.montoDebePagar = monto;
     modalRef.componentInstance.usuarioId = usuarioId;
     modalRef.result.then(
-      (result)=>{
+      (result) => {
         this.toastr.success(result.message);
         this.cargarUsuarios();
       },
-      (reason) => {
-      },
+      (reason) => {}
     );
   }
 
-  notifyDeuda(usuarioId:number){
+  notifyDeuda(usuarioId: number) {
     Swal.fire({
       title: '¿Estás seguro?',
       text: 'Notificar sus deudas al usuario.',
       icon: 'warning',
       showCancelButton: true,
       confirmButtonText: 'Sí, continuar',
-      cancelButtonText: 'Cancelar'
+      cancelButtonText: 'Cancelar',
     }).then((result) => {
       if (result.isConfirmed) {
         Swal.fire('', 'Notificacion de las deudas enviada.', 'success');
-        this.usuarioService.notifyDeuda(usuarioId)
-        .then((message)=>{
-          this.toastr.success(message);
-        }).catch((error)=>{
-          this.toastr.error(error);
-          Swal.fire(error, '', 'error');
-        });
+        this.usuarioService
+          .notifyDeuda(usuarioId)
+          .then((message) => {
+            this.toastr.success(message);
+          })
+          .catch((error) => {
+            this.toastr.error(error);
+            Swal.fire(error, '', 'error');
+          });
       }
       // else if (result.dismiss === Swal.DismissReason.cancel) {
       //   Swal.fire('Cancelado', 'La acción ha sido cancelada.', 'error');
       // }
     });
+  }
+  showDeudasToUser(usuarioId: number) {
+    this.router.navigate(['/usuario/detalle-deudas/', usuarioId]);
+  }
+
+  showMovementsToUser(usuarioId: number) {
+    this.router.navigate(['/usuario/detalle-movimientos/', usuarioId]);
   }
 }

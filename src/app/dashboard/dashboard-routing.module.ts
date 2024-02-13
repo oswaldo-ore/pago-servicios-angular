@@ -10,6 +10,7 @@ import { DetallepagousuarioComponent } from './configuracion/detallepagousuario/
 import { DeudasMensualesComponent } from './informe/deudas-mensuales/deudas-mensuales.component';
 import { WhatsappComponent } from './configuracion/whatsapp/whatsapp.component';
 import { VeripagosComponent } from './configuracion/veripagos/veripagos.component';
+import { MovementsComponent } from './configuracion/movements/movements.component';
 
 const routes: Routes = [
   {
@@ -32,6 +33,9 @@ const routes: Routes = [
   },
   {
     path: "usuario/detalle-deudas/:id", component: DetallepagousuarioComponent,
+  },
+  {
+    path: "usuario/detalle-movimientos/:id", component: MovementsComponent,
   },
   {
     path: "deudas-mensuales", component: DeudasMensualesComponent,

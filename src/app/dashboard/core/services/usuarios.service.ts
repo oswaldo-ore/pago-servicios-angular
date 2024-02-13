@@ -175,4 +175,13 @@ export class UsuariosService {
     }
     throw response.message;
   }
+
+  async getMovementUser(id: number) {
+    let url = GlobalComponent.usuarios_movements.replace(":id",id.toString()) ;
+    let response = await this.http.get<any>(url).toPromise();
+    if (response.success) {
+      return response.data;
+    }
+    throw response.message;
+  }
 }

@@ -156,13 +156,11 @@ export class FacturasComponent {
         this.facturaServicio.eliminar(id).then((message) => {
           this.toastr.success(message);
           this.cargarFacturas(this.paginacion.currentPage);
-          Swal.fire('Acción confirmada', message, 'success');
+          Swal.fire('', message, 'success');
         }).catch((error) => {
           this.toastr.error(error.message);
-          Swal.fire('Cancelado', error.message, 'error');
+          Swal.fire('', error.message, 'error');
         });
-      } else if (result.dismiss === Swal.DismissReason.cancel) {
-        Swal.fire('Cancelado', 'La acción ha sido cancelada.', 'error');
       }
     });
 

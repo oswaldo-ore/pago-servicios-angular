@@ -183,4 +183,48 @@ export class SuscripcionesComponent {
         } }
       });
   }
+
+  subscribe(subscriptionId:number) {
+    Swal.fire({
+      // title: '¿Estás seguro?',
+      title: 'Activar la suscripción seleccionada?',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Sí, continuar',
+      cancelButtonText: 'Cancelar'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.suscripcionService.subscribeToService(subscriptionId).then((message) => {
+          this.toastr.success(message);
+          this.cargarSuscripciones(this.paginacion.currentPage);
+          Swal.fire('', message, 'success');
+        }).catch((error) => {
+          this.toastr.error(error.message);
+          Swal.fire('', error.message, 'error');
+        });
+      }
+    });
+  }
+
+  unsubscribe(subscriptionId:number){
+    Swal.fire({
+      // title: '¿Estás seguro?',
+      title: 'Desactivar la suscripción seleccionada?',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Sí, continuar',
+      cancelButtonText: 'Cancelar'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.suscripcionService.unsubscribeToService(subscriptionId).then((message) => {
+          this.toastr.success(message);
+          this.cargarSuscripciones(this.paginacion.currentPage);
+          Swal.fire('', message, 'success');
+        }).catch((error) => {
+          this.toastr.error(error.message);
+          Swal.fire('', error.message, 'error');
+        });
+      }
+    });
+  }
 }

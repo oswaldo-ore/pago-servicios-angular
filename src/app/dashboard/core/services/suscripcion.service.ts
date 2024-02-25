@@ -115,4 +115,24 @@ export class SuscripcionService {
       throw (String)(response.message);
     }
   }
+
+  async subscribeToService(id:number) {
+    const url = `${GlobalComponent.suscripciones_activate}`.replace(":id",id.toString());
+    let response =  await this.http.put<any>(url,null).toPromise();
+    if(response.success){
+      return (String)(response.message);
+    }else{
+      throw (String)(response.message);
+    }
+  }
+
+  async unsubscribeToService(id:number) {
+    const url = `${GlobalComponent.suscripciones_disabled}`.replace(":id",id.toString());
+    let response =  await this.http.put<any>(url,null).toPromise();
+    if(response.success){
+      return (String)(response.message);
+    }else{
+      throw (String)(response.message);
+    }
+  }
 }

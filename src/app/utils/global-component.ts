@@ -26,6 +26,8 @@ export const GlobalComponent = {
     suscripciones_listar: URL_BASE + 'suscripciones/listar',
     suscripciones_crear: URL_BASE + 'suscripciones/crear',
     suscripciones_actualizar: URL_BASE + 'suscripciones/:id',
+    suscripciones_activate: URL_BASE + 'suscripciones/:id/activar',
+    suscripciones_disabled: URL_BASE + 'suscripciones/:id/desactivar',
     suscripciones_eliminar: URL_BASE + 'suscripciones/',
 
     facturas_listar: URL_BASE + 'facturas/listar',

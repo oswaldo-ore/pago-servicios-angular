@@ -51,10 +51,10 @@ export class SuscripcionModalComponent {
   cambioUsuario(event: any) {
     let usuarioIdSeleccionado = this.form.get('usuario')?.value;
     let usuario = this.usuarios.find((usuario) => usuario.id == usuarioIdSeleccionado);
-    if (usuario) {
-      let serviciosIds = usuario?.Servicios.map((servicio) => servicio.id);
-      this.servicios = this.serviciosFijo.filter((servicio) => !serviciosIds.includes(servicio.id));
-    }
+    // if (usuario) {
+    //   let serviciosIds = usuario?.Servicios.map((servicio) => servicio.id);
+    //   this.servicios = this.serviciosFijo.filter((servicio) => !serviciosIds.includes(servicio.id));
+    // }
   }
 
   cambiarServicio(event: any) {
@@ -78,6 +78,7 @@ export class SuscripcionModalComponent {
   }
 
   saveUser(){
+    console.log(this.form.valid);
     if(this.form.valid){
       let usuario_id = this.form.get('usuario')?.value;
       let servicio_id = this.form.get('servicio')?.value;

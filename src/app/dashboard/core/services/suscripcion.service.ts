@@ -52,14 +52,14 @@ export class SuscripcionService {
 
 
   async crearSuscripcion(usuarioId:number,servicioId:number,tipo:string, monto:number,tieneMedidor:boolean,fechaDeuda: string|null){
-    const params = new HttpParams()
+    let params = new HttpParams()
     .set('servicioid', servicioId)
     .set('usuarioid', usuarioId)
     .set('tipo', tipo)
     .set('monto', monto)
     .set('tiene_medidor', tieneMedidor);
     if(fechaDeuda){
-      params.set('fecha_deuda', fechaDeuda)
+      params = params.set('fecha_deuda', fechaDeuda)
     }
     let response = await this.http.post<any>(GlobalComponent.suscripciones_crear,params).toPromise();
     if(response.success){
@@ -68,14 +68,16 @@ export class SuscripcionService {
     throw response.message;
   }
 
-  async updateSuscripcion(id:number,usuarioId:number,servicioId:number,tipo:string, monto:number,tieneMedidor:boolean,fechaDeuda: string){
-    const params = new HttpParams()
+  async updateSuscripcion(id:number,usuarioId:number,servicioId:number,tipo:string, monto:number,tieneMedidor:boolean,fechaDeuda: string|null){
+    let params = new HttpParams()
     .set('servicioid', servicioId)
     .set('usuarioid', usuarioId)
     .set('tipo', tipo)
     .set('monto', monto)
-    .set('fecha_deuda', fechaDeuda)
     .set('tiene_medidor', tieneMedidor);
+    if(fechaDeuda){
+      params = params.set('fecha_deuda', fechaDeuda)
+    }
     let response = await this.http.put<any>(GlobalComponent.suscripciones_actualizar.replace(":id",id.toString()),params).toPromise();
     if(response.success){
       return response;

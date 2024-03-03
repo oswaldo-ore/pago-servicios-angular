@@ -1,6 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import * as moment from 'moment';
 import { ToastrService } from 'ngx-toastr';
 import { Servicio } from 'src/app/dashboard/core/models/servicios.model';
 import { Suscripcion } from 'src/app/dashboard/core/models/suscripcion.models';
@@ -45,16 +46,15 @@ export class SuscripcionModalComponent {
       this.form.get('fecha_deuda')?.setValue(this.suscripcion.fecha_deuda );
       this.form.get('usuario')?.disable();
       this.form.get('servicio')?.disable();
+    }else{
+      this.form.get('tipo')?.setValue('');
+      this.form.get('usuario')?.setValue('');
+      this.form.get('servicio')?.setValue('');
+      this.form.get('monto')?.setValue('');
+      this.form.get('fecha_deuda')?.setValue('');
+      this.form.get('usuario')?.enable();
+      this.form.get('servicio')?.enable();
     }
-  }
-
-  cambioUsuario(event: any) {
-    let usuarioIdSeleccionado = this.form.get('usuario')?.value;
-    let usuario = this.usuarios.find((usuario) => usuario.id == usuarioIdSeleccionado);
-    // if (usuario) {
-    //   let serviciosIds = usuario?.Servicios.map((servicio) => servicio.id);
-    //   this.servicios = this.serviciosFijo.filter((servicio) => !serviciosIds.includes(servicio.id));
-    // }
   }
 
   cambiarServicio(event: any) {
@@ -85,14 +85,15 @@ export class SuscripcionModalComponent {
       let tipo = this.form.get('tipo')?.value;
       let fecha_deuda = this.form.get('fecha_deuda')?.value;
       let monto = tipo == "fijo" || tipo == "automatico"? this.form.get('monto')?.value:0;
-      let fecha = tipo == "automatico" ? fecha_deuda:null;
+      let fecha = tipo == "automatico" ? moment(fecha_deuda).format('YYYY-MM-DD HH:mm:ss'):null;
       if(this.isCreating){
+        console.log(fecha);
         this.suscripcionService.crearSuscripcion(usuario_id,servicio_id,tipo,monto,tipo == "medidor",fecha ).then(
           (response) => {
             this.modalService.close(response);
           }
         ).catch(error => {
-          this.toastr.success(error.message);
+          this.toastr.error(error);
         });
       }else{
         let id = this.suscripcion.id;
@@ -101,9 +102,11 @@ export class SuscripcionModalComponent {
             this.modalService.close(response);
           }
         ).catch(error => {
-          this.toastr.success(error.message);
+          this.toastr.error(error);
         });
       }
+    }else{
+      this.toastr.error(this.form.errors?.toString() || "Formulario invalido");
     }
   }
 

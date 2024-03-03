@@ -184,4 +184,17 @@ export class UsuariosService {
     }
     throw response.message;
   }
+
+  async createDebt(userId: number,monto: number,fecha: Date, servicioId: number) {
+    const params = new HttpParams()
+    .set('amount', monto.toString())
+    .set('date', fecha.toISOString())
+    .set('serviceId', servicioId.toString());
+    let response = await this.http.post<any>(GlobalComponent.usuarios_create_debt.replace(":id",userId.toString()), params).toPromise();
+    if (response.success) {
+      return response.message;
+    }
+    throw response.message;
+
+  }
 }

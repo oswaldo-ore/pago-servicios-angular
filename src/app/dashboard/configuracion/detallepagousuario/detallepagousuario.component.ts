@@ -6,6 +6,9 @@ import { UsuariosService } from '../../core/services/usuarios.service';
 import { DetalleUsuarioFacturas } from '../../core/models/detalle_factura.models';
 import { FacturasService } from '../../core/services/facturas.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ServiciosService } from '../../core/services/servicios.service';
+import { Servicio } from '../../core/models/servicios.model';
+import { ModalCreateDebtComponent } from './modal-create-debt/modal-create-debt.component';
 
 @Component({
   selector: 'app-detallepagousuario',
@@ -18,6 +21,7 @@ export class DetallepagousuarioComponent {
   detalleFacturaDeben:DetalleUsuarioFacturas[]=[];
   detalleFacturaPagadas:DetalleUsuarioFacturas[]=[];
   detalleFacturaId:number;
+  services: Servicio[] = [];
   @ViewChild('content') modalContent: any;
   constructor(
     private usuarioService: UsuariosService,
@@ -26,13 +30,16 @@ export class DetallepagousuarioComponent {
     private toast: ToastrService,
     private modalService: NgbModal,
     private formBuilder: FormBuilder,
+    private serviciosService: ServiciosService
   ) {
     this.usuarioId = 0;
     this.form = formBuilder.group({
+      servicio:['',Validators.required],
       monto: ['',Validators.required],
       isprestado: [false],
     });
     this.detalleFacturaId =0;
+    this.getAllServices();
   }
 
   ngOnInit(){
@@ -45,6 +52,15 @@ export class DetallepagousuarioComponent {
         console.error('ID es nulo');
       }
     });
+  }
+  getAllServices(){
+    this.serviciosService.getAll().subscribe(
+      (response) => {
+        this.services = response;
+      },
+      error => {
+      }
+    );
   }
 
   cargarDetalleFacturaUsuario(){
@@ -108,5 +124,21 @@ export class DetallepagousuarioComponent {
         this.toast.error(error);
 
       });
+  }
+
+  public openModalCreateDebt(){
+    const modalCreateDebt =  this.modalService.open(ModalCreateDebtComponent);
+    modalCreateDebt.componentInstance.services = this.services.slice();
+    modalCreateDebt.componentInstance.userId = this.usuarioId;
+    modalCreateDebt.result.then(
+      (result)=>{
+        this.toast.success(result);
+        this.cargarDetalleFacturaUsuario();
+      },
+      (reason)=>{
+        console.log(reason);
+      }
+
+    );
   }
 }

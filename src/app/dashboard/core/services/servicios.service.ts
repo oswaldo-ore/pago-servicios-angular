@@ -21,6 +21,18 @@ export class ServiciosService {
       })
     );
   }
+
+  getAllByUser(id:number): Observable<Servicio[]> {
+    const params = new HttpParams().set('userId', id.toString());
+    return this.http.get<any>(GlobalComponent.servicio_listar_todos,{ params }).pipe(
+      map(response => {
+        if(response.success){
+          return response.data;
+        }
+        throw response.message;
+      })
+    );
+  }
   getPaginacion(pageNumber:number = 1,limit:number = 8): Observable<PaginationModel<Servicio>> {
     const params = new HttpParams().set('page', pageNumber.toString()).set('limit', limit.toString());
     return this.http.get<any>(GlobalComponent.servicio_listar,{ params }).pipe(

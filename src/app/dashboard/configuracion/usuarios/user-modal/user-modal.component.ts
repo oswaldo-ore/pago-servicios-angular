@@ -30,10 +30,17 @@ export class UserModalComponent {
   }
 
   ngOnInit() {
-    this.form.get('nombre')?.setValue(this.usuario.nombre);
-    this.form.get('apellidos')?.setValue(this.usuario.apellidos);
-    this.form.get('cod_pais')?.setValue(this.usuario.cod_pais);
-    this.form.get('telefono')?.setValue(this.usuario.telefono);
+    if(!this.isCreating){
+      this.form.get('nombre')?.setValue(this.usuario.nombre);
+      this.form.get('apellidos')?.setValue(this.usuario.apellidos);
+      this.form.get('cod_pais')?.setValue(this.usuario.cod_pais);
+      this.form.get('telefono')?.setValue(this.usuario.telefono);
+    }else{
+      this.form.get('nombre')?.setValue('');
+      this.form.get('apellidos')?.setValue('');
+      this.form.get('cod_pais')?.setValue('');
+      this.form.get('telefono')?.setValue('');
+    }
   }
 
   closeModal(){

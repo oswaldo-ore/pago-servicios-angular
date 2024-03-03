@@ -28,6 +28,7 @@ import { WhatsappComponent } from './configuracion/whatsapp/whatsapp.component';
 import { VeripagosComponent } from './configuracion/veripagos/veripagos.component';
 import { MovementsComponent } from './configuracion/movements/movements.component';
 import { DetailsComponent } from './configuracion/movements/details/details.component';
+import { ModalCreateDebtComponent } from './configuracion/detallepagousuario/modal-create-debt/modal-create-debt.component';
 @NgModule({
   declarations: [
     ServiciosComponent,
@@ -45,7 +46,8 @@ import { DetailsComponent } from './configuracion/movements/details/details.comp
     WhatsappComponent,
     VeripagosComponent,
     MovementsComponent,
-    DetailsComponent
+    DetailsComponent,
+    ModalCreateDebtComponent
   ],
   imports: [
     CommonModule,

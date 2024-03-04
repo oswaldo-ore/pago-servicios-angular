@@ -6,8 +6,10 @@
           <div class="col-sm-auto">
             <div>
               <h4 class="card-title mb-0 flex-grow-1">
+                <app-back-button></app-back-button>
                 Deudas pendientes
                 <a href="javascript: void(0);" class="btn btn-outline-dark" (click)="openModalCreateDebt()">Crear deuda</a>
+                <a href="javascript: void(0);" *ngIf="detalleFacturaDeben.length == 0" class="btn btn-outline-dark ms-2" (click)="openModalCreatePrePayment()">Pago adelantado</a>
               </h4>
             </div>
           </div>
@@ -25,7 +27,6 @@
                     <th class="gridjs-th sort" data-sort="asociado_con">Fecha Pago</th>
                     <th class="gridjs-th sort" data-sort="apellidos">Monto</th>
                     <th class="gridjs-th sort" data-sort="apellidos">Monto Pago</th>
-                    <th class="gridjs-th sort" data-sort="apellidos">Cambio</th>
                     <th class="gridjs-th sort" data-sort="asociado_con">Estado</th>
                     <th class="gridjs-th sort" data-sort="estado">Servicio</th>
                     <th class="gridjs-th sort" data-sort="opciones">Opciones</th>
@@ -49,9 +50,6 @@
                       <ngb-highlight [result]="data.monto_pago.toString()"></ngb-highlight>
                     </td>
                     <td class="gridjs-td">
-                      <ngb-highlight [result]="data.cambio_pago.toString()"></ngb-highlight>
-                    </td>
-                    <td class="gridjs-td">
                       <ngb-highlight [result]=" data.estadoString()"
                         class="badge {{ data.estadoBadge() }}"></ngb-highlight>
                     </td>
@@ -61,7 +59,9 @@
 
                     <td class="gridjs-td">
                       <div class="" *ngIf="!data.isCancelado()">
-                        <a type="button" class="btn btn-secondary btn-icon btn-sm waves-effect waves-light me-2" (click)="abrirModal(data.id,data.monto,data.monto_pago)"><i class="ri-coins-line"></i></a>
+                        <a type="button" class="btn btn-secondary btn-icon btn-sm waves-effect waves-light me-2"
+                          data-bs-toggle="tooltip" placement="top" ngbTooltip="Pagar deuda"
+                          (click)="abrirModal(data.id,data.monto,data.monto_pago)"><i class="ri-coins-line"></i></a>
                       </div>
                       <div class="" *ngIf="data.isPrestado()">
                         <a type="button" class="btn btn-outline-success btn-icon btn-sm waves-effect waves-lightme-2" (click)="devolverPago(data.id)"><i class=" ri-hand-heart-line"></i></a>
@@ -120,7 +120,6 @@
                     <th class="gridjs-th sort" data-sort="fecha_pago">Fecha Pago</th>
                     <th class="gridjs-th sort" data-sort="monto">Monto</th>
                     <th class="gridjs-th sort" data-sort="monto_pago">Monto Pago</th>
-                    <th class="gridjs-th sort" data-sort="cambio">Cambio</th>
                     <th class="gridjs-th sort" data-sort="estado">Estado</th>
                     <th class="gridjs-th sort" data-sort="servicio">Servicio</th>
                     <!-- <th class="gridjs-th sort" data-sort="fecha">Fecha</th> -->
@@ -143,9 +142,6 @@
                     </td>
                     <td class="gridjs-td">
                       <ngb-highlight [result]="data.monto_pago.toString()"></ngb-highlight>
-                    </td>
-                    <td class="gridjs-td">
-                      <ngb-highlight [result]="data.cambio_pago.toString()"></ngb-highlight>
                     </td>
                     <td class="gridjs-td">
                       <ngb-highlight [result]="data.estadoString() "

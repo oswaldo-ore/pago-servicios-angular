@@ -5,7 +5,10 @@
         <div class="row g-4 align-items-center">
           <div class="col-sm-auto">
             <div>
-              <h4 class="card-title mb-0 flex-grow-1">Movimientos</h4>
+              <h4 class="card-title mb-0 flex-grow-1">
+                <app-back-button></app-back-button>
+                Movimientos
+              </h4>
             </div>
           </div>
           <div class="col-sm">
@@ -73,8 +76,9 @@
                         <a
                           type="button"
                           class="btn btn-secondary btn-icon btn-sm waves-effect waves-light me-2"
+                          data-bs-toggle="tooltip" placement="top" ngbTooltip="Ver detalles"
                           (click)="openModalDetails(data.DetallesMovimiento)"
-                          ><i class="ri-coins-line"></i
+                          ><i class="ri-eye-line"></i
                         ></a>
                       </div>
                     </td>

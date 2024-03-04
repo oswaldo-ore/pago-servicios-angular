@@ -32,7 +32,7 @@ import { TwoColumnSidebarComponent } from './two-column-sidebar/two-column-sideb
     HorizontalComponent,
     HorizontalTopbarComponent,
     TwoColumnComponent,
-    TwoColumnSidebarComponent
+    TwoColumnSidebarComponent,
   ],
   imports: [
     CommonModule,

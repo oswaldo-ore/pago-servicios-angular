@@ -9,6 +9,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ServiciosService } from '../../core/services/servicios.service';
 import { Servicio } from '../../core/models/servicios.model';
 import { ModalCreateDebtComponent } from './modal-create-debt/modal-create-debt.component';
+import { ModalPrePaymentComponent } from './modal-pre-payment/modal-pre-payment.component';
 
 @Component({
   selector: 'app-detallepagousuario',
@@ -139,6 +140,21 @@ export class DetallepagousuarioComponent {
         console.log(reason);
       }
 
+    );
+  }
+
+  public openModalCreatePrePayment() {
+    const modalCreatePrePayment = this.modalService.open(ModalPrePaymentComponent,{
+      backdrop: 'static',
+      keyboard: false
+    });
+    modalCreatePrePayment.componentInstance.services = this.services;
+    modalCreatePrePayment.componentInstance.userId = this.usuarioId;
+    modalCreatePrePayment.result.then(
+      (result)=>{
+        this.toast.success(result);
+        this.cargarDetalleFacturaUsuario();
+      },
     );
   }
 }

@@ -44,6 +44,7 @@ export const GlobalComponent = {
     detalle_factura_devolver: URL_BASE + 'detalle/factura/devolver',
     deudas_mensuales: URL_BASE + 'deudas-mensuales',
 
+    prepayment_save: URL_BASE + 'prepayment/register',
     configuracion: URL_BASE + 'configuracion',
     configuracion_generar_qr: URL_BASE + 'configuracion/getCodigoQr',
     configuracion_verificar_qr: URL_BASE + 'configuracion/verificarQr',

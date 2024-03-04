@@ -61,15 +61,21 @@
                       <div [innerHTML]="serviciosAString(data.Servicios)"></div>
                     </td>
                     <td class="gridjs-td">
-                      <a type="button" *ngIf="data.suma_montos > 0" class="btn btn-secondary btn-icon waves-effect waves-light btn-sm btn-animation"
+                      <a type="button" *ngIf="data.suma_montos > 0"
+                        data-bs-toggle="tooltip" placement="top" ngbTooltip="Pagar deuda"
+                        class="btn btn-secondary btn-icon waves-effect waves-light btn-sm btn-animation"
                         (click)="showModalBuy(data.id,data.suma_montos)"><i class="ri-money-dollar-circle-line"></i></a>
                       <a type="button" class="btn btn-info btn-icon btn-sm btn-animation waves-effect waves-light ms-1"
+                        data-bs-toggle="tooltip" placement="top" ngbTooltip="Ver detalles"
                         (click)="verDetalle(data.id)"><i class="ri-article-line"></i></a>
                       <a type="button" class="btn btn-success btn-icon btn-sm btn-animation waves-effect waves-light ms-1"
+                        data-bs-toggle="tooltip" placement="top" ngbTooltip="Editar usuario"
                         (click)="open(false,data)"><i class="ri-edit-line"></i></a>
                       <a type="button" class="btn btn-danger btn-icon btn-sm btn-animation waves-effect waves-light ms-1"
+                        data-bs-toggle="tooltip" placement="top" ngbTooltip="Eliminar usuario"
                         (click)="eliminarUsuario(data.id)"><i class="ri-delete-bin-5-line"></i></a>
                       <a type="button" class="btn btn-primary btn-icon btn-sm btn-animation waves-effect waves-light ms-1"
+                        data-bs-toggle="tooltip" placement="top" ngbTooltip="Notificar deuda por whatsapp"
                         (click)="notifyDeuda(data.id)"><i class="bx bxl-whatsapp"></i></a>
                     </td>
                   </tr>

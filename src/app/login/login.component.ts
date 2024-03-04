@@ -25,7 +25,7 @@ export class LoginComponent {
     private authService: AuthService,
     private toastr: ToastrService,
     private cookieService: CookieService
-   ) { }
+  ) { }
 
   ngOnInit(): void {
     this.loginForm = this.formBuilder.group({
@@ -59,6 +59,7 @@ export class LoginComponent {
         }
       })
       .catch(error => {
+        this.submitted = false;
         this.toastr.error('No se pudo conectar al servidor', 'Error de conexión');
       });
     }

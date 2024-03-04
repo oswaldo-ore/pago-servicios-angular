@@ -10,7 +10,6 @@ import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { JwtInterceptor } from './dashboard/core/helpers/jwt.interceptor';
 import { ToastrModule } from 'ngx-toastr';
-import { LayoutsModule } from './dashboard/layouts/layouts.module';
 export function createTranslateLoader(http: HttpClient): any {
   return new TranslateHttpLoader(http, 'assets/i18n/', '.json');
 }
@@ -31,7 +30,6 @@ export function createTranslateLoader(http: HttpClient): any {
     HttpClientModule,
     BrowserModule,
     AppRoutingModule,
-    LayoutsModule,
     ToastrModule.forRoot()
   ],
   providers: [

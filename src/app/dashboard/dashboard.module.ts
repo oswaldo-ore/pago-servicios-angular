@@ -33,6 +33,7 @@ import { ModalPrePaymentComponent } from './configuracion/detallepagousuario/mod
 import { BackButtonComponent } from './layouts/back-button/back-button/back-button.component';
 import { ModalDetailsPrepaymentComponent } from './configuracion/pre-payment/modal-details-prepayment/modal-details-prepayment.component';
 import { PrePaymentComponent } from './configuracion/pre-payment/pre-payment.component';
+import { LayoutsModule } from './layouts/layouts.module';
 @NgModule({
   declarations: [
     ServiciosComponent,
@@ -62,6 +63,7 @@ import { PrePaymentComponent } from './configuracion/pre-payment/pre-payment.com
     DashboardRoutingModule,
     ReactiveFormsModule,
     FormsModule,
+    LayoutsModule,
     NgbModule,
     NgbPaginationModule,
     NgSelectModule,

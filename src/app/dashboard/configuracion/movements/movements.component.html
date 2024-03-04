@@ -45,10 +45,10 @@
                     </th>
                   </tr>
                 </thead>
-                <tbody class="gridjs-tbody" *ngIf="movements.length > 0">
+                <tbody class="gridjs-tbody" *ngIf="pagination.data.length > 0">
                   <tr
                     class="gridjs-tr"
-                    *ngFor="let data of movements"
+                    *ngFor="let data of pagination.data"
                     id="o_{{ data.id }}"
                   >
                     <td class="gridjs-td">
@@ -88,7 +88,15 @@
             </div>
           </div>
           <div class="gridjs-footer">
-            <div class="row align-items-center gy-3"></div>
+            <div class="row align-items-center gy-3">
+              <div class="col-sm-auto ms-auto">
+                <div class="text-sm-right float-end listjs-pagination">
+                  <ngb-pagination [(page)]="pagination.currentPage" [pageSize]="limit"
+                    [collectionSize]="pagination.total" [maxSize]="5" i18n="false" (pageChange)="onPageChange($event)">
+                  </ngb-pagination>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>

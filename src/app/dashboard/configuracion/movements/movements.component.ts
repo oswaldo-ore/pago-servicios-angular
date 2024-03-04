@@ -7,6 +7,7 @@ import { ToastrService } from 'ngx-toastr';
 import { DetailMovement } from '../../core/interfaz/detail_movement';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { DetailsComponent } from './details/details.component';
+import { PaginationModel } from '../../core/interfaz/pagination.model';
 
 @Component({
   selector: 'app-movements',
@@ -16,6 +17,13 @@ import { DetailsComponent } from './details/details.component';
 export class MovementsComponent {
   public movements: Movements[] = [];
   usuarioId: number = 0;
+  pagination: PaginationModel<Movements> = {
+    currentPage: 0,
+    total: 0,
+    totalPages: 0,
+    data: []
+  };
+  limit: number = 10;
   constructor(
     private usuarioService: UsuariosService,
     private route: ActivatedRoute,
@@ -28,13 +36,24 @@ export class MovementsComponent {
       const idParam = params.get('id');
       if (idParam !== null) {
         this.usuarioId = +idParam;
-        this.getMovementsToUser(this.usuarioId);
+        this.getMovementsWithPaginateToUser(this.usuarioId);
+        // this.getMovementsToUser(this.usuarioId);
       } else {
         console.error('ID es nulo');
       }
     });
   }
 
+  getMovementsWithPaginateToUser(userId: number, page: number = 1, limit: number = 10) {
+    this.usuarioService
+      .getMovementUserWithPaginate(userId, page, limit)
+      .then((response) => {
+        this.pagination = response;
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }
   getMovementsToUser(userId: number) {
     this.usuarioService
       .getMovementUser(userId)
@@ -62,5 +81,9 @@ export class MovementsComponent {
       size: 'lg',
     });
     modalRef.componentInstance.detailsMovement = detailsMovement;
+  }
+
+  onPageChange(page: number) {
+    this.getMovementsWithPaginateToUser(this.usuarioId, page, this.limit);
   }
 }

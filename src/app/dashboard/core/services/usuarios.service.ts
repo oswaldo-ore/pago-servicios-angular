@@ -185,6 +185,17 @@ export class UsuariosService {
     throw response.message;
   }
 
+  async getMovementUserWithPaginate(id: number,pageNumber: number = 1, limit: number = 8) {
+    const params = new HttpParams().set('page', pageNumber.toString()).set('limit', limit.toString());
+    let url = GlobalComponent.usuarios_movements.replace(":id",id.toString())+"-v2" ;
+    let response = await this.http.get<any>(url, { params }).toPromise();
+    if (response.success) {
+      console.log(response.data);
+      return response.data;
+    }
+    throw response.message;
+  }
+
   async createDebt(userId: number,monto: number,fecha: Date, servicioId: number) {
     const params = new HttpParams()
     .set('amount', monto.toString())

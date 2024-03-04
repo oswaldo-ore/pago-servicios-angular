@@ -31,6 +31,8 @@ import { DetailsComponent } from './configuracion/movements/details/details.comp
 import { ModalCreateDebtComponent } from './configuracion/detallepagousuario/modal-create-debt/modal-create-debt.component';
 import { ModalPrePaymentComponent } from './configuracion/detallepagousuario/modal-pre-payment/modal-pre-payment.component';
 import { BackButtonComponent } from './layouts/back-button/back-button/back-button.component';
+import { ModalDetailsPrepaymentComponent } from './configuracion/pre-payment/modal-details-prepayment/modal-details-prepayment.component';
+import { PrePaymentComponent } from './configuracion/pre-payment/pre-payment.component';
 @NgModule({
   declarations: [
     ServiciosComponent,
@@ -51,7 +53,9 @@ import { BackButtonComponent } from './layouts/back-button/back-button/back-butt
     DetailsComponent,
     ModalCreateDebtComponent,
     ModalPrePaymentComponent,
-    BackButtonComponent
+    BackButtonComponent,
+    PrePaymentComponent,
+    ModalDetailsPrepaymentComponent
   ],
   imports: [
     CommonModule,

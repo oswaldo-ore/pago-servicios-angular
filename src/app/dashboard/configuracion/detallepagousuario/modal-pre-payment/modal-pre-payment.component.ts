@@ -21,7 +21,6 @@ export class ModalPrePaymentComponent {
     private toast: ToastrService,
   ) {
     this.form = formBuilder.group({
-      service: ['',Validators.required],
       amount: ['',Validators.required],
       description: ['',Validators.required],
     });

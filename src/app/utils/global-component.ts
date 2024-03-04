@@ -45,6 +45,8 @@ export const GlobalComponent = {
     deudas_mensuales: URL_BASE + 'deudas-mensuales',
 
     prepayment_save: URL_BASE + 'prepayment/register',
+    prepayment_list: URL_BASE + 'prepayment/list',
+
     configuracion: URL_BASE + 'configuracion',
     configuracion_generar_qr: URL_BASE + 'configuracion/getCodigoQr',
     configuracion_verificar_qr: URL_BASE + 'configuracion/verificarQr',

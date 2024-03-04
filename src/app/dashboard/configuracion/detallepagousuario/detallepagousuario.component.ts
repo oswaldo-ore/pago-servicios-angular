@@ -1,5 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
 import { UsuariosService } from '../../core/services/usuarios.service';
@@ -31,7 +31,8 @@ export class DetallepagousuarioComponent {
     private toast: ToastrService,
     private modalService: NgbModal,
     private formBuilder: FormBuilder,
-    private serviciosService: ServiciosService
+    private serviciosService: ServiciosService,
+    private router: Router
   ) {
     this.usuarioId = 0;
     this.form = formBuilder.group({
@@ -153,8 +154,12 @@ export class DetallepagousuarioComponent {
     modalCreatePrePayment.result.then(
       (result)=>{
         this.toast.success(result);
-        this.cargarDetalleFacturaUsuario();
+        this.showPrepaymentsToUser(this.usuarioId);
       },
     );
+  }
+
+  showPrepaymentsToUser(usuarioId: number) {
+    this.router.navigate(['/usuario/detalle-adelantos/', usuarioId]);
   }
 }

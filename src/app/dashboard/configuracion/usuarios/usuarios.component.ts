@@ -162,20 +162,26 @@ export class UsuariosComponent {
     Swal.fire({
       title: '¿Qué detalle desea ver?',
       showDenyButton: true,
+      showCancelButton: true,
       confirmButtonText: `Deudas`,
       denyButtonText: `Movimientos`,
+      cancelButtonText: `Adelantos $.`,
       icon: 'question',
       customClass: {
         confirmButton: 'btn btn-success btn-sm',
         denyButton: 'btn btn-primary btn-sm',
+        cancelButton: 'btn btn-danger btn-sm',
       },
     }).then((result) => {
+      console.log(result);
       if (result.isConfirmed) {
         // this.router.navigate(['/usuario/detalle-deudas/', usuarioId]);
         this.showDeudasToUser(usuarioId);
       } else if (result.isDenied) {
         // this.router.navigate(['/usuario/detalle-movimientos/', usuarioId]);
         this.showMovementsToUser(usuarioId);
+      }else if(result.isDismissed && result.dismiss === Swal.DismissReason.cancel){
+        this.showPrepaymentsToUser (usuarioId);
       }
     });
   }
@@ -225,5 +231,9 @@ export class UsuariosComponent {
 
   showMovementsToUser(usuarioId: number) {
     this.router.navigate(['/usuario/detalle-movimientos/', usuarioId]);
+  }
+
+  showPrepaymentsToUser(usuarioId: number) {
+    this.router.navigate(['/usuario/detalle-adelantos/', usuarioId]);
   }
 }

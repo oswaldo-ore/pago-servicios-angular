@@ -27,4 +27,20 @@ export class PrePaymentService {
     }
     throw response.message;
   }
+
+  async getPrepaymentToUser(userId: number, page: number, limit: number) {
+    let response = await this.http
+      .get<any>(GlobalComponent.prepayment_list, {
+        params: {
+          userId: userId.toString(),
+          page: page.toString(),
+          limit: limit.toString(),
+        },
+      })
+      .toPromise();
+    if (response.success) {
+      return response.data;
+    }
+    throw response.message;
+  }
 }

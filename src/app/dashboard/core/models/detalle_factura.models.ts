@@ -24,6 +24,39 @@ export class DetalleUsuarioFacturas{
     public Factura: Factura|null=null,
   ) {}
 
+  //map:string
+  static fromJson(detalle: any) {
+    return new DetalleUsuarioFacturas(
+      detalle.id,
+      detalle.monto,
+      detalle.estado,
+      detalle.monto_pago,
+      detalle.cambio_pago,
+      detalle.facturaid,
+      new Date(detalle.fecha),
+      detalle.fecha_pago ? new Date(detalle.fecha_pago) : null,
+      detalle.notificar,
+      detalle.visto,
+      detalle.servicioid,
+      detalle.usuarioid,
+      new Usuario(detalle.Usuario.id, detalle.Usuario.nombre, detalle.Usuario.apellidos, detalle.Usuario.estado),
+      new Servicio(detalle.Servicio.id, detalle.Servicio.nombre, detalle.Servicio.estado, detalle.Servicio.asociar),
+      (detalle.Factura == null) ? null : new Factura(
+        detalle.Factura.id,
+        detalle.Factura.monto,
+        new Date(detalle.Factura.fecha),
+        detalle.Factura.ispagado,
+        detalle.Factura.notifico,
+        detalle.Factura.visto,
+        detalle.Factura.estado,
+        detalle.Factura.foto_factura,
+        detalle.Factura.servicioid,
+        new Servicio(detalle.Servicio.id, detalle.Servicio.nombre, detalle.Servicio.estado, detalle.Servicio.asociar),
+        []
+      ),
+    );
+  }
+
   public estadoString() {
     if(this.estado == DetalleUsuarioFacturas.PENDIENTE){
       return "Pendiente";

@@ -167,6 +167,23 @@ export class UsuariosService {
     }
   }
 
+  detalleDeudasUsuarioWithPaginate(usuarioId: number,pageNumber: number = 1, limit: number = 8,estado: number = 0): Observable<PaginationModel<DetalleUsuarioFacturas>>{
+    const url = GlobalComponent.usuarios_listar_deudas_paginate.replace(':id', usuarioId.toString());
+    let params = new HttpParams().set('page', pageNumber.toString()).set('limit', limit.toString()).set('state', estado.toString());
+    return this.http.get<any>(url,{ params }).pipe(
+      map( response => {
+        if(!response.success){
+          throw response.message;
+        }
+        const debs = response.data.data.map((detalle: any) => {
+          return DetalleUsuarioFacturas.fromJson(detalle);
+        });
+        response.data.data = debs;
+        return response.data;
+      })
+    );
+  }
+
   async notifyDeuda(id: number) {
     let url = GlobalComponent.usuarios_notify_deuda.replace(":id",id.toString()) ;
     let response = await this.http.post<any>(url,{}).toPromise();

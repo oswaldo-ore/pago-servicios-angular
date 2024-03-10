@@ -90,11 +90,9 @@ export class FacturasComponent {
   cargarFacturas(page = 1) {
     let start = moment(this.startDate).format('YYYY-MM-DD');
     let end = moment(this.endDate).format('YYYY-MM-DD');
-    console.log(start,end);
     this.facturaServicio.getPaginacion(page, this.limit,this.searchTerms, start,end ).subscribe(
       (response: PaginationModel<Factura>) => {
         this.paginacion = response;
-        console.log(response);
       },
       error => {
         this.toastr.error("Error al cargar los usuarios", error.message);

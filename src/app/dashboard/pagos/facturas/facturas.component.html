@@ -21,7 +21,12 @@
                   [(ngModel)]="startDate"
                   [altInput]="true"
                   [convertModelValue]="true"
-                  [options]="{ dateFormat: 'Y-m', altFormat: 'F Y' , locale: 'es' }"
+                  [options]="{
+                    dateFormat: 'Y-m',
+                    altFormat: 'F Y' ,
+                    locale: 'es',
+                    mode: 'single',
+                  }"
                   (ngModelChange)="dateChange()"
                 />
               </div>
@@ -33,7 +38,12 @@
                   [(ngModel)]="endDate"
                   [altInput]="true"
                   [convertModelValue]="true"
-                  [options]="{ dateFormat: 'Y-m', altFormat: 'F Y' , locale: 'es' }"
+                  [options]="{
+                    dateFormat: 'Y-m',
+                    altFormat: 'F Y' ,
+                    locale: 'es',
+                    mode: 'single',
+                  }"
                   (ngModelChange)="dateChange()"
                 />
               </div>

@@ -11,6 +11,7 @@ import { Router } from '@angular/router';
 import { DetalleUsuarioFacturas } from '../../core/models/detalle_factura.models';
 import Swal from 'sweetalert2';
 import { Subject, debounceTime, distinctUntilChanged } from 'rxjs';
+import * as moment from 'moment';
 @Component({
   selector: 'app-facturas',
   templateUrl: './facturas.component.html',
@@ -34,6 +35,8 @@ export class FacturasComponent {
   selected: Date = new Date() ;
   selectedFiles?: FileList;
 
+  startDate = moment().startOf('year').toDate();
+  endDate = moment().toDate();
   public constructor(
     private facturaServicio: FacturasService,
     private servicioService: ServiciosService,
@@ -81,8 +84,14 @@ export class FacturasComponent {
     const term = (event.target as HTMLInputElement).value;
     this.searchTerm$.next(term);
   }
+  dateChange(){
+    this.cargarFacturas();
+  }
   cargarFacturas(page = 1) {
-    this.facturaServicio.getPaginacion(page, this.limit,this.searchTerms ).subscribe(
+    let start = moment(this.startDate).format('YYYY-MM-DD');
+    let end = moment(this.endDate).format('YYYY-MM-DD');
+    console.log(start,end);
+    this.facturaServicio.getPaginacion(page, this.limit,this.searchTerms, start,end ).subscribe(
       (response: PaginationModel<Factura>) => {
         this.paginacion = response;
         console.log(response);

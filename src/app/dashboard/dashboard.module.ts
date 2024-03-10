@@ -4,15 +4,19 @@ import { FlatpickrModule } from 'angularx-flatpickr';
 import { DashboardRoutingModule } from './dashboard-routing.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ServiciosComponent } from './configuracion/servicios/servicios.component';
-import { NgbModule, NgbPaginationModule, NgbTooltip } from '@ng-bootstrap/ng-bootstrap';
+import {
+  NgbModule,
+  NgbPaginationModule,
+  NgbTooltip,
+} from '@ng-bootstrap/ng-bootstrap';
 import { NgSelectModule } from '@ng-select/ng-select';
-import {MatInputModule} from '@angular/material/input';
-import {MatFormFieldModule} from '@angular/material/form-field';
-import {MatSelectModule} from '@angular/material/select';
-import {MatDatepickerModule} from '@angular/material/datepicker';
-import {MatCardModule} from '@angular/material/card';
-import {MatNativeDateModule} from '@angular/material/core';
-import {MatCheckboxModule} from '@angular/material/checkbox';
+import { MatInputModule } from '@angular/material/input';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatSelectModule } from '@angular/material/select';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatCardModule } from '@angular/material/card';
+import { MatNativeDateModule } from '@angular/material/core';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 import { UsuariosComponent } from './configuracion/usuarios/usuarios.component';
 import { SuscripcionesComponent } from './configuracion/suscripciones/suscripciones.component';
 import { FacturasComponent } from './pagos/facturas/facturas.component';
@@ -34,6 +38,8 @@ import { BackButtonComponent } from './layouts/back-button/back-button/back-butt
 import { ModalDetailsPrepaymentComponent } from './configuracion/pre-payment/modal-details-prepayment/modal-details-prepayment.component';
 import { PrePaymentComponent } from './configuracion/pre-payment/pre-payment.component';
 import { LayoutsModule } from './layouts/layouts.module';
+import { Spanish } from 'flatpickr/dist/l10n/es.js';
+
 @NgModule({
   declarations: [
     ServiciosComponent,
@@ -56,7 +62,7 @@ import { LayoutsModule } from './layouts/layouts.module';
     ModalPrePaymentComponent,
     BackButtonComponent,
     PrePaymentComponent,
-    ModalDetailsPrepaymentComponent
+    ModalDetailsPrepaymentComponent,
   ],
   imports: [
     CommonModule,
@@ -75,7 +81,9 @@ import { LayoutsModule } from './layouts/layouts.module';
     MatNativeDateModule,
     MatCheckboxModule,
     NgbTooltip,
-    FlatpickrModule.forRoot(),
+    FlatpickrModule.forRoot({
+      locale: Spanish,
+    }),
   ],
 })
-export class DashboardModule { }
+export class DashboardModule {}

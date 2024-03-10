@@ -10,6 +10,7 @@ import { ModalDismissReasons, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Router } from '@angular/router';
 import { DetalleUsuarioFacturas } from '../../core/models/detalle_factura.models';
 import Swal from 'sweetalert2';
+import { Subject, debounceTime, distinctUntilChanged } from 'rxjs';
 @Component({
   selector: 'app-facturas',
   templateUrl: './facturas.component.html',
@@ -24,7 +25,10 @@ export class FacturasComponent {
     data: []
   };
   limit: number = 10;
-  searchTerms = "";
+
+  searchTerms: string = "";
+  searchTerm$ = new Subject<string>();
+
   closeResult="";
   servicios: Servicio[] = [];
   selected: Date = new Date() ;
@@ -55,10 +59,30 @@ export class FacturasComponent {
         console.log("error "+error);
       }
     );
+    this.initSearchTerm();
   }
-
+  initSearchTerm(){
+    this.searchTerm$
+    .pipe(
+      debounceTime(700),
+      distinctUntilChanged()
+    )
+    .subscribe(
+      (term) => {
+        this.searchTerms = term;
+        this.cargarFacturas();
+      },
+      (error) => {
+        console.error('Error al realizar la búsqueda:', error);
+      }
+    );
+  }
+  onInputChange(event: Event) {
+    const term = (event.target as HTMLInputElement).value;
+    this.searchTerm$.next(term);
+  }
   cargarFacturas(page = 1) {
-    this.facturaServicio.getPaginacion(page, this.limit).subscribe(
+    this.facturaServicio.getPaginacion(page, this.limit,this.searchTerms ).subscribe(
       (response: PaginationModel<Factura>) => {
         this.paginacion = response;
         console.log(response);

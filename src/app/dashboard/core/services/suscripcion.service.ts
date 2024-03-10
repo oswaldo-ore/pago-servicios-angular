@@ -13,8 +13,8 @@ export class SuscripcionService {
 
   constructor(private http:HttpClient) { }
 
-  listarPaginacion(pageNumber:number = 1,limit:number = 8): Observable<PaginationModel<Suscripcion>>{
-    const params = new HttpParams().set('page', pageNumber.toString()).set('limit', limit.toString());
+  listarPaginacion(pageNumber:number = 1,limit:number = 8, search: string = ''): Observable<PaginationModel<Suscripcion>>{
+    const params = new HttpParams().set('page', pageNumber.toString()).set('limit', limit.toString()).set('search', search);
     return this.http.get<any>(GlobalComponent.suscripciones_listar,{ params }).pipe(
       map(response => {
         if(response.success){

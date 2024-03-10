@@ -15,8 +15,9 @@ export class FacturasService {
 
   constructor(private http: HttpClient) { }
 
-  getPaginacion(pageNumber: number = 1, limit: number = 8): Observable<PaginationModel<Factura>> {
-    const params = new HttpParams().set('page', pageNumber.toString()).set('limit', limit.toString());
+  getPaginacion(pageNumber: number = 1, limit: number = 8, search: string = '', startMonth: string = '', endMonth:string = ''): Observable<PaginationModel<Factura>> {
+    const params = new HttpParams().set('page', pageNumber.toString()).set('limit', limit.toString())
+    .set('search', search).set('start_month', startMonth).set('end_month', endMonth);
     return this.http.get<any>(GlobalComponent.facturas_listar, { params }).pipe(
       map(response => {
         if (response.success) {

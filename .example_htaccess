@@ -1,0 +1,17 @@
+RewriteEngine On
+# Si se solicita un recurso existente, ve a él tal como está
+RewriteCond %{DOCUMENT_ROOT}%{REQUEST_URI} -f [OR]
+RewriteCond %{DOCUMENT_ROOT}%{REQUEST_URI} -d
+RewriteRule ^ - [L]
+
+# Si el recurso solicitado no existe, utiliza index.html
+RewriteRule ^ /index.html
+[tecnywcy@server104 pago_servicio_angular]$ cat .htaccess
+RewriteEngine On
+# Si se solicita un recurso existente, ve a él tal como está
+RewriteCond %{DOCUMENT_ROOT}%{REQUEST_URI} -f [OR]
+RewriteCond %{DOCUMENT_ROOT}%{REQUEST_URI} -d
+RewriteRule ^ - [L]
+
+# Si el recurso solicitado no existe, utiliza index.html
+RewriteRule ^ /index.html

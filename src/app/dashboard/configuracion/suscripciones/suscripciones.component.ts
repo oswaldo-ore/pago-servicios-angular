@@ -13,6 +13,7 @@ import { Router } from '@angular/router';
 import Swal from 'sweetalert2';
 import { SuscripcionModalComponent } from './suscripcion-modal/suscripcion-modal.component';
 import * as moment from 'moment';
+import { Subject, debounceTime, delay, distinctUntilChanged, of, switchMap } from 'rxjs';
 
 @Component({
   selector: 'app-suscripciones',
@@ -22,7 +23,10 @@ import * as moment from 'moment';
 export class SuscripcionesComponent {
   form: FormGroup;
   closeResult = '';
+
   searchTerms: string = "";
+  searchTerm$ = new Subject<string>();
+
   limit: number = 8;
   paginacion: PaginationModel<Suscripcion> = {
     currentPage: 0,
@@ -57,10 +61,31 @@ export class SuscripcionesComponent {
     this.cargarSuscripciones();
     this.cargarServicios();
     this.cargarUsuarios();
+    this.initSearchTerm();
   }
 
+  initSearchTerm(){
+    this.searchTerm$
+    .pipe(
+      debounceTime(700),
+      distinctUntilChanged()
+    )
+    .subscribe(
+      (term) => {
+        this.searchTerms = term;
+        this.cargarSuscripciones();
+      },
+      (error) => {
+        console.error('Error al realizar la búsqueda:', error);
+      }
+    );
+  }
+  onInputChange(event: Event) {
+    const term = (event.target as HTMLInputElement).value;
+    this.searchTerm$.next(term);
+  }
   cargarSuscripciones(page = 1) {
-    this.suscripcionService.listarPaginacion(page, this.limit).subscribe(
+    this.suscripcionService.listarPaginacion(page, this.limit, this.searchTerms).subscribe(
       (response: PaginationModel<Suscripcion>) => {
         this.paginacion.total = response.total;
         this.paginacion.totalPages = response.totalPages;
@@ -72,13 +97,11 @@ export class SuscripcionesComponent {
       }
     );
   }
-
   cargarServicios() {
     this.servicioService.getAll().subscribe(
       (response: Servicio[]) => {
         this.servicios = response;
         this.serviciosFijo = response;
-        console.log(this.servicios);
       },
       error => {
         this.toastr.error("Error al cargar los servicios", error.message);

@@ -64,11 +64,12 @@ export class SuscripcionModalComponent {
   cambiarTipo(event: any) {
     let tipo = this.form.get('tipo')?.value;
     console.log(this.form.get('tipo')?.value);
-    if (tipo != "fijo") {
-      this.form.get('monto')?.clearValidators();
-    } else {
+    if (tipo == "fijo") {
       this.form.get('monto')?.setValidators([Validators.required]);
+    } else {
+      this.form.get('monto')?.clearValidators();
     }
+    this.form.get('monto')?.updateValueAndValidity();
     if(tipo == "automatico"){
       this.form.get('monto')?.setValidators([Validators.required]);
       this.form.get('fecha_deuda')?.setValidators([Validators.required]);
@@ -79,6 +80,7 @@ export class SuscripcionModalComponent {
 
   saveUser(){
     console.log(this.form.valid);
+    console.log(this.form);
     if(this.form.valid){
       let usuario_id = this.form.get('usuario')?.value;
       let servicio_id = this.form.get('servicio')?.value;

@@ -32,6 +32,9 @@ export class DetallepagousuarioComponent {
   limit: number = 10;
   state:number = -1;
   detalleFacturaId: number;
+  //pago adelantado
+  enableAdvancePayment: boolean = false;
+  isFirstPetition: boolean = true;
   services: Servicio[] = [];
   @ViewChild('content') modalContent: any;
   constructor(
@@ -79,6 +82,15 @@ export class DetallepagousuarioComponent {
       .subscribe(
         (response: PaginationModel<DetalleUsuarioFacturas>) => {
           this.pagination = response;
+          if(this.isFirstPetition && page == 1){
+            let detail = this.pagination.data.find(x => x.isPendiente() );
+            if (detail) {
+              this.enableAdvancePayment = false;
+            }else{
+              this.enableAdvancePayment = true;
+            }
+            this.isFirstPetition = false;
+          }
         },
         (error) => {}
       );
@@ -126,7 +138,7 @@ export class DetallepagousuarioComponent {
       .devolverPagoDetalleFactura(detalleFacturaId)
       .then((response) => {
         this.toast.success(response.message);
-        this.cargarDetalleFacturaUsuario();
+        this.getDetalleFacturaUsuarioWithPaginate();
       })
       .catch((error) => {
         this.toast.error(error);
@@ -145,7 +157,7 @@ export class DetallepagousuarioComponent {
         this.toast.success(response.message);
         this.form.reset();
         this.modalService.dismissAll();
-        this.cargarDetalleFacturaUsuario();
+        this.getDetalleFacturaUsuarioWithPaginate();
       })
       .catch((error) => {
         this.toast.error(error);
@@ -159,7 +171,7 @@ export class DetallepagousuarioComponent {
     modalCreateDebt.result.then(
       (result) => {
         this.toast.success(result);
-        this.cargarDetalleFacturaUsuario();
+        this.getDetalleFacturaUsuarioWithPaginate();
       },
       (reason) => {
         console.log(reason);

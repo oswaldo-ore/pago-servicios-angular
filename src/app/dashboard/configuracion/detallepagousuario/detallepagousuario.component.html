@@ -16,7 +16,7 @@
                 >
                 <a
                   href="javascript: void(0);"
-                  *ngIf="detalleFacturaDeben.length == 0"
+                  *ngIf="enableAdvancePayment"
                   class="btn btn-outline-dark ms-2"
                   (click)="openModalCreatePrePayment()"
                   >Pago adelantado</a

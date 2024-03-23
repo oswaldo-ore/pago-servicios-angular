@@ -12,8 +12,12 @@ import { WhatsappComponent } from './configuracion/whatsapp/whatsapp.component';
 import { VeripagosComponent } from './configuracion/veripagos/veripagos.component';
 import { MovementsComponent } from './configuracion/movements/movements.component';
 import { PrePaymentComponent } from './configuracion/pre-payment/pre-payment.component';
+import { MainComponent } from './main/main.component';
 
 const routes: Routes = [
+  {
+    path: "", component: MainComponent,
+  },
   {
     path: "servicios", component: ServiciosComponent,
   },

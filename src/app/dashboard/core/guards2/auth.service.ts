@@ -1,9 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { CookieService } from 'ngx-cookie-service';
-import { Observable } from 'rxjs';
 import { GlobalComponent } from 'src/app/utils/global-component';
-
+import { jwtDecode } from "jwt-decode";
 @Injectable({
   providedIn: 'root'
 })
@@ -39,10 +38,15 @@ export class AuthService {
 
   isLoggedIn(): boolean {
     const token = this.cookieService.get('token');
-    return (token !== null && token !== '')
+    return (token !== null && token !== '' && !this.isTokenExpired(token??''))
   }
 
   private isTokenExpired(token: string): boolean {
-    return false;
+    const tokenData = jwtDecode(token);
+    if(tokenData === null){
+      return true;
+    }
+    const currentDateInSeconds = Math.floor(Date.now() / 1000);
+    return tokenData.exp! < currentDateInSeconds;
   }
 }

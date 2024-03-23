@@ -7,6 +7,12 @@ export const MENU: MenuItem[] = [
     isTitle: true
   },
   {
+    id: 0,
+    label: 'Dashboard',
+    icon: 'ri-dashboard-line',
+    link: '/'
+  },
+  {
     id: 2,
     label: 'Configuración',
     icon: ' ri-settings-5-line',

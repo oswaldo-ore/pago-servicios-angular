@@ -39,6 +39,7 @@ import { ModalDetailsPrepaymentComponent } from './configuracion/pre-payment/mod
 import { PrePaymentComponent } from './configuracion/pre-payment/pre-payment.component';
 import { LayoutsModule } from './layouts/layouts.module';
 import { Spanish } from 'flatpickr/dist/l10n/es.js';
+import { MainComponent } from './main/main.component';
 
 @NgModule({
   declarations: [
@@ -63,6 +64,7 @@ import { Spanish } from 'flatpickr/dist/l10n/es.js';
     BackButtonComponent,
     PrePaymentComponent,
     ModalDetailsPrepaymentComponent,
+    MainComponent,
   ],
   imports: [
     CommonModule,

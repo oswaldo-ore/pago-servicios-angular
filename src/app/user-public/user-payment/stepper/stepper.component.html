@@ -1,0 +1,219 @@
+<mat-stepper #stepper>
+  <mat-step [stepControl]="firstFormGroup">
+    <form [formGroup]="firstFormGroup">
+      <ng-template matStepLabel>Servicios</ng-template>
+      <div class="mb-3">
+        <div data-simplebar>
+          <ul class="list-group">
+            <li class="list-group-item" *ngFor="let service of services">
+              <div class="d-flex align-items-center">
+                <div class="flex-grow-1">
+                  <label for="{{ service.id }}" class="m-0">
+                    <div class="d-flex align-items-center">
+                      <div
+                        class="flex-shrink-0 me-2"
+                        style="align-self: center"
+                      >
+                        <input
+                          class="form-check-input me-1"
+                          type="checkbox"
+                          value=""
+                          [disabled]="service.monto_por_servicio == 0"
+                          id="{{ service.id }}"
+                          (change)="toggleSelection(service.id)"
+                        />
+                      </div>
+                      <!--<div class="flex-shrink-0 avatar-xs">
+                        <div
+                          class="avatar-title bg-danger-subtle text-danger rounded"
+                        >
+                          <img
+                            src="assets/images/users/avatar-3.jpg"
+                            alt=""
+                            class="avatar-xs rounded-circle"
+                          />
+                        </div>
+                      </div>-->
+                      <div class="flex-shrink-0 ms-2">
+                        <h6 class="fs-14 mb-0">{{ service.nombre }}</h6>
+                      </div>
+                    </div>
+                  </label>
+                </div>
+                <div class="flex-shrink-0">
+                  <span class="text-danger">Bs. {{ service.monto_por_servicio}}</span>
+                </div>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <button
+        type="button"
+        class="btn btn-primary bg-gradient waves-effect waves-light"
+        mat-button
+        matStepperNext
+        [disabled]="selectedServiceIds.length === 0"
+        (click)="showDeudasByServiceSelected()"
+      >
+        Ver deudas
+      </button>
+    </form>
+  </mat-step>
+  <mat-step [stepControl]="secondFormGroup">
+    <form [formGroup]="secondFormGroup">
+      <ng-template matStepLabel>Deudas</ng-template>
+
+      <div>
+        <div class="mb-3">
+          <div class="table-responsive">
+            <table class="table align-middle mb-0">
+              <thead class="table-light">
+                <tr>
+                  <th scope="col">
+                    <div class="form-check">
+                      <input
+                        class="form-check-input"
+                        type="checkbox"
+                        value=""
+                        disabled
+                      />
+                      <label
+                        class="form-check-label"
+                        for="responsivetableCheck"
+                      ></label>
+                    </div>
+                  </th>
+                  <th scope="col">Servicio</th>
+                  <th scope="col">Fecha</th>
+                  <th scope="col">Bs. Monto</th>
+                  <th scope="col" class="text-end">Bs. Monto Debe</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr
+                  *ngFor="let deuda of deudasByServiceSelected; let i = index"
+                >
+                  <td scope="row">
+                    <div class="form-check">
+                      <input
+                        class="form-check-input"
+                        type="checkbox"
+                        value=""
+                        [checked]="isDeudaSelected(deuda.id)"
+                        (change)="selectDeuda(deuda.id, i)"
+                        [disabled]="isCheckboxDisabled(i)"
+                        id="responsivetableCheck{{ i }}"
+                      />
+                      <label
+                        class="form-check-label"
+                        for="responsivetableCheck01"
+                      ></label>
+                    </div>
+                  </td>
+                  <td>
+                    <label for="responsivetableCheck{{ i }}" class="m-0">{{
+                      deuda.Servicio?.nombre
+                    }}</label>
+                  </td>
+                  <td>{{ deuda.getDateMonth() }}</td>
+                  <td>
+                    {{ deuda.monto }}
+                  </td>
+                  <td class="text-success text-end">
+                    <div class="d-flex gap-2 align-items-center">
+                      <div class="flex-grow-1">{{ deuda.montoAPagar() }}</div>
+                    </div>
+                  </td>
+                </tr>
+              </tbody>
+              <tfoot class="table-light">
+                <tr>
+                  <td colspan="4">Total</td>
+                  <td class="text-end">Bs. {{ totalPrice }}</td>
+                </tr>
+                <tr>
+                  <td colspan="4">Total a pagar</td>
+                  <td class="text-end">Bs. {{ totalPriceSelected }}</td>
+                </tr>
+              </tfoot>
+            </table>
+            <!-- end table -->
+          </div>
+          <!-- end table responsive -->
+        </div>
+        <div class="">
+          <button
+            type="button"
+            class="btn btn-light bg-gradient waves-effect waves-light me-2"
+            mat-button
+            matStepperPrevious
+          >
+            Atras
+          </button>
+          <button
+            type="button"
+            class="btn btn-primary bg-gradient waves-effect waves-light"
+            mat-button
+            matStepperNext
+            [disabled]="selectedDeudasIds.length === 0"
+            (click)="generateQrCode()"
+          >
+            Generar QR
+          </button>
+        </div>
+      </div>
+    </form>
+  </mat-step>
+  <mat-step [stepControl]="secondFormGroup">
+    <ng-template matStepLabel>QR</ng-template>
+    <div class="">
+      <div class="text-center p-5">
+        <img
+          src="{{ veripagos ? veripagos.qr : 'assets/images/qr-code.gif' }}"
+          alt="QR Code"
+          class="img-fluid"
+          [style]="veripagos ? 'max-height: 450px':'max-height: 200px' "
+        />
+        <div class="" *ngIf="veripagos == null">
+          <p class="text-muted mt-3 text-uppercase"><strong>Generando QR...</strong></p>
+        </div>
+      </div>
+    </div>
+    <div>
+      <button
+        type="button"
+        class="btn btn-light bg-gradient waves-effect waves-light me-2"
+        mat-button
+        matStepperPrevious
+        (click)="stepperBackPage2()"
+      >
+        Atras
+      </button>
+      <button
+        type="button"
+        class="btn btn-primary bg-gradient waves-effect waves-light"
+        mat-button
+        (click)="verifyPayment()"
+      >
+        Verificar Pago
+      </button>
+    </div>
+  </mat-step>
+  <mat-step>
+    <ng-template matStepLabel>Pago completado</ng-template>
+    <div class="">
+      <div class="text-center p-5">
+        <img
+          src="assets/images/check_mark.png"
+          alt="Payment_successfull"
+          class="img-fluid"
+          style="max-height: 250px"
+        />
+        <div class="">
+          <h4 class="text-muted mt-3"><strong>Pago completado correctamente</strong></h4>
+        </div>
+      </div>
+    </div>
+  </mat-step>
+</mat-stepper>

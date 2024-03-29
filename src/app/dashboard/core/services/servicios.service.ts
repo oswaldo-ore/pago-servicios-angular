@@ -63,4 +63,14 @@ export class ServiciosService {
       throw (String)(response.message);
     }
   }
+
+  async getServicesUserByCode(code:string){
+    const url = `${GlobalComponent.user_services.replace(':code',code)}`;
+    let response =  await this.http.get<any>(url).toPromise();
+    if(response.success){
+      return response.data;
+    }else{
+      throw response.message;
+    }
+  }
 }

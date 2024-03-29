@@ -5,6 +5,9 @@ import { AuthGuard } from './dashboard/core/guards2/auth.guard';
 import { UnauthguardGuard } from './dashboard/core/guards2/unauthguard.guard';
 
 const routes: Routes = [
+  { path: '',
+    loadChildren: () => import('./user-public/user-public.module').then(m => m.UserPublicModule)
+  },
   {
     path: 'admin',
     component: LayoutComponent,

@@ -22,6 +22,15 @@ export class AuthService {
       throw error;
     }
   }
+  async userVerify(code: any) {
+    try {
+      const parametros = { code: code };
+      const response = await this.http.post<any>(GlobalComponent.user_verify,parametros ).toPromise();
+      return response;
+    } catch (error) {
+      throw error;
+    }
+  }
 
   async logout() {
     try {

@@ -225,4 +225,39 @@ export class UsuariosService {
     throw response.message;
 
   }
+
+  getDebtsUserByCode(code:string) : Observable<DetalleUsuarioFacturas[]>{
+    const url = `${GlobalComponent.user_debts.replace(':code', code)}`;
+    return this.http.get<any>(url).pipe(
+      map( response => {
+        if(!response.success){
+          throw response.message;
+        }
+        const debs = response.data.map((detalle: any) => {
+          return DetalleUsuarioFacturas.fromJson(detalle);
+        });
+        response.data = debs;
+        return response.data;
+      })
+    );
+  }
+
+  async generateCodeQr(debs: number[]){
+    let response = await this.http.post<any>(GlobalComponent.user_debts_generate_qr,{
+      idsDeudas:debs,
+    }).toPromise();
+    if (response.success) {
+      return response.data;
+    }
+    throw response.message;
+  }
+
+  async verifyCodeQr(movement_id: number){
+    let url = GlobalComponent.user_debts_verify_payment.replace(':movement_id',movement_id.toString());
+    let response = await this.http.post<any>(url,{}).toPromise();
+    if (response.success) {
+      return response.message;
+    }
+    throw response.message;
+  }
 }

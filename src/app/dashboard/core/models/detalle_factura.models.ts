@@ -1,7 +1,7 @@
+import * as moment from "moment";
 import { Factura } from "./factura.models";
 import { Servicio } from "./servicios.model";
 import { Usuario } from "./usuario.model";
-
 export class DetalleUsuarioFacturas{
   static PENDIENTE = 0;
   static PRESTADO = 1;
@@ -90,6 +90,15 @@ export class DetalleUsuarioFacturas{
   }
 
   public saldoRestante(){
+    return this.monto - this.monto_pago;
+  }
+
+  public getDateMonth(){
+    moment.locale('es');
+    return moment(this.fecha).format('DD MMMM, YYYY');
+  }
+
+  public montoAPagar(){
     return this.monto - this.monto_pago;
   }
 }

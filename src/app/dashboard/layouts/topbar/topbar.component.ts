@@ -135,6 +135,7 @@ export class TopbarComponent implements OnInit {
    */
   async logout() {
     await this.authService.logout();
+    this.router.navigate(['/admin/login']);
   }
 
   windowScroll() {

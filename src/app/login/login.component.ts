@@ -55,7 +55,7 @@ export class LoginComponent {
             this.cookieService.set('token', response.token);
           }
           this.toastr.success(response.message, '¡Bienvenido!');
-          this.router.navigate(['/usuarios']);
+          this.router.navigate(['/admin/usuarios']);
         }
       })
       .catch(error => {

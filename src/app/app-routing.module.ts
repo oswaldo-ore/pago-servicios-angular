@@ -6,13 +6,13 @@ import { UnauthguardGuard } from './dashboard/core/guards2/unauthguard.guard';
 
 const routes: Routes = [
   {
-    path: '',
+    path: 'admin',
     component: LayoutComponent,
     loadChildren: () => import('./dashboard/dashboard.module').then(m => m.DashboardModule),
     canActivate:[AuthGuard]
   },
   {
-    path: 'login',
+    path: 'admin/login',
     loadChildren: () => import('./login/login.module').then(m => m.LoginModule),
     canActivate:[UnauthguardGuard]
   },

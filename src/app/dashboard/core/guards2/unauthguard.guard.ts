@@ -14,7 +14,7 @@ export class UnauthguardGuard implements CanActivate {
       if(!this.authService.isLoggedIn()){
         return true;
       }
-      return this.router.navigate(['/']);
+      return this.router.navigate(['/admin/']);
   }
 
 }

@@ -10,7 +10,7 @@ export const MENU: MenuItem[] = [
     id: 0,
     label: 'Dashboard',
     icon: 'ri-dashboard-line',
-    link: '/'
+    link: '/admin'
   },
   {
     id: 2,
@@ -20,31 +20,31 @@ export const MENU: MenuItem[] = [
       {
         id: 3,
         label: 'Servicios',
-        link: '/servicios',
+        link: '/admin/servicios',
         parentId: 2
       },
       {
         id: 4,
         label: 'Clientes',
-        link: '/usuarios',
+        link: '/admin/usuarios',
         parentId: 2
       },
       {
         id: 5,
         label: 'Suscripciones',
-        link: '/suscripciones',
+        link: '/admin/suscripciones',
         parentId: 2
       },
       {
         id: 6,
         label: 'Whatsapp',
-        link: '/whatsapp',
+        link: '/admin/whatsapp',
         parentId: 2
       },
       {
         id: 7,
         label: 'Configuración',
-        link: '/veripagos',
+        link: '/admin/veripagos',
         parentId: 2
       },
     ]
@@ -57,7 +57,7 @@ export const MENU: MenuItem[] = [
       {
         id: 8,
         label: 'Facturas',
-        link: '/facturas',
+        link: '/admin/facturas',
         parentId: 7
       },
     ]
@@ -70,7 +70,7 @@ export const MENU: MenuItem[] = [
       {
         id: 10,
         label: 'Deudas Mensuales',
-        link: '/deudas-mensuales',
+        link: '/admin/deudas-mensuales',
         parentId: 9
       },
     ]

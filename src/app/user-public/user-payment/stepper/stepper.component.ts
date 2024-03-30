@@ -26,6 +26,7 @@ export class StepperComponent {
   selectedServiceIds: number[] = [];
   selectedDeudasIds: number[] = [];
   selectedIndexes: number[] = [0];
+  totalDebt: number = 0;
   totalPrice: number = 0;
   totalPriceSelected: number = 0;
 
@@ -36,6 +37,16 @@ export class StepperComponent {
     private _formBuilder: FormBuilder,
     private usersService: UsuariosService
   ) {}
+
+
+  ngOnInit(): void {
+    console.log(this.services);
+
+    this.totalDebt = this.services.reduce((acc, service) => {
+      acc += service.monto_por_servicio;
+      return parseFloat(acc.toFixed(2));
+    }, 0);
+  }
 
   toggleSelection(serviceId: number) {
     const index = this.selectedServiceIds.indexOf(serviceId);

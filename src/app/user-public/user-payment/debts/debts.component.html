@@ -5,6 +5,7 @@
         <thead class="gridjs-thead">
           <tr class="gridjs-tr">
             <th class="gridjs-th gridjs-th-sort" data-sort="id">#</th>
+            <th class="gridjs-th sort" data-sort="estado">Servicio</th>
             <th class="gridjs-th sort" data-sort="nombre">Fecha</th>
             <th class="gridjs-th sort" data-sort="asociado_con">
               Fecha Pago
@@ -13,10 +14,6 @@
             <th class="gridjs-th sort" data-sort="apellidos">
               Monto Pago
             </th>
-            <th class="gridjs-th sort" data-sort="asociado_con">
-              Estado
-            </th>
-            <th class="gridjs-th sort" data-sort="estado">Servicio</th>
           </tr>
         </thead>
         <tbody class="gridjs-tbody">
@@ -28,6 +25,11 @@
             <td class="gridjs-td">
               <ngb-highlight
                 [result]="data.id.toString()"
+              ></ngb-highlight>
+            </td>
+            <td class="gridjs-td">
+              <ngb-highlight
+                [result]="data.Servicio?.nombre"
               ></ngb-highlight>
             </td>
             <td class="gridjs-td">
@@ -50,18 +52,6 @@
                 [result]="data.monto_pago.toString()"
               ></ngb-highlight>
             </td>
-            <td class="gridjs-td">
-              <ngb-highlight
-                [result]="data.estadoString()"
-                class="badge {{ data.estadoBadge() }}"
-              ></ngb-highlight>
-            </td>
-            <td class="gridjs-td">
-              <ngb-highlight
-                [result]="data.Servicio?.nombre"
-              ></ngb-highlight>
-            </td>
-
           </tr>
         </tbody>
       </table>

@@ -226,14 +226,14 @@ export class UsuariosComponent {
     });
   }
   showDeudasToUser(usuarioId: number) {
-    this.router.navigate(['/usuario/detalle-deudas/', usuarioId]);
+    this.router.navigate(['/admin/usuario/detalle-deudas/', usuarioId]);
   }
 
   showMovementsToUser(usuarioId: number) {
-    this.router.navigate(['/usuario/detalle-movimientos/', usuarioId]);
+    this.router.navigate(['/admin/usuario/detalle-movimientos/', usuarioId]);
   }
 
   showPrepaymentsToUser(usuarioId: number) {
-    this.router.navigate(['/usuario/detalle-adelantos/', usuarioId]);
+    this.router.navigate(['/admin/usuario/detalle-adelantos/', usuarioId]);
   }
 }

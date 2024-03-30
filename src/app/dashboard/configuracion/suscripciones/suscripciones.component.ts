@@ -197,7 +197,7 @@ export class SuscripcionesComponent {
   }
 
   verRegistroDeMedidor(suscripcionId:number,servicio:Servicio, usuario: Usuario){
-      this.router.navigate(['/suscripciones/',suscripcionId],{
+      this.router.navigate(['/admin/suscripciones/',suscripcionId],{
         state: { data: {
           servicio: JSON.stringify(servicio),
           usuario: JSON.stringify(usuario),

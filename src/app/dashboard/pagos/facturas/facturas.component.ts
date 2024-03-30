@@ -198,7 +198,7 @@ export class FacturasComponent {
   }
 
   navigateToDetalle(id: number) {
-    this.router.navigate(['/factura', id]);
+    this.router.navigate(['/admin/factura', id]);
   }
 
 

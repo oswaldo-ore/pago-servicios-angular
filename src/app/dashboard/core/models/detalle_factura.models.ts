@@ -99,6 +99,6 @@ export class DetalleUsuarioFacturas{
   }
 
   public montoAPagar(){
-    return this.monto - this.monto_pago;
+    return parseFloat((this.monto - this.monto_pago).toFixed(2));
   }
 }

@@ -53,7 +53,7 @@ export class JwtInterceptor implements HttpInterceptor {
           catchError((error: HttpErrorResponse) => {
             if (error.status === 401) {
               this.cookieService.delete('token');
-              this.router.navigate(['/login']);
+              this.router.navigate(['/admin/login']);
               return empty();
             }
             return throwError(error);

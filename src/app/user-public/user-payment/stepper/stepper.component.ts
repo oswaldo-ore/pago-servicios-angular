@@ -38,10 +38,12 @@ export class StepperComponent {
     private usersService: UsuariosService
   ) {}
 
-
+  ngOnDestroy(){
+    if (this.intervalId) {
+      clearInterval(this.intervalId);
+    }
+  }
   ngOnInit(): void {
-    console.log(this.services);
-
     this.totalDebt = this.services.reduce((acc, service) => {
       acc += service.monto_por_servicio;
       return parseFloat(acc.toFixed(2));
@@ -69,7 +71,7 @@ export class StepperComponent {
     });
     this.totalPrice = this.deudasByServiceSelected.reduce((acc, deuda) => {
       acc += deuda.montoAPagar();
-      return acc;
+      return parseFloat(acc.toFixed(2));
     }, 0);
   }
 
@@ -120,7 +122,7 @@ export class StepperComponent {
       console.error(error);
     });
   }
-  private intervalId: any;
+  private intervalId: any = null;
   loopVerifyQr() {
     this.intervalId = setInterval(() => {
       this.verifyQrCode();

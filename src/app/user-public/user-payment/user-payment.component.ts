@@ -89,4 +89,8 @@ export class UserPaymentComponent {
       }
     );
   }
+
+  async goToLogin(){
+    this.router.navigate(['/']);
+  }
 }

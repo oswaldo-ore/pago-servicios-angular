@@ -1,76 +1,69 @@
-<div class="table-card">
-  <div class="table-responsive">
-    <div>
-      <table class="gridjs-table">
-        <thead class="gridjs-thead">
-          <tr class="gridjs-tr">
-            <th class="gridjs-th gridjs-th-sort" data-sort="id">#</th>
-            <th class="gridjs-th sort" data-sort="estado">Servicio</th>
-            <th class="gridjs-th sort" data-sort="nombre">Fecha</th>
-            <th class="gridjs-th sort" data-sort="asociado_con">
-              Fecha Pago
-            </th>
-            <th class="gridjs-th sort" data-sort="apellidos">Monto</th>
-            <th class="gridjs-th sort" data-sort="apellidos">
-              Monto Pago
-            </th>
-          </tr>
-        </thead>
-        <tbody class="gridjs-tbody">
-          <tr
-            class="gridjs-tr"
-            *ngFor="let data of pagination.data"
-            id="o_{{ data.id }}"
-          >
-            <td class="gridjs-td">
-              <ngb-highlight
-                [result]="data.id.toString()"
-              ></ngb-highlight>
-            </td>
-            <td class="gridjs-td">
-              <ngb-highlight
-                [result]="data.Servicio?.nombre"
-              ></ngb-highlight>
-            </td>
-            <td class="gridjs-td">
-              <ngb-highlight
-                [result]="formatDate(data.fecha)"
-              ></ngb-highlight>
-            </td>
-            <td class="gridjs-td">
-              <ngb-highlight
-                [result]="formatDate2(data.fecha_pago)"
-              ></ngb-highlight>
-            </td>
-            <td class="gridjs-td">
-              <ngb-highlight
-                [result]="data.monto.toString()"
-              ></ngb-highlight>
-            </td>
-            <td class="gridjs-td">
-              <ngb-highlight
-                [result]="data.monto_pago.toString()"
-              ></ngb-highlight>
-            </td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
+<div class="table-responsive">
+  <div>
+    <table class="gridjs-table">
+      <thead class="gridjs-thead">
+        <tr class="gridjs-tr">
+          <th class="gridjs-th gridjs-th-sort" data-sort="id">#</th>
+          <th class="gridjs-th sort" data-sort="estado">Servicio</th>
+          <th class="gridjs-th sort" data-sort="nombre">Fecha</th>
+          <th class="gridjs-th sort" data-sort="asociado_con">
+            Fecha Pago
+          </th>
+          <th class="gridjs-th sort" data-sort="apellidos">Monto</th>
+          <th class="gridjs-th sort" data-sort="apellidos">Monto Pago</th>
+        </tr>
+      </thead>
+      <tbody class="gridjs-tbody">
+        <tr
+          class="gridjs-tr"
+          *ngFor="let data of pagination.data"
+          id="o_{{ data.id }}"
+        >
+          <td class="gridjs-td">
+            <ngb-highlight [result]="data.id.toString()"></ngb-highlight>
+          </td>
+          <td class="gridjs-td">
+            <ngb-highlight
+              [result]="data.Servicio?.nombre"
+            ></ngb-highlight>
+          </td>
+          <td class="gridjs-td">
+            <ngb-highlight
+              [result]="formatDate(data.fecha)"
+            ></ngb-highlight>
+          </td>
+          <td class="gridjs-td">
+            <ngb-highlight
+              [result]="formatDate2(data.fecha_pago)"
+            ></ngb-highlight>
+          </td>
+          <td class="gridjs-td">
+            <ngb-highlight
+              [result]="data.monto.toString()"
+            ></ngb-highlight>
+          </td>
+          <td class="gridjs-td">
+            <ngb-highlight
+              [result]="data.monto_pago.toString()"
+            ></ngb-highlight>
+          </td>
+        </tr>
+      </tbody>
+    </table>
   </div>
-  <div class="gridjs-footer">
-    <div class="row align-items-center gy-3">
-      <div class="col-sm-auto ms-auto">
-        <div class="text-sm-right float-end listjs-pagination">
-          <ngb-pagination
-            [(page)]="pagination.currentPage"
-            [pageSize]="10"
-            [collectionSize]="pagination.total"
-            i18n="false"
-            (pageChange)="onPageChange($event)"
-          >
-          </ngb-pagination>
-        </div>
+</div>
+<div class="gridjs-footer">
+  <div class="row align-items-center gy-3">
+    <div class="col-sm-auto ms-auto">
+      <div class="text-sm-right float-end listjs-pagination">
+        <ngb-pagination
+          [(page)]="pagination.currentPage"
+          [pageSize]="10"
+          [collectionSize]="pagination.total"
+          i18n="false"
+          (pageChange)="onPageChange($event)"
+        >
+        </ngb-pagination>
       </div>
     </div>
   </div>
-</div>

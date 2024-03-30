@@ -59,6 +59,7 @@ export const GlobalComponent = {
   user_verify: URL_BASE + 'verify-user',
   user_services: URL_BASE + ':code/services',
   user_debts: URL_BASE + ':code/deudas',
+  user_debtspaid: URL_BASE + ':code/debts',
   user_debts_generate_qr: URL_BASE + 'deudas/generate-qr',
   user_debts_verify_payment: URL_BASE + ':movement_id/verify-payment',
 };

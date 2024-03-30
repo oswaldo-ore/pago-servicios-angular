@@ -10,6 +10,7 @@ export class Usuario{
     public suma_montos: number = 0,
     public cod_pais:string="",
     public telefono:string="",
+    public code: string | null = '',
   ) {}
 
   public names() {

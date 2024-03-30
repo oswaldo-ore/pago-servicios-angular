@@ -260,4 +260,21 @@ export class UsuariosService {
     }
     throw response.message;
   }
+
+  detalleDeudasUsuarioWithPaginateByCode(code: number,pageNumber: number = 1): Observable<PaginationModel<DetalleUsuarioFacturas>>{
+    const url = GlobalComponent.user_debtspaid.replace(':code', code.toString());
+    let params = new HttpParams().set('page', pageNumber.toString());
+    return this.http.get<any>(url,{ params }).pipe(
+      map( response => {
+        if(!response.success){
+          throw response.message;
+        }
+        const debs = response.data.data.map((detalle: any) => {
+          return DetalleUsuarioFacturas.fromJson(detalle);
+        });
+        response.data.data = debs;
+        return response.data;
+      })
+    );
+  }
 }

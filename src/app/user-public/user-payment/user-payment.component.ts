@@ -7,18 +7,31 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { AuthService } from 'src/app/dashboard/core/guards2/auth.service';
 import { ToastrService } from 'ngx-toastr';
 import { FormBuilder, Validators } from '@angular/forms';
+import { PaginationModel } from 'src/app/dashboard/core/interfaz/pagination.model';
+// crear enum con 3 estados uno principal dos  movimientos y  3 pagos
+enum StatePage {
+  principal,
+  movements,
+  payments,
+};
 
 @Component({
   selector: 'app-user-payment',
   templateUrl: './user-payment.component.html',
   styleUrls: ['./user-payment.component.css'],
 })
+
+
 export class UserPaymentComponent {
   code: any;
   services: any;
   user: any;
   deudas: DetalleUsuarioFacturas[] = [];
   year = new Date().getFullYear();
+  statePage : StatePage = StatePage.principal;
+  statesPage = StatePage;
+  page: number = 1;
+
   constructor(
     private serviciosService: ServiciosService,
     private userService: UsuariosService,

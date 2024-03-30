@@ -39,7 +39,7 @@
                 <tbody class="gridjs-tbody">
                   <tr class="gridjs-tr" *ngFor="let data of paginacion.data" id="o_{{data.id}}">
                     <td class="gridjs-td">
-                      <ngb-highlight [result]="data.id.toString()"></ngb-highlight>
+                      <ngb-highlight [result]="data.code"></ngb-highlight>
                     </td>
                     <td class="gridjs-td">
                       <div class="">

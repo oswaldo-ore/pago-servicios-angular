@@ -89,7 +89,7 @@ export class StepperComponent {
         if (this.selectedDeudasIds.includes(deuda.id)) {
           acc += deuda.montoAPagar();
         }
-        return acc;
+        return parseFloat(acc.toFixed(2));
       },
       0
     );

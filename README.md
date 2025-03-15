@@ -1,27 +1,54 @@
-# PagoServicioAngular
+# Proyecto Angular
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 16.1.7.
+## Requisitos previos
 
-## Development server
+Antes de ejecutar el proyecto, asegúrate de tener instalado:
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+- [Node.js](https://nodejs.org/) (versión 16 o superior recomendada)
+- [Angular CLI](https://angular.io/cli) (instalar con `npm install -g @angular/cli`)
 
-## Code scaffolding
+## Instalación
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+1. Clona el repositorio:
+   ```sh
+   git clone https://github.com/oswaldo-ore/pago-servicios-angular
+   cd tu-repositorio
+   ```
+2. Instala las dependencias del proyecto:
+   ```sh
+   npm install
+   ```
 
-## Build
+## Ejecución en modo desarrollo
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+Para ejecutar el proyecto en modo desarrollo, usa:
+```sh
+ng serve
+```
+Esto iniciará el servidor en `http://localhost:4200/` por defecto.
 
-## Running unit tests
+Si necesitas cambiar el puerto:
+```sh
+ng serve --port=4300
+```
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+## Ejecución en modo producción
 
-## Running end-to-end tests
+Para ejecutar la aplicación con la configuración de producción:
+```sh
+ng serve --configuration=production
+```
+Esto asegurará que se utilicen los archivos de configuración de producción y optimizaciones.
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+## Construcción para producción
 
-## Further help
+Para generar una versión optimizada de la aplicación para producción, usa:
+```sh
+ng build --configuration=production
+```
+Esto generará los archivos en la carpeta `dist/`.
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+Para servir la aplicación localmente después del build:
+```sh
+npx http-server -p 4200 -s dist/TU_PROYECTO
+```

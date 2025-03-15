@@ -12,39 +12,37 @@ import { ToastrService } from 'ngx-toastr';
 @Component({
   selector: 'app-medidores',
   templateUrl: './medidores.component.html',
-  styleUrls: ['./medidores.component.css']
+  styleUrls: ['./medidores.component.css'],
 })
 export class MedidoresComponent {
   form: FormGroup;
-  searchTerms: string = "";
+  searchTerms: string = '';
   usuarioId: number;
   servicioId: number;
   servicio: Servicio;
   usuario: Usuario;
   limit: number = 8;
   suscripcionId: number = 0;
-  closeResult:string="";
-  selected: Date = new Date() ;
+  closeResult: string = '';
+  selected: Date = new Date();
   paginacion: PaginationModel<Medidor> = {
     currentPage: 0,
     total: 0,
     totalPages: 0,
-    data: []
+    data: [],
   };
-
-
 
   constructor(
     private formBuilder: FormBuilder,
     private route: ActivatedRoute,
     private suscripcionService: SuscripcionService,
     private modalService: NgbModal,
-    private toastr: ToastrService,
+    private toastr: ToastrService
   ) {
     this.form = formBuilder.group({
-      cantidad_medido:['',Validators.required],
-      monto:['',Validators.required],
-      detalle:['',Validators.required],
+      cantidad_medido: ['', Validators.required],
+      monto: ['', Validators.required],
+      detalle: ['', Validators.required],
     });
     this.usuarioId = 0;
     this.servicioId = 0;
@@ -54,7 +52,7 @@ export class MedidoresComponent {
   }
 
   ngOnInit() {
-    this.route.paramMap.subscribe(params => {
+    this.route.paramMap.subscribe((params) => {
       const suscripcionId = params.get('id');
       if (suscripcionId != null) {
         this.suscripcionId = parseInt(suscripcionId);
@@ -64,25 +62,32 @@ export class MedidoresComponent {
   }
 
   cargarMedidores(page = 1) {
-    this.suscripcionService.listarPaginacionDeMedidoresDeLaSuscripcion(page, this.limit, this.suscripcionId).subscribe(
-      (response) => {
-        this.paginacion = response;
-      },
-      (error) => {
-        console.log(error);
-
-      }
-    );
+    this.suscripcionService
+      .listarPaginacionDeMedidoresDeLaSuscripcion(
+        page,
+        this.limit,
+        this.suscripcionId
+      )
+      .subscribe(
+        (response) => {
+          this.paginacion = response;
+        },
+        (error) => {
+          console.log(error);
+        }
+      );
   }
   open(content: any) {
-    this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title', size: 'xl' }).result.then(
-      (result) => {
-        this.closeResult = `Closed with: ${result}`;
-      },
-      (reason) => {
-        this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
-      },
-    );
+    this.modalService
+      .open(content, { ariaLabelledBy: 'modal-basic-title', size: 'xl' })
+      .result.then(
+        (result) => {
+          this.closeResult = `Closed with: ${result}`;
+        },
+        (reason) => {
+          this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+        }
+      );
   }
 
   private getDismissReason(reason: any): string {
@@ -96,22 +101,31 @@ export class MedidoresComponent {
     }
   }
   formatDate(fecha: Date) {
-    console.log("normal " + fecha);
-
-    const options = { day: '2-digit', month: 'long', year: 'numeric' } as const;
-    return fecha.toLocaleDateString('es-ES', options);
+    try {
+      const options = {
+        day: '2-digit',
+        month: 'long',
+        year: 'numeric',
+      } as const;
+      return fecha.toLocaleDateString('es-ES', options);
+    } catch (e) {
+      console.log("Error:"+  e);
+      return '';
+    }
   }
   formatDate2(fecha: Date | null) {
-    console.log("normal 12 " + fecha);
-
     if (fecha == null) {
-      return "";
+      return '';
     }
-    const options2 = { day: '2-digit', month: 'long', year: 'numeric' } as const;
+    const options2 = {
+      day: '2-digit',
+      month: 'long',
+      year: 'numeric',
+    } as const;
     return fecha.toLocaleDateString('es-ES', options2);
   }
   public getestado(estado: boolean) {
-    return estado ? "Cancelado" : "No cancelado";
+    return estado ? 'Cancelado' : 'No cancelado';
   }
 
   onPageChange(pageNumber: number): void {
@@ -119,26 +133,32 @@ export class MedidoresComponent {
     this.cargarMedidores(pageNumber);
   }
 
-  submitForm(){
-    if(!this.form.valid){
+  submitForm() {
+    if (!this.form.valid) {
       return;
     }
     let monto = this.form.get('monto')?.value;
     let cantidad_medido = this.form.get('cantidad_medido')?.value;
     let detalle = this.form.get('detalle')?.value;
-    let selectedDate= this.selected;
+    let selectedDate = this.selected;
     let mes = this.selected.getUTCMonth() + 1;
-    this.suscripcionService.crearMedidorDeSuscripcion(
-      this.usuario.id,this.servicio.id,selectedDate,cantidad_medido,monto,mes,detalle,
-    ).then(
-      (response)=>{
+    this.suscripcionService
+      .crearMedidorDeSuscripcion(
+        this.usuario.id,
+        this.servicio.id,
+        selectedDate,
+        cantidad_medido,
+        monto,
+        mes,
+        detalle
+      )
+      .then((response) => {
         this.modalService.dismissAll();
         this.toastr.success(response.message);
         this.cargarMedidores(this.paginacion.currentPage);
-      }
-    ).catch((error)=>{
-      this.toastr.error(error,"No se pudo completar la accion");
-    });
+      })
+      .catch((error) => {
+        this.toastr.error(error, 'No se pudo completar la accion');
+      });
   }
-
 }

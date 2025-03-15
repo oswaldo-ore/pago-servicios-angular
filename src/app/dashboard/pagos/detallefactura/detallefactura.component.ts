@@ -58,10 +58,13 @@ export class DetallefacturaComponent {
   }
 
   formatDate(fecha: Date){
-    console.log("normal "+fecha);
 
-    const options = { day: '2-digit', month: 'long', year: 'numeric' } as const;
-    return fecha.toLocaleDateString('es-ES', options);
+    try {
+      const options = { day: '2-digit', month: '2-digit', year: 'numeric' } as const;
+      return fecha.toLocaleDateString('es-ES', options);
+    } catch (error) {
+      return "";
+    }
   }
   formatDate2(fecha: Date| null){
     if(fecha == null){
